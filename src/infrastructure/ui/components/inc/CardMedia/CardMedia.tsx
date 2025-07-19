@@ -2,7 +2,7 @@ import { FC, ReactElement, ElementType } from 'react'
 import { CardMediaProps as CardMediaPropsMUI } from '@mui/material'
 
 // styles
-import { StyledCardMedia } from './cardMedia-styles'
+import { StyledCardMedia } from '@/infrastructure/ui/components/inc/CardMedia/cardMedia-styles'
 
 export interface CardMediaProps extends CardMediaPropsMUI {
     component?: ElementType

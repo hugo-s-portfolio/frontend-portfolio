@@ -2,7 +2,7 @@ import { FC, ReactElement, forwardRef } from 'react'
 import type { TextFieldProps } from '@mui/material'
 
 // styles
-import { StyledInput } from './defaultInput-styles'
+import { StyledInput } from '@/infrastructure/ui/components/inc/Inputs/DefaultInput/defaultInput-styles'
 
 export type DefaultInputProps = TextFieldProps
 

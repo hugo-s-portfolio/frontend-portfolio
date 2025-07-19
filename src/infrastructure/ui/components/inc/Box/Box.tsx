@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { BoxProps as BoxPropsMUI } from '@mui/material'
 
 // styles
-import { StyledBox } from './box-styles'
+import { StyledBox } from '@/infrastructure/ui/components/inc/Box/box-styles'
 
 export type BoxProps = BoxPropsMUI
 

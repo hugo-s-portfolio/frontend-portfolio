@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { AppBarProps as AppBarPropsMUI } from '@mui/material'
 
 // styles
-import { StyleAppBar } from './appBar-styles'
+import { StyleAppBar } from '@/infrastructure/ui/components/inc/AppBar/appBar-styles'
 
 export type AppBarProps = AppBarPropsMUI
 

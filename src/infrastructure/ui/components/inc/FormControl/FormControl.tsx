@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { FormControlProps as FormControlPropsMUI } from '@mui/material'
 
 // styles
-import { StyledFormControl } from './formControl-styles'
+import { StyledFormControl } from '@/infrastructure/ui/components/inc/FormControl/formControl-styles'
 
 export type FormControlProps = FormControlPropsMUI
 

@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { ListProps as ListPropsMUI } from '@mui/material'
 
 // styles
-import { StyledList } from './list-styles'
+import { StyledList } from '@/infrastructure/ui/components/inc/List/list-styles'
 
 export type ListProps = ListPropsMUI
 

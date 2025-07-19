@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { TypographyProps as TypographyPropsMUI } from '@mui/material'
 
 // styles
-import { StyledTypography } from './typography-styles'
+import { StyledTypography } from '@/infrastructure/ui/components/inc/Typography/typography-styles'
 
 export type TypographyProps = TypographyPropsMUI
 

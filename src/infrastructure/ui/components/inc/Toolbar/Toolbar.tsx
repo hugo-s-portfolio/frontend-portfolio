@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { ToolbarProps as ToolbarPropsMUI } from '@mui/material'
 
 // styles
-import { StyleToolbar } from './toolbar-styles'
+import { StyleToolbar } from '@/infrastructure/ui/components/inc/Toolbar/toolbar-styles'
 
 export type ToolbarProps = ToolbarPropsMUI
 

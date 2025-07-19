@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { LinkProps as LinkPropsMUI } from '@mui/material'
 
 // styles
-import { StyledLink } from './link-styles'
+import { StyledLink } from '@/infrastructure/ui/components/inc/Link/link-styles'
 
 export type LinkProps = LinkPropsMUI
 

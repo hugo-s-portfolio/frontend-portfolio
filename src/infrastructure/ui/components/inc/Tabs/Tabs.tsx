@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 
 // styles
-import { StyledTabs, StyledTabsProps } from './tabs-styles'
+import { StyledTabs, StyledTabsProps } from '@/infrastructure/ui/components/inc/Tabs/tabs-styles'
 
 const Tabs: FC<StyledTabsProps> = ({
     children,

@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { TooltipProps as TooltipPropsMUI } from '@mui/material'
 
 // styles
-import { StyledTooltip } from './tooltip-styles'
+import { StyledTooltip } from '@/infrastructure/ui/components/inc/Tooltip/tooltip-styles'
 
 export type TooltipProps = TooltipPropsMUI
 

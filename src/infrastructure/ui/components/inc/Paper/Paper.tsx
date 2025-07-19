@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { PaperProps as PaperPropsMUI } from '@mui/material'
 
 // styles
-import { StyledPaper } from './paper-styles'
+import { StyledPaper } from '@/infrastructure/ui/components/inc/Paper/paper-styles'
 
 export type PaperProps = PaperPropsMUI
 

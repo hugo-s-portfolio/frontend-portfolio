@@ -1,13 +1,13 @@
 import { FC, ReactElement } from 'react'
 
 // base components
-import { CardProfile } from '../../inc'
+import { CardProfile } from '@infrastructure/ui/modules/HomeModule/inc'
 
 // styles
-import { StyleAboutMeView } from './aboutMeView-style'
+import { StyleAboutMeView } from '@infrastructure/ui/modules/HomeModule/views/AboutMeView/aboutMeView-style'
 
 // interfaces
-import { AboutMe } from '../../interfaces'
+import { AboutMe } from '@infrastructure/ui/modules/HomeModule/interfaces'
 
 export interface AboutMeViewProps {
     aboutMe: AboutMe

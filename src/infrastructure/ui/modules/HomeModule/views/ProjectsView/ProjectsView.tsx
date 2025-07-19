@@ -1,10 +1,10 @@
 import { FC, ReactElement } from 'react'
 
 // interfaces
-import { Projects } from '../../interfaces'
+import { Projects } from '@infrastructure/ui/modules/HomeModule/interfaces'
 
 // styles
-import { StyledProjectsView } from './projectsView-style'
+import { StyledProjectsView } from '@infrastructure/ui/modules/HomeModule/views/ProjectsView/projectsView-style'
 
 export interface ProjectsViewProps {
     projects?: Projects

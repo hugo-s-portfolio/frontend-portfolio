@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { CardProps as CardPropsMUI } from '@mui/material'
 
 // styles
-import { StyledCard } from './card-styles'
+import { StyledCard } from '@/infrastructure/ui/components/inc/Card/card-styles'
 
 export type CardProps = CardPropsMUI
 

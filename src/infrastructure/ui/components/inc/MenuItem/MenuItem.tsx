@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { MenuItemProps as MenuItemPropsMUI } from '@mui/material'
 
 // styles
-import { StyledMenuItem } from './menuItem-styles'
+import { StyledMenuItem } from '@/infrastructure/ui/components/inc/MenuItem/menuItem-styles'
 
 export type MenuItemProps = MenuItemPropsMUI
 

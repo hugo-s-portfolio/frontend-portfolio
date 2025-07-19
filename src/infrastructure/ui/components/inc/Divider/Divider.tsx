@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import type { DividerProps as DividerPropsMUI } from '@mui/material'
 
 // styles
-import { StyledDivider } from './divider-styles'
+import { StyledDivider } from '@/infrastructure/ui/components/inc/Divider/divider-styles'
 
 export type DividerProps = DividerPropsMUI
 
