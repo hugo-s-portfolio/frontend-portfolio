@@ -10,7 +10,7 @@ import { onError, onLoading, onLoad } from '.'
 import { contentService } from '@/domain/services/content'
 
 // interfaces
-import { Option } from '@/domain/models'
+import { Option, ResponseConfigModuleModel } from '@/domain/models'
 
 export interface Management<T> {
     onSuccess?: (data: T) => void
@@ -22,9 +22,11 @@ export const onLoadOptionMenu =
     async (dispatch: AppDispatch) => {
         dispatch(onLoading())
         try {
-            const resp = await contentService.getMobileMenuOptions<Option[]>()
+            const resp = await contentService.getMobileMenuOptions<ResponseConfigModuleModel>()
             const { data } = resp
-            dispatch(onLoad(data))
+            const options = data.response?.config?.dataObjects?.frontend?.options as Option[]
+
+            dispatch(onLoad(options))
 
             if (onSuccess) {
                 onSuccess(resp)

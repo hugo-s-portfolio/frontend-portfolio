@@ -1,10 +1,10 @@
 import { FC, ReactElement, SyntheticEvent } from 'react'
 
 // styles
-import { StyledMenuMobile } from './menuMobile-styles'
+import { StyledMenuMobile } from '@/infrastructure/ui/components/ui/MobileMenu/menuMobile-styles'
 
 // base component
-import { Tab, Tabs } from '../..'
+import { Tab, Tabs } from '@/infrastructure/ui/components'
 
 // icons
 import { muiIcons } from '@/infrastructure/ui/utils/icons'
@@ -26,7 +26,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ options, value, onChangeValue }): Rea
     return (
         <StyledMenuMobile>
             <Tabs value={value} onChange={onChangeValue} centered $indicatorPosition="top">
-                {options.map(({ label, icon, fontSize, id }) => (
+                {options?.map(({ label, icon, fontSize, id }) => (
                     <Tab key={id} icon={muiIcons[icon]} sx={{ fontSize }} label={label} />
                 ))}
             </Tabs>

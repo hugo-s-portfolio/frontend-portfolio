@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { ListSubheaderProps as ListSubheaderPropsMUI } from '@mui/material'
 
 // styles
-import { StyledListSubheader } from './listSubheader-styles'
+import { StyledListSubheader } from '@/infrastructure/ui/components/inc/ListSubheader/listSubheader-styles'
 
 export type ListSubheaderProps = ListSubheaderPropsMUI
 

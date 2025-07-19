@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { FormHelperTextProps as FormHelperTextPropsMUI } from '@mui/material'
 
 // styles
-import { StyledFormHelperText } from './formHelperText-styles'
+import { StyledFormHelperText } from '@/infrastructure/ui/components/inc/FormHelperText/formHelperText-styles'
 
 export type FormHelperTextProps = FormHelperTextPropsMUI
 

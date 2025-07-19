@@ -4,11 +4,11 @@ import { ThemeProvider } from 'styled-components/macro'
 import { ThemeProvider as ThemeProviderMUI } from '@mui/material/styles'
 
 // base components
-import { DefaultCtr } from '../../inc'
+import { DefaultCtr } from '@/infrastructure/ui/components/inc'
 
 // styles
-import { StyledMainLayout } from './mainLayout-styles'
-import { Theme, themeMUI, GlobalStyle } from '../../../styles'
+import { StyledMainLayout } from '@/infrastructure/ui/components/layouts/MainLayout/mainLayout-styles'
+import { Theme, themeMUI, GlobalStyle } from '@/infrastructure/ui/styles'
 
 export type MainLayoutProps = {
     children: React.ReactNode

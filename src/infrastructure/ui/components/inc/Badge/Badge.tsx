@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { BadgeProps as BadgePropsMUI } from '@mui/material'
 
 // styles
-import { StyledBadge } from './badge-styles'
+import { StyledBadge } from '@/infrastructure/ui/components/inc/Badge/badge-styles'
 
 export type BadgeProps = BadgePropsMUI
 

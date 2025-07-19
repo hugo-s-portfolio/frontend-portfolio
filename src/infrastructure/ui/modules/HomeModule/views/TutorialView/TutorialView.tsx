@@ -1,10 +1,10 @@
 import { FC, ReactElement } from 'react'
 
 // interfaces
-import { Tutorial } from '../../interfaces'
+import { Tutorial } from '@infrastructure/ui/modules/HomeModule/interfaces'
 
 // styles
-import { StyledTutorialView } from './tutorialView-styles'
+import { StyledTutorialView } from '@infrastructure/ui/modules/HomeModule/views/TutorialView/tutorialView-styles'
 
 export interface TutorialViewProps {
     tutorial?: Tutorial

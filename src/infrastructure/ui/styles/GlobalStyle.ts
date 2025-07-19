@@ -1,8 +1,8 @@
 import { createGlobalStyle, DefaultTheme } from 'styled-components/macro'
 import tw from 'twin.macro'
 
-import resetStyles from './ResetStyles'
-import { getMontserratFont, getHelveticaFont } from './webfonts'
+import resetStyles from '@infrastructure/ui/styles/ResetStyles'
+import { getMontserratFont, getHelveticaFont } from '@infrastructure/ui/styles/webfonts'
 
 // type definitions
 export type GlobalStyleProps = {

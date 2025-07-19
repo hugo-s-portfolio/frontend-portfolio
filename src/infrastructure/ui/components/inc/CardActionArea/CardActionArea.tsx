@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { CardActionAreaProps as CardActionAreaPropsMUI } from '@mui/material'
 
 // styles
-import { StyledCardActionArea } from './cardActionArea-styles'
+import { StyledCardActionArea } from '@/infrastructure/ui/components/inc/CardActionArea/cardActionArea-styles'
 
 export type CardActionAreaProps = CardActionAreaPropsMUI
 

@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { ListItemTextProps as ListItemTextPropsMUI } from '@mui/material'
 
 // styles
-import { StyledListItemText } from './listItemText-styles'
+import { StyledListItemText } from '@/infrastructure/ui/components/inc/ListItemText/listItemText-styles'
 
 export type ListItemTextProps = ListItemTextPropsMUI
 

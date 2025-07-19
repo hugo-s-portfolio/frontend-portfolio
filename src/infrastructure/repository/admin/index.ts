@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
 
 // api
-import { http } from '../../api'
+import { http } from '@infrastructure/api'
 
 export const adminRepository = {
     createMobileMenu: async <T>(url: string, data: T, config?: AxiosRequestConfig) =>

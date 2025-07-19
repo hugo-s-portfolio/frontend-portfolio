@@ -1,4 +1,4 @@
-import { StyledDefaultCtr } from './defaultCtr-styles'
+import { StyledDefaultCtr } from '@/infrastructure/ui/components/inc/Containers/DefaultCtr/defaultCtr-styles'
 
 export interface DefaultCtrProps {
     children: React.ReactNode

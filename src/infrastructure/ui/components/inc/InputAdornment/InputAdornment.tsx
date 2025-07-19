@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { InputAdornmentProps as InputAdornmentPropsMUI } from '@mui/material'
 
 // styles
-import { StyledInputAdornment } from './inputAdornment-styles'
+import { StyledInputAdornment } from '@/infrastructure/ui/components/inc/InputAdornment/inputAdornment-styles'
 
 export type InputAdornmentProps = InputAdornmentPropsMUI
 

@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { IconButtonProps as IconButtonPropsMUI } from '@mui/material'
 
 // styles
-import { StyleIconButton } from './iconButton-styles'
+import { StyleIconButton } from '@/infrastructure/ui/components/inc/IconButton/iconButton-styles'
 
 export type IconButtonProp = IconButtonPropsMUI
 

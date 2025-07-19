@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { AlertProps as AlertPropsMUI } from '@mui/material'
 
 // styles
-import { StyledAlert } from './alert-styles'
+import { StyledAlert } from '@/infrastructure/ui/components/inc/Alert/alert-styles'
 
 export type AlertProps = AlertPropsMUI
 

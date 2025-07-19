@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { ButtonProps } from '@mui/material'
 
 // styles
-import { StyledButton } from './defaultButton-styles'
+import { StyledButton } from '@/infrastructure/ui/components/inc/Buttons/DefaultButton/defaultButton-styles'
 
 export interface DefaultButtonProps extends ButtonProps {
     other?: string

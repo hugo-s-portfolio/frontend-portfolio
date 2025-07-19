@@ -2,7 +2,7 @@ import { FC, ReactElement, forwardRef } from 'react'
 import { SelectProps as SelectPropsMUI } from '@mui/material'
 
 // styles
-import { StyledSelect } from './select-styles'
+import { StyledSelect } from '@/infrastructure/ui/components/inc/Select/select-styles'
 
 export type SelectProps = SelectPropsMUI
 

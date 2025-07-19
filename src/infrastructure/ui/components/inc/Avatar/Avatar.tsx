@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { AvatarProps as AvatarPropsMUI } from '@mui/material'
 
 // styles
-import { StyledAvatar } from './avatar-styles'
+import { StyledAvatar } from '@/infrastructure/ui/components/inc/Avatar/avatar-styles'
 
 export type AvatarProps = AvatarPropsMUI
 

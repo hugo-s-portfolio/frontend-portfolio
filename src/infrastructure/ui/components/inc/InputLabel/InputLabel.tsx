@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react'
 import { InputLabelProps as InputLabelPropsMUI } from '@mui/material'
 
 // styles
-import { StyledInputLabel } from './inputLabel-styles'
+import { StyledInputLabel } from '@/infrastructure/ui/components/inc/InputLabel/inputLabel-styles'
 
 export type InputLabelProps = InputLabelPropsMUI
 

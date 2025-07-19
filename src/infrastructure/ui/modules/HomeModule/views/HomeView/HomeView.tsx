@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // base components
 import { MobileMenu } from '@/infrastructure/ui/components'
-import { WrapperView } from '..'
+import { WrapperView } from '@infrastructure/ui/modules/HomeModule'
 
 // selectors
 import { menuMobileOptionSelector } from '@/domain/store/contentUseCase'
@@ -12,16 +12,16 @@ import { menuMobileOptionSelector } from '@/domain/store/contentUseCase'
 import { onLoadOptionMenu } from '@/domain/store/contentUseCase/homeContent/thunk'
 
 // store
-import { AppDispatch } from '../../../../../../domain/store/store'
+import { AppDispatch } from '@domain/store/store'
 
 // styles
-import { StyledHomeView } from './homeView-styles'
+import { StyledHomeView } from '@infrastructure/ui/modules/HomeModule/views/HomeView/homeView-styles'
 
 // actions
 import { homeMenuSelector, onChangeOption } from '@/domain/store/homeUseCase'
 
 // interfaces
-import { AboutMe } from '../../interfaces'
+import { AboutMe } from '@infrastructure/ui/modules/HomeModule/interfaces'
 
 export interface HomeViewProps {
     aboutMe: AboutMe
@@ -34,8 +34,7 @@ const HomeView: FC<HomeViewProps> = ({ aboutMe }): ReactElement => {
 
     useEffect(() => {
         dispatch(onLoadOptionMenu({}))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [dispatch])
 
     const handleChangeOption = (_e: SyntheticEvent<Element, Event>, newValue: number): void => {
         dispatch(onChangeOption(newValue))

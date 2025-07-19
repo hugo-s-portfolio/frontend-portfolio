@@ -8,6 +8,9 @@ const nextConfig = {
     images: {
         domains: ['https://images.unsplash.com/'],
     },
+    experimental: {
+        esmExternals: true,
+    },
 }
 
 module.exports = nextConfig
