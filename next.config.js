@@ -6,7 +6,14 @@ const nextConfig = {
         styledComponents: true,
     },
     images: {
-        domains: ['https://images.unsplash.com/'],
+        domains: ['https://images.unsplash.com/', 'https://firebasestorage.googleapis.com/'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'firebasestorage.googleapis.com',
+                pathname: '/**',
+            },
+        ],
     },
     experimental: {
         esmExternals: true,
