@@ -2,7 +2,10 @@ import { FC, ReactElement } from 'react'
 
 import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
 
-import { StyledCardProfile, StyledHomeImage } from './cardProfile-styles'
+import {
+    StyledCardProfile,
+    StyledHomeImage,
+} from '@infrastructure/ui/modules/HomeModule/inc/CardProfile/cardProfile-styles'
 
 import { muiIcons } from '@/infrastructure/ui/utils/icons'
 
@@ -46,7 +49,12 @@ const CardProfile: FC<CardProfileProps> = ({ images, profile, socialMedia }): Re
                         position: 'relative',
                     }}
                 >
-                    <StyledHomeImage src={images.photo} alt="profile photo" />
+                    <StyledHomeImage
+                        src={images.photo}
+                        alt="profile photo"
+                        width={208}
+                        height={208}
+                    />
                 </Box>
                 <Box
                     sx={{

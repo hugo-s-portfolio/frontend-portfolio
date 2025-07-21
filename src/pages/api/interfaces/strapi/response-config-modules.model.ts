@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface StrapiModulesResponse {
     data?: Datum[]
     meta?: Meta
