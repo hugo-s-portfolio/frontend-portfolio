@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-import { HomeView } from '@/infrastructure/ui/modules'
+import { TutorialView } from '@/infrastructure/ui/modules'
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
@@ -12,15 +12,16 @@ import { getConfig, getLayout } from '@/lib'
 // dto
 import { getModule } from '@/domain/dto'
 
-export type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+export type TutorialsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const HomePage = (props: HomePageProps): ReactElement => {
-    return <HomeView config={props.config} status={props.status} />
+const TutorialsPage = (props: TutorialsPageProps): ReactElement => {
+    console.error(props)
+    return <TutorialView />
 }
 
-export default HomePage
+export default TutorialsPage
 
-HomePage.getLayout = getLayout
+TutorialsPage.getLayout = getLayout
 
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
@@ -36,7 +37,7 @@ export interface Props {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     try {
         const config =
-            (await getConfig({ country: 'CO', moduleName: 'module_about_me_page' })) || {}
+            (await getConfig({ country: 'CO', moduleName: 'module_tutorials_page' })) || {}
 
         const formattedConfig = getModule(config)
 

@@ -9,9 +9,6 @@ import { onError, onLoading, onLoad } from '.'
 // services
 import { contentService } from '@/domain/services/content'
 
-// interfaces
-import { Option, ResponseConfigModuleModel } from '@/domain/models'
-
 export interface Management<T> {
     onSuccess?: (data: T) => void
     onErr?: (err: AxiosError) => void
@@ -22,14 +19,12 @@ export const onLoadOptionMenu =
     async (dispatch: AppDispatch) => {
         dispatch(onLoading())
         try {
-            const resp = await contentService.getMobileMenuOptions<ResponseConfigModuleModel>()
-            const { data } = resp
-            const options = data.response?.config?.dataObjects?.frontend?.options as Option[]
+            const { options, response } = await contentService.getMobileMenuOptions()
 
             dispatch(onLoad(options))
 
-            if (onSuccess) {
-                onSuccess(resp)
+            if (onSuccess && response) {
+                onSuccess(response)
             }
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onError())

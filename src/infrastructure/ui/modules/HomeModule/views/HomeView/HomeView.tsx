@@ -1,49 +1,41 @@
-import { FC, ReactElement, SyntheticEvent, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC, ReactElement } from 'react'
 
 // base components
-import { MobileMenu } from '@/infrastructure/ui/components'
-import { WrapperView } from '@infrastructure/ui/modules/HomeModule'
-
-// selectors
-import { menuMobileOptionSelector } from '@/domain/store/contentUseCase'
-
-// actions
-import { onLoadOptionMenu } from '@/domain/store/contentUseCase/homeContent/thunk'
-
-// store
-import { AppDispatch } from '@domain/store/store'
+import { AboutMeView } from '@infrastructure/ui/modules/HomeModule'
 
 // styles
 import { StyledHomeView } from '@infrastructure/ui/modules/HomeModule/views/HomeView/homeView-styles'
 
-// actions
-import { homeMenuSelector, onChangeOption } from '@/domain/store/homeUseCase'
-
 // interfaces
-import { AboutMe } from '@infrastructure/ui/modules/HomeModule/interfaces'
+import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
 
 export interface HomeViewProps {
-    aboutMe: AboutMe
+    config: ConfigModuleModel
+    status: 'SUCCESS' | 'ERROR'
 }
 
-const HomeView: FC<HomeViewProps> = ({ aboutMe }): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const options = useSelector(menuMobileOptionSelector)
-    const { value } = useSelector(homeMenuSelector)
+export interface Option {
+    label: string
+    fontSize: number
+    icon: string
+    id: number
+}
 
-    useEffect(() => {
-        dispatch(onLoadOptionMenu({}))
-    }, [dispatch])
-
-    const handleChangeOption = (_e: SyntheticEvent<Element, Event>, newValue: number): void => {
-        dispatch(onChangeOption(newValue))
-    }
-
+const HomeView: FC<HomeViewProps> = ({ config, status }): ReactElement => {
     return (
         <StyledHomeView>
-            <WrapperView options={options} aboutMe={aboutMe} />
-            <MobileMenu options={options} value={value} onChangeValue={handleChangeOption} />
+            {status === 'SUCCESS' ? (
+                <AboutMeView
+                    aboutMeCard={config?.forms?.about_me_card}
+                    aboutMeName={config?.forms?.about_me_name}
+                    aboutMeJob={config?.forms?.about_me_job}
+                    aboutMeDescription={config?.forms?.about_me_description}
+                    aboutMeLocation={config?.forms?.about_me_location}
+                    aboutMeSocialMedia={config?.actions?.about_me_social_media}
+                />
+            ) : (
+                <div>Error loading content</div>
+            )}
         </StyledHomeView>
     )
 }

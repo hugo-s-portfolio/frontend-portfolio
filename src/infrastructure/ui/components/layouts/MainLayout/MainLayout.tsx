@@ -13,9 +13,9 @@ import { Theme, themeMUI, GlobalStyle } from '@/infrastructure/ui/styles'
 export type MainLayoutProps = {
     children: React.ReactNode
     metaData?: {
-        title: string
-        description: string
-        keywords: string
+        title?: string
+        description?: string
+        keywords?: string
         icon?: string
     }
 }

@@ -3,4 +3,5 @@ export interface Option {
     fontSize: number
     icon: string
     id: number
+    link: string
 }
