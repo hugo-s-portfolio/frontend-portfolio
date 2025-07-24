@@ -7,19 +7,34 @@ import { CardProfile } from '@infrastructure/ui/modules/HomeModule/inc'
 import { StyleAboutMeView } from '@infrastructure/ui/modules/HomeModule/views/AboutMeView/aboutMeView-style'
 
 // interfaces
-import { AboutMe } from '@infrastructure/ui/modules/HomeModule/interfaces'
+import { FormObject, Action } from '@/infrastructure/ui/interfaces'
 
 export interface AboutMeViewProps {
-    aboutMe: AboutMe
+    aboutMeCard: FormObject
+    aboutMeName: FormObject
+    aboutMeJob: FormObject
+    aboutMeDescription: FormObject
+    aboutMeLocation: FormObject
+    aboutMeSocialMedia: Action
 }
 
-const AboutMeView: FC<AboutMeViewProps> = ({ aboutMe }): ReactElement => {
+const AboutMeView: FC<AboutMeViewProps> = ({
+    aboutMeCard,
+    aboutMeName,
+    aboutMeJob,
+    aboutMeDescription,
+    aboutMeLocation,
+    aboutMeSocialMedia,
+}): ReactElement => {
     return (
         <StyleAboutMeView>
             <CardProfile
-                images={aboutMe.images}
-                profile={aboutMe.profile}
-                socialMedia={aboutMe.socialMedia}
+                aboutMeCard={aboutMeCard}
+                aboutMeName={aboutMeName}
+                aboutMeJob={aboutMeJob}
+                aboutMeDescription={aboutMeDescription}
+                aboutMeLocation={aboutMeLocation}
+                aboutMeSocialMedia={aboutMeSocialMedia}
             />
         </StyleAboutMeView>
     )

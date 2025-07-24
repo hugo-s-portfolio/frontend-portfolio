@@ -1,4 +1,5 @@
-import { FC, ReactElement, SyntheticEvent } from 'react'
+import { FC, ReactElement, SyntheticEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // styles
 import { StyledMenuMobile } from '@/infrastructure/ui/components/ui/MobileMenu/menuMobile-styles'
@@ -11,8 +12,7 @@ import { muiIcons } from '@/infrastructure/ui/utils/icons'
 
 export interface MobileMenuProps {
     options: Option[]
-    value: number
-    onChangeValue: (_e: SyntheticEvent, newValue: number) => void
+    initialValue: number
 }
 
 export interface Option {
@@ -20,14 +20,32 @@ export interface Option {
     fontSize: number
     icon: string
     id: number
+    link: string
 }
 
-const MobileMenu: FC<MobileMenuProps> = ({ options, value, onChangeValue }): ReactElement => {
+const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElement => {
+    const [value, setValue] = useState(initialValue)
+    const router = useRouter()
+
+    const handleChangeOption = (_e: SyntheticEvent<Element, Event>, newValue: number): void => {
+        setValue(newValue)
+    }
+
+    const handleNavigation = (link: string): void => {
+        router.push(link)
+    }
+
     return (
         <StyledMenuMobile>
-            <Tabs value={value} onChange={onChangeValue} centered $indicatorPosition="top">
-                {options?.map(({ label, icon, fontSize, id }) => (
-                    <Tab key={id} icon={muiIcons[icon]} sx={{ fontSize }} label={label} />
+            <Tabs value={value} onChange={handleChangeOption} centered $indicatorPosition="top">
+                {options?.map(({ label, icon, fontSize, id, link }) => (
+                    <Tab
+                        key={id}
+                        onClick={() => handleNavigation(link)}
+                        icon={muiIcons[icon]}
+                        sx={{ fontSize }}
+                        label={label}
+                    />
                 ))}
             </Tabs>
         </StyledMenuMobile>
