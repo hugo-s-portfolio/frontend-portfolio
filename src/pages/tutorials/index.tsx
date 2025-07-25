@@ -5,9 +5,10 @@ import { TutorialView } from '@/infrastructure/ui/modules'
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
+import { TabsMenuConfig } from '@/domain/models'
 
 // lib
-import { getConfig, getLayout } from '@/lib'
+import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
@@ -26,19 +27,20 @@ TutorialsPage.getLayout = getLayout
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
     config: ConfigModuleModel
+    tabsMenu: TabsMenuConfig[]
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     try {
         const config =
             (await getConfig({ country: 'CO', moduleName: 'module_tutorials_page' })) || {}
-
-        const formattedConfig = getModule(config)
+        const tabsMenu = await getTabsMenuConfig({ country: 'CO', menuType: 'module_tabs' })
 
         return {
             props: {
                 status: 'SUCCESS',
-                config: formattedConfig,
+                config: getModule(config),
+                tabsMenu,
             },
         }
     } catch (error) {
@@ -52,6 +54,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
                     formatting: {},
                     dataObject: {},
                 },
+                tabsMenu: [],
             },
         }
     }
