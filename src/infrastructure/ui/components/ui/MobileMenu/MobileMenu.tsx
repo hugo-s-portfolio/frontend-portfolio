@@ -43,15 +43,17 @@ const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElemen
     return (
         <StyledMenuMobile>
             <Tabs value={value} onChange={handleChangeOption} centered $indicatorPosition="top">
-                {options?.map(({ label, icon, fontSize, menuId, route }) => (
-                    <Tab
-                        key={menuId}
-                        onClick={() => handleNavigation(route)}
-                        icon={muiIcons[icon]}
-                        sx={{ fontSize }}
-                        label={label}
-                    />
-                ))}
+                {options
+                    ?.sort((a, b) => a.menuId - b.menuId)
+                    ?.map(({ label, icon, fontSize, menuId, route }) => (
+                        <Tab
+                            key={menuId}
+                            onClick={() => handleNavigation(route)}
+                            icon={muiIcons[icon]}
+                            sx={{ fontSize }}
+                            label={label}
+                        />
+                    ))}
             </Tabs>
         </StyledMenuMobile>
     )

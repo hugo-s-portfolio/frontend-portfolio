@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-import { TutorialView } from '@/infrastructure/ui/modules'
+import { TutorialView } from '@/infrastructure/ui/modules/TutorialsModule'
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
@@ -16,8 +16,7 @@ import { getModule } from '@/domain/dto'
 export type TutorialsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const TutorialsPage = (props: TutorialsPageProps): ReactElement => {
-    console.error(props)
-    return <TutorialView />
+    return <TutorialView config={props.config} status={props.status} />
 }
 
 export default TutorialsPage

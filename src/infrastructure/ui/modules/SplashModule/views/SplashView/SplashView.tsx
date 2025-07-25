@@ -45,7 +45,7 @@ const SplashView: FC<SplashViewProps> = ({
     const router = useRouter()
     const matchMedia = useMediaQuery('(min-width: 1024px)')
     const [progress] = useCountdownTimer(initialSplashValue, stepLoading, () => {
-        router.push('/home')
+        router.push('/aboutme')
     })
 
     // handlers

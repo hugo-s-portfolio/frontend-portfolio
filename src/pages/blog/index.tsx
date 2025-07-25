@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-import { BlogView } from '@/infrastructure/ui/modules'
+import { BlogView } from '@/infrastructure/ui/modules/BlogModule'
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
@@ -16,9 +16,7 @@ import { TabsMenuConfig } from '@/domain/models'
 export type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const BlogPage = (props: BlogPageProps): ReactElement => {
-    console.error(props)
-
-    return <BlogView />
+    return <BlogView config={props.config} status={props.status} />
 }
 
 export default BlogPage

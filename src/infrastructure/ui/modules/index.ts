@@ -1,4 +1,3 @@
-export * from './AuthModule'
-export * from './AdminModule'
-export * from './HomeModule'
+export * from './AboutMeModule'
 export * from './SplashModule'
+export * from './ProjectsModule'
