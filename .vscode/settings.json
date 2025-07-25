@@ -17,6 +17,7 @@
 		"stylelint",
 		"tailwindcss",
 		"usehooks",
-		"webfonts"
+		"webfonts",
+		"persistor"
 	]
 }
