@@ -8,7 +8,7 @@ export const getLayout = (page: ReactElement): ReactElement => {
     const initialValue = page.props.children.props.config.dataObject.frontend.initialValue || 0
 
     return (
-        <MainLayout metaData={page.props.children.props.metaData}>
+        <MainLayout metaData={page.props.children.props?.config?.dataObject?.frontend?.metadata}>
             {page}
             <MobileMenu options={options} initialValue={initialValue} />
         </MainLayout>

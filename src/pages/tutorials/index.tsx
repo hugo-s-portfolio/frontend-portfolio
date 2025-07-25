@@ -26,12 +26,6 @@ TutorialsPage.getLayout = getLayout
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
     config: ConfigModuleModel
-    metaData?: {
-        title?: string
-        description?: string
-        keywords?: string
-        icon?: string
-    }
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
@@ -45,7 +39,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             props: {
                 status: 'SUCCESS',
                 config: formattedConfig,
-                metaData: formattedConfig?.dataObject?.frontend?.metadata,
             },
         }
     } catch (error) {
@@ -59,7 +52,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
                     formatting: {},
                     dataObject: {},
                 },
-                metaData: {},
             },
         }
     }
