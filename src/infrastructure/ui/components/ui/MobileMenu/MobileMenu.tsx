@@ -19,8 +19,13 @@ export interface Option {
     label: string
     fontSize: number
     icon: string
-    id: number
-    link: string
+    country: string
+    description?: string
+    enabled: boolean
+    menuId: number
+    menuName: string
+    menuType: string
+    route: string
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElement => {
@@ -38,10 +43,10 @@ const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElemen
     return (
         <StyledMenuMobile>
             <Tabs value={value} onChange={handleChangeOption} centered $indicatorPosition="top">
-                {options?.map(({ label, icon, fontSize, id, link }) => (
+                {options?.map(({ label, icon, fontSize, menuId, route }) => (
                     <Tab
-                        key={id}
-                        onClick={() => handleNavigation(link)}
+                        key={menuId}
+                        onClick={() => handleNavigation(route)}
                         icon={muiIcons[icon]}
                         sx={{ fontSize }}
                         label={label}

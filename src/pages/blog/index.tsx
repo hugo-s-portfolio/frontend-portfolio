@@ -7,10 +7,11 @@ import { BlogView } from '@/infrastructure/ui/modules'
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
 
 // lib
-import { getConfig, getLayout } from '@/lib'
+import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
+import { TabsMenuConfig } from '@/domain/models'
 
 export type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -27,18 +28,20 @@ BlogPage.getLayout = getLayout
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
     config: ConfigModuleModel
+    tabsMenu: TabsMenuConfig[]
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     try {
         const config = (await getConfig({ country: 'CO', moduleName: 'module_blog_page' })) || {}
 
-        const formattedConfig = getModule(config)
+        const tabsMenu = await getTabsMenuConfig({ country: 'CO', menuType: 'module_tabs' })
 
         return {
             props: {
                 status: 'SUCCESS',
-                config: formattedConfig,
+                config: getModule(config),
+                tabsMenu,
             },
         }
     } catch (error) {
@@ -52,6 +55,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
                     formatting: {},
                     dataObject: {},
                 },
+                tabsMenu: [],
             },
         }
     }
