@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-import { ProjectsView } from '@/infrastructure/ui/modules'
+import { AboutMeView } from '@/infrastructure/ui/modules'
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
@@ -13,15 +13,15 @@ import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 import { getModule } from '@/domain/dto'
 import { TabsMenuConfig } from '@/domain/models'
 
-export type ProjectsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+export type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const ProjectsPage = (props: ProjectsPageProps): ReactElement => {
-    return <ProjectsView config={props.config} status={props.status} />
+const HomePage = (props: HomePageProps): ReactElement => {
+    return <AboutMeView config={props.config} status={props.status} />
 }
 
-export default ProjectsPage
+export default HomePage
 
-ProjectsPage.getLayout = getLayout
+HomePage.getLayout = getLayout
 
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
@@ -32,7 +32,7 @@ export interface Props {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     try {
         const config =
-            (await getConfig({ country: 'CO', moduleName: 'module_projects_page' })) || {}
+            (await getConfig({ country: 'CO', moduleName: 'module_about_me_page' })) || {}
 
         const tabsMenu = await getTabsMenuConfig({ country: 'CO', menuType: 'module_tabs' })
 

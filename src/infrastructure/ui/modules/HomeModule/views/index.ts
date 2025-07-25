@@ -1,5 +1,0 @@
-export { default as HomeView } from './HomeView'
-export { default as AboutMeView } from './AboutMeView'
-export { default as BlogView } from './BlogView'
-export { default as ProjectsView } from './ProjectsView'
-export { default as TutorialView } from './TutorialView'
