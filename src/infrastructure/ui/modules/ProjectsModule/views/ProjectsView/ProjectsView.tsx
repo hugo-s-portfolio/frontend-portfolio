@@ -11,7 +11,7 @@ export interface ProjectsViewProps {
     status: 'SUCCESS' | 'ERROR'
 }
 
-const ProjectsView: FC<ProjectsViewProps> = ({ config, status }): ReactElement => {
+const ProjectsView: FC<ProjectsViewProps> = ({ status }): ReactElement => {
     return (
         <StyledProjectsView>
             {status === 'SUCCESS' ? <p>ProjectsView</p> : <p>no hay nada</p>}

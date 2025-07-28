@@ -11,7 +11,7 @@ export interface TutorialViewProps {
     status: 'SUCCESS' | 'ERROR'
 }
 
-const TutorialView: FC<TutorialViewProps> = ({ config, status }): ReactElement => {
+const TutorialView: FC<TutorialViewProps> = ({ status }): ReactElement => {
     return (
         <StyledTutorialView>
             {status === 'SUCCESS' ? <p>TutorialView</p> : <p>no hay nada</p>}

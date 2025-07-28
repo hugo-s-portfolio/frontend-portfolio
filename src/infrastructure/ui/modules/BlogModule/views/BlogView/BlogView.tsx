@@ -11,7 +11,7 @@ export interface BlogViewProps {
     status: 'SUCCESS' | 'ERROR'
 }
 
-const BlogView: FC<BlogViewProps> = ({ config, status }): ReactElement => {
+const BlogView: FC<BlogViewProps> = ({ status }): ReactElement => {
     return (
         <StyledBlogView>
             {status === 'SUCCESS' ? <p>BlogView</p> : <p>no hay nada</p>}
