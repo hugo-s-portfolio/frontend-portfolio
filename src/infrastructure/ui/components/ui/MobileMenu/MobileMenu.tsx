@@ -8,7 +8,7 @@ import { StyledMenuMobile } from '@/infrastructure/ui/components/ui/MobileMenu/m
 import { Tab, Tabs } from '@/infrastructure/ui/components'
 
 // icons
-import { muiIcons } from '@/infrastructure/ui/utils/icons'
+import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 export interface MobileMenuProps {
     options: Option[]
@@ -49,7 +49,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElemen
                         <Tab
                             key={menuId}
                             onClick={() => handleNavigation(route)}
-                            icon={muiIcons[icon]}
+                            icon={getIcon(icon, {})}
                             sx={{ fontSize }}
                             label={label}
                         />

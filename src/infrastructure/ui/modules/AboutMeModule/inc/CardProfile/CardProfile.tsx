@@ -2,12 +2,9 @@ import { FC, ReactElement } from 'react'
 
 import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
 
-import {
-    StyledCardProfile,
-    StyledHomeImage,
-} from '@/infrastructure/ui/modules/AboutMeModule/inc/CardProfile/cardProfile-styles'
+import { StyledHomeImage } from '@/infrastructure/ui/modules/AboutMeModule/inc/CardProfile/cardProfile-styles'
 
-import { muiIcons } from '@/infrastructure/ui/utils/icons'
+import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // interfaces
 import { FormObject, Action } from '@/infrastructure/ui/interfaces'
@@ -47,18 +44,20 @@ const CardProfile: FC<CardProfileProps> = ({
     }
 
     return (
-        <StyledCardProfile>
+        <>
             {aboutMeCard?.show && (
                 <Box
                     sx={(theme) => ({
-                        height: { xs: '77vh', md: '90vh' },
-                        pb: '10px',
+                        height: { xs: '77vh', md: '88vh' },
+                        width: { xs: '100%', md: '28rem' },
+                        margin: { md: '0 20px 0 0' },
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        borderRadius: '8px',
+                        borderRadius: '4px',
                         overflow: 'hidden',
-                        boxShadow: `0px 0px 10px 1px ${theme.palette.primary.main}`,
+                        boxShadow: `0px 0px 5px 0px ${theme.palette.primary.main}`,
+                        backgroundColor: '#FFFFFF',
                     })}
                 >
                     <Box
@@ -132,14 +131,18 @@ const CardProfile: FC<CardProfileProps> = ({
                         <Divider sx={{ height: '5px' }} />
 
                         {aboutMeSocialMedia?.show && (
-                            <Box>
+                            <Box
+                                sx={{
+                                    margin: '10px',
+                                }}
+                            >
                                 {socialMedia?.map((social) => (
                                     <IconButton
                                         onClick={() => onNavigate(social?.link)}
                                         key={social?.name}
                                         color="primary"
                                     >
-                                        {muiIcons[social?.name]}
+                                        {getIcon(social?.name, {})}
                                     </IconButton>
                                 ))}
                             </Box>
@@ -147,7 +150,7 @@ const CardProfile: FC<CardProfileProps> = ({
                     </Box>
                 </Box>
             )}
-        </StyledCardProfile>
+        </>
     )
 }
 

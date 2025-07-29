@@ -38,6 +38,8 @@ export { default as Tab } from './Tab'
 export { default as SpeedDial } from './SpeedDial'
 export { default as SpeedDialAction } from './SpeedDialAction'
 export { default as SpeedDialIcon } from './SpeedDialIcon'
+export { default as ListItemAvatar } from './ListItemAvatar'
+export { default as CardActions } from './CardActions'
 
 export * from './Containers'
 export * from './Buttons'
