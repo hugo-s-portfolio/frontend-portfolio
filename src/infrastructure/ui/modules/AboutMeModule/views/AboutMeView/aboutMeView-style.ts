@@ -4,3 +4,8 @@ export const StyleAboutMeView = styled.div`
     ${tw`pt-5 min-h-[120vh]`}
     ${tw`min-h-[98vh]`}
 `
+
+export const StyledCardProfile = styled.section`
+    ${tw`mt-5 w-full`}
+    ${tw`md:flex md:flex-row`}
+`

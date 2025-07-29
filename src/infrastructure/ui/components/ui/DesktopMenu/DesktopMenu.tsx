@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 // styles
 import { StyledDesktopMenu } from '@/infrastructure/ui/components/ui/DesktopMenu/desktopMenu-styles'
@@ -8,7 +8,7 @@ import { StyledDesktopMenu } from '@/infrastructure/ui/components/ui/DesktopMenu
 import { SpeedDialAction, SpeedDial, SpeedDialIcon } from '@/infrastructure/ui/components//inc'
 
 // icons
-import { muiIcons } from '@/infrastructure/ui/utils/icons'
+import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 interface DesktopMenuProps {
     options: Option[]
@@ -31,6 +31,7 @@ export interface Option {
 const DesktopMenu: FC<DesktopMenuProps> = ({ options }): ReactElement => {
     const [open, setOpen] = useState(false)
     const router = useRouter()
+    const pathname = usePathname()
     const orderedOptions = options?.sort((a, b) => a.menuId - b.menuId)
 
     const handleOpen = (): void => setOpen(true)
@@ -45,16 +46,21 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ options }): ReactElement => {
         <StyledDesktopMenu>
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
-                sx={{ position: 'absolute', bottom: 16, right: 16 }}
-                icon={<SpeedDialIcon icon={muiIcons['Menu']} />}
+                sx={{ position: 'absolute', bottom: 10, right: 16 }}
+                icon={<SpeedDialIcon icon={getIcon('Menu', {})} openIcon={getIcon('Add', {})} />}
                 onClose={handleClose}
                 onOpen={handleOpen}
                 open={open}
             >
-                {orderedOptions.map(({ menuId, icon, label, route }) => (
+                {orderedOptions?.map(({ menuId, icon, label, route }) => (
                     <SpeedDialAction
                         key={menuId}
-                        icon={muiIcons[icon]}
+                        icon={getIcon(icon, {
+                            color:
+                                pathname?.toLowerCase() === route?.toLowerCase()
+                                    ? 'primary'
+                                    : 'inherit',
+                        })}
                         tooltipTitle={label}
                         tooltipOpen
                         onClick={() => handleNavigation(route)}

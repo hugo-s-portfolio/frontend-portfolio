@@ -1,14 +1,31 @@
-import { IIcons } from '.'
-import { iconsPartI } from './iconsPartI'
-import { iconsPartII } from './iconsPartII'
-import { iconsPartIII } from './iconsPartIII'
-import { iconsPartIV } from './iconsPartIV'
-import { iconsPartV } from './iconsPartV'
-import { iconsPartVI } from './iconsPartVI'
-import { iconsPartVII } from './iconsPartVII'
-import { iconsPartVIII } from './iconsPartVIII'
-import { iconsPartIX } from './iconsPartIX'
-import { iconsPartX } from './iconsPartX'
+import { IIcons, Props } from '.'
+import { iconsPartI, getIconsPartI } from './iconsPartI'
+import { getIconsPartII, iconsPartII } from './iconsPartII'
+import { getIconsPartIII, iconsPartIII } from './iconsPartIII'
+import { getIconsPartIV, iconsPartIV } from './iconsPartIV'
+import { getIconsPartV, iconsPartV } from './iconsPartV'
+import { getIconsPartVI, iconsPartVI } from './iconsPartVI'
+import { getIconsPartVII, iconsPartVII } from './iconsPartVII'
+import { getIconsPartVIII, iconsPartVIII } from './iconsPartVIII'
+import { getIconsPartIX, iconsPartIX } from './iconsPartIX'
+import { getIconsPartX, iconsPartX } from './iconsPartX'
+
+export const getIcon = (key: string, props: Props) => {
+    const icons = {
+        ...getIconsPartI(props),
+        ...getIconsPartII(props),
+        ...getIconsPartIII(props),
+        ...getIconsPartIV(props),
+        ...getIconsPartV(props),
+        ...getIconsPartVI(props),
+        ...getIconsPartVII(props),
+        ...getIconsPartVIII(props),
+        ...getIconsPartIX(props),
+        ...getIconsPartX(props),
+    }
+
+    return icons[key]
+}
 
 export const muiIcons: IIcons = {
     ...iconsPartI,
