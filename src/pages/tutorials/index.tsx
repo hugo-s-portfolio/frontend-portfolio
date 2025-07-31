@@ -29,11 +29,36 @@ export interface Props {
     tabsMenu: TabsMenuConfig[]
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+    const token = ctx.req.cookies.session
+
+    if (!token) {
+        return {
+            props: {
+                status: 'ERROR',
+                config: {
+                    forms: {},
+                    actions: {},
+                    formatting: {},
+                    dataObject: {},
+                },
+                tabsMenu: [],
+            },
+        }
+    }
+
     try {
         const config =
-            (await getConfig({ country: 'CO', moduleName: 'module_tutorials_page' })) || {}
-        const tabsMenu = await getTabsMenuConfig({ country: 'CO', menuType: 'module_tabs' })
+            (await getConfig({
+                country: 'CO',
+                moduleName: 'module_tutorials_page',
+                token,
+            })) || {}
+        const tabsMenu = await getTabsMenuConfig({
+            country: 'CO',
+            menuType: 'module_tabs',
+            token,
+        })
 
         return {
             props: {

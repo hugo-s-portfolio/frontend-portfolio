@@ -10,10 +10,10 @@ import { Box, Typography } from '@/infrastructure/ui/components'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 export interface CardEducationProps {
-    aboutMeTitle: FormObject
+    aboutMeTitle?: FormObject
 }
 
-const CardEducation: FC<CardEducationProps> = ({ aboutMeTitle }): ReactElement => {
+const CardEducation: FC<CardEducationProps> = (): ReactElement => {
     return (
         <Box
             sx={{

@@ -13,7 +13,7 @@ const SplashPage = (props: SplashPageProps): ReactElement => {
 export default SplashPage
 
 const getLayout = (page: ReactElement): ReactElement => (
-    <MainLayout metaData={page.props.children.props.metaData} >{page}</MainLayout>
+    <MainLayout metaData={page.props.children.props.metaData}>{page}</MainLayout>
 )
 
 SplashPage.getLayout = getLayout
@@ -22,7 +22,7 @@ export interface Props {
     splashImages: {
         desk: string
         mobile: string
-    },
+    }
     metaData?: {
         title: string
         description: string
@@ -44,8 +44,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             metaData: {
                 title: 'Protafolio de Hugo Andres Diaz Bernal',
                 description: 'Desarrollador Javascript y TypeScript',
-                keywords: 'React, Angular, Node, NextJS, Redux'
-            }
+                keywords: 'React, Angular, Node, NextJS, Redux',
+            },
         },
     }
 }
