@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { JSXElementConstructor, ReactElement, JSX, ElementType } from 'react'
 import {
     SvgIconClasses,
@@ -52,6 +54,6 @@ export type Props = JSX.IntrinsicAttributes & { component?: ElementType<any> } &
         | 'sx'
         | 'titleAccess'
         | 'viewBox'
-    > & {}
+    >
 
 export * from './getMUIcons'

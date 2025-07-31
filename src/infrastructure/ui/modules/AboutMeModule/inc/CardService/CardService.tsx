@@ -68,7 +68,7 @@ const CardServices: FC<CardServicesProps> = ({ aboutMeServices }): ReactElement 
                     },
                     justifyContent: {
                         xs: 'center',
-                        lg: 'flex-start',
+                        lg: 'space-between',
                     },
                     alignItems: {
                         xs: 'center',
