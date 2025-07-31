@@ -10,10 +10,10 @@ import { Box, Typography } from '@/infrastructure/ui/components'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 export interface CardToolsProps {
-    aboutMeTitle: FormObject
+    aboutMeTitle?: FormObject
 }
 
-const CardTools: FC<CardToolsProps> = ({ aboutMeTitle }): ReactElement => {
+const CardTools: FC<CardToolsProps> = (): ReactElement => {
     return (
         <Box
             sx={{

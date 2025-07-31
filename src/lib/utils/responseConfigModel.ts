@@ -1,17 +1,20 @@
+import { http } from '@/lib'
+
 import {
     Config,
     ResponseConfigModuleModel,
     TabsMenuConfig,
     TabsMenuModuleResponse,
 } from '@/domain/models'
-import { http } from '@/lib'
 
 export const getConfig = async ({
     country,
     moduleName,
+    token,
 }: {
     country: 'PY' | 'CO' | 'BO'
     moduleName: string
+    token: string
 }): Promise<Config | undefined> => {
     try {
         const {
@@ -20,7 +23,7 @@ export const getConfig = async ({
             `${process.env.NEXT_PUBLIC_BACK_API}/modules?country=${country}&moduleName=${moduleName}`,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+                    Authorization: `Bearer ${token}`,
                 },
             },
         )
@@ -34,9 +37,11 @@ export const getConfig = async ({
 export const getTabsMenuConfig = async ({
     country,
     menuType,
+    token,
 }: {
     country: 'PY' | 'CO' | 'BO'
     menuType: string
+    token: string
 }): Promise<TabsMenuConfig[]> => {
     try {
         const {
@@ -45,7 +50,8 @@ export const getTabsMenuConfig = async ({
             `${process.env.NEXT_PUBLIC_BACK_API}/menu/all?country=${country}&menuType=${menuType}`,
             {
                 headers: {
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
                 },
             },
         )

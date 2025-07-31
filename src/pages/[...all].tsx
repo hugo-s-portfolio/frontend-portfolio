@@ -9,6 +9,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
 }
 
-export default function CatchAll() {
+export default function CatchAll(): null {
     return null
 }
