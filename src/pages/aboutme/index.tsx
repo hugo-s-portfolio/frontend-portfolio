@@ -7,16 +7,18 @@ import { AboutMeView } from '@/infrastructure/ui/modules'
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
 
 // lib
-import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
+import { getAboutMeMenuConfig, getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
-import { TabsMenuConfig } from '@/domain/models'
+import { AboutMeMenuConfig, TabsMenuConfig } from '@/domain/models'
 
 export type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const HomePage = (props: HomePageProps): ReactElement => {
-    return <AboutMeView config={props.config} status={props.status} />
+    return (
+        <AboutMeView config={props.config} status={props.status} aboutMeMenu={props.aboutMeMenu} />
+    )
 }
 
 export default HomePage
@@ -27,6 +29,7 @@ export interface Props {
     status: 'SUCCESS' | 'ERROR'
     config: ConfigModuleModel
     tabsMenu: TabsMenuConfig[]
+    aboutMeMenu: AboutMeMenuConfig[]
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
@@ -43,6 +46,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                     dataObject: {},
                 },
                 tabsMenu: [],
+                aboutMeMenu: [],
             },
         }
     }
@@ -61,11 +65,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
             token,
         })
 
+        const aboutMeMenu = await getAboutMeMenuConfig({
+            country: 'CO',
+            menuType: 'menu_about_me',
+            token,
+        })
+
         return {
             props: {
                 status: 'SUCCESS',
                 config: getModule(config),
                 tabsMenu,
+                aboutMeMenu,
             },
         }
     } catch (error) {
@@ -80,6 +91,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                     dataObject: {},
                 },
                 tabsMenu: [],
+                aboutMeMenu: [],
             },
         }
     }

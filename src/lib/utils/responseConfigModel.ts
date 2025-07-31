@@ -1,6 +1,8 @@
 import { http } from '@/lib'
 
 import {
+    AboutMeMenuConfig,
+    AboutMeMenuResponse,
     Config,
     ResponseConfigModuleModel,
     TabsMenuConfig,
@@ -47,11 +49,41 @@ export const getTabsMenuConfig = async ({
         const {
             data: { response },
         } = await http.get<TabsMenuModuleResponse>(
-            `${process.env.NEXT_PUBLIC_BACK_API}/menu/all?country=${country}&menuType=${menuType}`,
+            `${process.env.NEXT_PUBLIC_BACK_API}/menu/tabs?country=${country}&menuType=${menuType}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+                },
+            },
+        )
+
+        if (!response?.config) return []
+
+        return response.config
+    } catch (error) {
+        console.error('Error en config. ', error)
+
+        return []
+    }
+}
+
+export const getAboutMeMenuConfig = async ({
+    country,
+    menuType,
+    token,
+}: {
+    country: 'PY' | 'CO' | 'BO'
+    menuType: string
+    token: string
+}): Promise<AboutMeMenuConfig[]> => {
+    try {
+        const {
+            data: { response },
+        } = await http.get<AboutMeMenuResponse>(
+            `${process.env.NEXT_PUBLIC_BACK_API}/menu/aboutme?country=${country}&menuType=${menuType}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 },
             },
         )
