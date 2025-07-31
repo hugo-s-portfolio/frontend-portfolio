@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         }
 
         const newResp = await res.json()
-        const session = newResp?.response?.config.jwt
+        const session = newResp?.response?.data?.jwt
         const response = NextResponse.next()
 
         response.cookies.set('session', session, {

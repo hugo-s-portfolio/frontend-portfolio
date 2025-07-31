@@ -11,30 +11,43 @@ import {
 
 // interfaces
 import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
+import { AboutMeMenuConfig } from '@/domain/models'
+
+// utils
+import { findMenu } from '@/infrastructure/ui/utils/finders'
 
 export interface AboutMeViewProps {
     config: ConfigModuleModel
+    aboutMeMenu: AboutMeMenuConfig[]
     status: 'SUCCESS' | 'ERROR'
 }
 
-const AboutMeView: FC<AboutMeViewProps> = ({ config, status }): ReactElement => {
+const AboutMeView: FC<AboutMeViewProps> = ({ config, status, aboutMeMenu }): ReactElement => {
+    const aboutMeIntroMenu = findMenu(aboutMeMenu, 'about_me_intro')
+    const aboutMeIntroMenuFiltered = aboutMeMenu?.filter(
+        (menu) => menu?.menuName !== 'about_me_intro',
+    )
+
     return (
         <StyleAboutMeView>
             {status === 'SUCCESS' ? (
                 <StyledCardProfile>
-                    <CardProfile
-                        aboutMeCard={config?.forms?.about_me_card}
-                        aboutMeName={config?.forms?.about_me_name}
-                        aboutMeJob={config?.forms?.about_me_job}
-                        aboutMeDescription={config?.forms?.about_me_description}
-                        aboutMeLocation={config?.forms?.about_me_location}
-                        aboutMeSocialMedia={config?.actions?.about_me_social_media}
-                    />
+                    {aboutMeIntroMenu?.enable && (
+                        <CardProfile
+                            aboutMeCard={config?.forms?.about_me_card}
+                            aboutMeName={config?.forms?.about_me_name}
+                            aboutMeJob={config?.forms?.about_me_job}
+                            aboutMeDescription={config?.forms?.about_me_description}
+                            aboutMeLocation={config?.forms?.about_me_location}
+                            aboutMeSocialMedia={config?.actions?.about_me_social_media}
+                        />
+                    )}
                     <CardInformation
                         aboutMeTitle={config?.forms?.about_me_title}
                         aboutMeResume={config?.forms?.about_me_resume}
                         aboutMeProfileItemList={config?.forms?.about_me_profile_item_list}
                         aboutMeServices={config?.forms?.about_me_services}
+                        aboutMeMenu={aboutMeIntroMenuFiltered}
                     />
                 </StyledCardProfile>
             ) : (

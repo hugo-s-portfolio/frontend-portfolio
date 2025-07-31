@@ -22,7 +22,7 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
             }}
         >
             <Box sx={{ display: 'flex', flexDirection: 'row', my: '15px' }}>
-                {getIcon('HotelClass', { color: 'primary' })}
+                {getIcon('HomeRepairService', { color: 'primary' })}
                 <Typography variant="h2" sx={{ ml: '5px', fontWeight: '500' }}>
                     Especialidades
                 </Typography>
