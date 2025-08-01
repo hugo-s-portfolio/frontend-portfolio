@@ -1,7 +1,7 @@
 export { default as CardProfile } from './CardProfile'
-export { default as CardInformation } from './CardInformation'
 export { default as CardService } from './CardService'
 export { default as CardAboutMeIntro } from './CardAboutMeIntro'
 export { default as CardSpecialties } from './CardSpecialties'
 export { default as CardTools } from './CardTools'
 export { default as CardEducation } from './CardEducation'
+export { default as CardWrapper } from './CardWrapper'

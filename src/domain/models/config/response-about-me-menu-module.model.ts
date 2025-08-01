@@ -1,8 +1,8 @@
 export interface AboutMeMenuResponse {
-    response?: AboutMeMenuResponse
+    response?: Response
 }
 
-export interface AboutMeMenuResponse {
+export interface Response {
     result?: AboutMeMenuResult
     config?: AboutMeMenuConfig[]
 }

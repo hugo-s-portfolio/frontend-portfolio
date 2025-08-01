@@ -6,8 +6,8 @@ import { StyledHomeImage } from '@/infrastructure/ui/modules/AboutMeModule/inc/C
 
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
-// interfaces
-import { FormObject, Action } from '@/infrastructure/ui/interfaces'
+// models
+import { FormObject, Action } from '@/domain/models'
 
 // utils
 import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
@@ -49,7 +49,8 @@ const CardProfile: FC<CardProfileProps> = ({
                 <Box
                     sx={(theme) => ({
                         height: { xs: '77vh', md: '88vh' },
-                        width: { xs: '100%', md: '28rem' },
+                        width: { xs: '100%', md: '650px' },
+                        maxWidth: '650px',
                         margin: { md: '0 20px 0 0' },
                         display: 'flex',
                         flexDirection: 'column',

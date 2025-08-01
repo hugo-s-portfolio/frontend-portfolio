@@ -3,15 +3,14 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 import { BlogView } from '@/infrastructure/ui/modules/BlogModule'
 
-// interfaces
-import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
+// models
+import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
 
 // lib
 import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
-import { TabsMenuConfig } from '@/domain/models'
 
 export type BlogPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 

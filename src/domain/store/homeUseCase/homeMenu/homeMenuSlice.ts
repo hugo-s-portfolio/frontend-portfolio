@@ -1,25 +1,38 @@
+import { AboutMeMenuConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface HomeMenuState {
-    value: number
+    options: AboutMeMenuConfig[]
+    loading: boolean
+    error: unknown
 }
 
 const initialState: HomeMenuState = {
-    value: 0,
+    error: null,
+    loading: false,
+    options: [],
 }
 
 export const homeMenuSlice = createSlice({
     name: 'homeMenu',
     initialState,
     reducers: {
-        onChangeOption: (state, action: PayloadAction<number>) => {
-            state.value = action.payload
+        onError: (state) => {
+            state.loading = false
+            state.error = 'hay error'
+        },
+        onLoading: (state) => {
+            state.loading = true
+        },
+        onLoad: (state, action: PayloadAction<AboutMeMenuConfig[]>) => {
+            state.options = action.payload
+            state.loading = false
         },
     },
 })
 
 // Actions Creators
-export const { onChangeOption } = homeMenuSlice.actions
+export const { onError, onLoading, onLoad } = homeMenuSlice.actions
 
 // Reducers
 export default homeMenuSlice.reducer

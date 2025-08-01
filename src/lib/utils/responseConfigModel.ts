@@ -18,17 +18,16 @@ export const getConfig = async ({
     moduleName: string
     token: string
 }): Promise<Config | undefined> => {
+    const url = `${process.env.NEXT_PUBLIC_BACK_API}/modules?country=${country}&moduleName=${moduleName}`
+
     try {
         const {
             data: { response },
-        } = await http.get<ResponseConfigModuleModel>(
-            `${process.env.NEXT_PUBLIC_BACK_API}/modules?country=${country}&moduleName=${moduleName}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        } = await http.get<ResponseConfigModuleModel>(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
-        )
+        })
 
         return response?.config
     } catch (error) {
@@ -45,17 +44,16 @@ export const getTabsMenuConfig = async ({
     menuType: string
     token: string
 }): Promise<TabsMenuConfig[]> => {
+    const url = `${process.env.NEXT_PUBLIC_BACK_API}/menu/tabs?country=${country}&menuType=${menuType}`
+
     try {
         const {
             data: { response },
-        } = await http.get<TabsMenuModuleResponse>(
-            `${process.env.NEXT_PUBLIC_BACK_API}/menu/tabs?country=${country}&menuType=${menuType}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        } = await http.get<TabsMenuModuleResponse>(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
-        )
+        })
 
         if (!response?.config) return []
 
@@ -76,17 +74,15 @@ export const getAboutMeMenuConfig = async ({
     menuType: string
     token: string
 }): Promise<AboutMeMenuConfig[]> => {
+    const url = `${process.env.NEXT_PUBLIC_BACK_API}/menu/aboutme?country=${country}&menuType=${menuType}`
     try {
         const {
             data: { response },
-        } = await http.get<AboutMeMenuResponse>(
-            `${process.env.NEXT_PUBLIC_BACK_API}/menu/aboutme?country=${country}&menuType=${menuType}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        } = await http.get<AboutMeMenuResponse>(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
-        )
+        })
 
         if (!response?.config) return []
 
