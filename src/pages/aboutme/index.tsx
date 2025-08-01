@@ -4,10 +4,10 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { AboutMeView } from '@/infrastructure/ui/modules'
 
 // models
-import { AboutMeMenuConfig, TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
+import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
 
 // lib
-import { getAboutMeMenuConfig, getConfig, getLayout, getTabsMenuConfig } from '@/lib'
+import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
