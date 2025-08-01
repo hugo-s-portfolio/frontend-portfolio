@@ -3,15 +3,14 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 import { ProjectsView } from '@/infrastructure/ui/modules'
 
-// interfaces
-import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
+// models
+import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
 
 // lib
 import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
-import { TabsMenuConfig } from '@/domain/models'
 
 export type ProjectsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 

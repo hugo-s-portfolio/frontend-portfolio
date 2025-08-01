@@ -3,9 +3,8 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 import { TutorialView } from '@/infrastructure/ui/modules/TutorialsModule'
 
-// interfaces
-import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
-import { TabsMenuConfig } from '@/domain/models'
+// models
+import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
 
 // lib
 import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'

@@ -1,5 +1,4 @@
-import { AboutMeMenuConfig } from '@/domain/models'
-import { Action, FormObject } from '@/infrastructure/ui/interfaces'
+import { AboutMeMenuConfig, Action, FormObject } from '@/domain/models'
 
 export const findParameter = <T = unknown>(object: FormObject | Action, key: string): T => {
     return object?.parameters?.find((param) => param.key === key)?.value
@@ -29,4 +28,15 @@ export const calculateAge = (birthday: string): number => {
     }
 
     return age
+}
+
+export const getCookie = (name: string): string | null => {
+    const cookies = document.cookie.split('; ')
+    for (const cookie of cookies) {
+        const [clave, valor] = cookie.split('=')
+        if (clave === name) {
+            return decodeURIComponent(valor)
+        }
+    }
+    return null
 }

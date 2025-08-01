@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 
-// interfaces
-import { ConfigModuleModel } from '@/infrastructure/ui/interfaces'
+// models
+import { ConfigModuleModel } from '@/domain/models'
 
 // styles
 import { StyledBlogView } from '@infrastructure/ui/modules/BlogModule/views/BlogView/blogView-style'
