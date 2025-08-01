@@ -7,10 +7,12 @@ import {
     CardAboutMeIntro,
     CardEducation,
     CardProfile,
+    CardProfileSkeleton,
     CardService,
     CardSpecialties,
     CardTools,
     CardWrapper,
+    CardWrapperSkeleton,
 } from '@/infrastructure/ui/modules/AboutMeModule/inc'
 
 // styles
@@ -47,6 +49,13 @@ const AboutMeView: FC<AboutMeViewProps> = ({ config }): ReactElement => {
     const aboutMeTools = findMenu(options, 'about_me_tools')
     const aboutMeEducation = findMenu(options, 'about_me_education')
 
+    const validationSections =
+        aboutMeDescription?.enable ||
+        aboutMeServicesMenu?.enable ||
+        aboutMeSpecialties?.enable ||
+        aboutMeTools?.enable ||
+        aboutMeEducation?.enable
+
     useEffect(() => {
         if (token) {
             dispatch(
@@ -75,26 +84,33 @@ const AboutMeView: FC<AboutMeViewProps> = ({ config }): ReactElement => {
                                 aboutMeSocialMedia={config?.actions?.about_me_social_media}
                             />
                         )}
-                        <CardWrapper>
-                            {aboutMeDescription?.enable && (
-                                <CardAboutMeIntro
-                                    aboutMeTitle={config?.forms?.about_me_title}
-                                    aboutMeResume={config?.forms?.about_me_resume}
-                                    aboutMeProfileItemList={
-                                        config?.forms?.about_me_profile_item_list
-                                    }
-                                />
-                            )}
-                            {aboutMeServicesMenu?.enable && (
-                                <CardService aboutMeServices={config?.forms?.about_me_services} />
-                            )}
-                            {aboutMeSpecialties?.enable && <CardSpecialties />}
-                            {aboutMeTools?.enable && <CardTools />}
-                            {aboutMeEducation?.enable && <CardEducation />}
-                        </CardWrapper>
+                        {validationSections && (
+                            <CardWrapper>
+                                {aboutMeDescription?.enable && (
+                                    <CardAboutMeIntro
+                                        aboutMeTitle={config?.forms?.about_me_title}
+                                        aboutMeResume={config?.forms?.about_me_resume}
+                                        aboutMeProfileItemList={
+                                            config?.forms?.about_me_profile_item_list
+                                        }
+                                    />
+                                )}
+                                {aboutMeServicesMenu?.enable && (
+                                    <CardService
+                                        aboutMeServices={config?.forms?.about_me_services}
+                                    />
+                                )}
+                                {aboutMeSpecialties?.enable && <CardSpecialties />}
+                                {aboutMeTools?.enable && <CardTools />}
+                                {aboutMeEducation?.enable && <CardEducation />}
+                            </CardWrapper>
+                        )}
                     </>
                 ) : (
-                    <p>Cargando...</p>
+                    <>
+                        <CardProfileSkeleton />
+                        <CardWrapperSkeleton />
+                    </>
                 )}
             </StyledCardProfile>
         </StyleAboutMeView>

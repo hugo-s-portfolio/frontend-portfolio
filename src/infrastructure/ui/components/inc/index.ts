@@ -40,6 +40,7 @@ export { default as SpeedDialAction } from './SpeedDialAction'
 export { default as SpeedDialIcon } from './SpeedDialIcon'
 export { default as ListItemAvatar } from './ListItemAvatar'
 export { default as CardActions } from './CardActions'
+export { default as Skeleton } from './Skeleton'
 
 export * from './Containers'
 export * from './Buttons'

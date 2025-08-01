@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import { DesktopMenu, MainLayout, MobileMenu } from '@/infrastructure/ui/components'
 
 export const getLayout = (page: ReactElement): ReactElement => {
-    const initialValue = page.props.children.props.config.dataObject.frontend.initialValue || 0
+    const initialValue = page.props.children.props.config?.dataObject?.frontend?.initialValue || 0
 
     const newOptions = page.props.children.props?.tabsMenu || []
 

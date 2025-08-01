@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode } from 'react'
 
 export interface ErrorBoundaryProps {
@@ -17,7 +18,6 @@ export type RenderReturn =
 export default class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     state = { hasError: false }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static getDerivedStateFromError(_: any): {
         hasError: boolean
     } {
@@ -25,7 +25,6 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
         return { hasError: true }
     }
 
-    // eslint-disable-next-file @typescript-eslint/no-explicit-any
     componentDidCatch(error: any, info: any): void {
         console.error('Client-side error:', error, info)
     }

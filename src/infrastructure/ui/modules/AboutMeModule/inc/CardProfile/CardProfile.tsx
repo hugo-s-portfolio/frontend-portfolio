@@ -35,7 +35,7 @@ const CardProfile: FC<CardProfileProps> = ({
             'social_media_list',
         ) || []
 
-    const socialMedia = social?.filter((item) => item.show).sort((a, b) => a.order - b.order)
+    const socialMedia = social?.filter((item) => item.show)?.sort((a, b) => a.order - b.order)
 
     const onNavigate = (link: string): void => {
         if (link) {
@@ -49,8 +49,8 @@ const CardProfile: FC<CardProfileProps> = ({
                 <Box
                     sx={(theme) => ({
                         height: { xs: '77vh', md: '88vh' },
-                        width: { xs: '100%', md: '650px' },
-                        maxWidth: '650px',
+                        width: { xs: '100%', md: '700px' },
+                        maxWidth: '768px',
                         margin: { md: '0 20px 0 0' },
                         display: 'flex',
                         flexDirection: 'column',
