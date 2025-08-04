@@ -17,14 +17,14 @@ export const homeMenuSlice = createSlice({
     name: 'homeMenu',
     initialState,
     reducers: {
-        onError: (state) => {
+        onErrorHomeMenu: (state) => {
             state.loading = false
             state.error = 'hay error'
         },
-        onLoading: (state) => {
+        onLoadingHomeMenu: (state) => {
             state.loading = true
         },
-        onLoad: (state, action: PayloadAction<AboutMeMenuConfig[]>) => {
+        onLoadHomeMenu: (state, action: PayloadAction<AboutMeMenuConfig[]>) => {
             state.options = action.payload
             state.loading = false
         },
@@ -32,7 +32,7 @@ export const homeMenuSlice = createSlice({
 })
 
 // Actions Creators
-export const { onError, onLoading, onLoad } = homeMenuSlice.actions
+export const { onErrorHomeMenu, onLoadingHomeMenu, onLoadHomeMenu } = homeMenuSlice.actions
 
 // Reducers
 export default homeMenuSlice.reducer
