@@ -2,7 +2,7 @@
 import { contentRepository } from '@/infrastructure/repository/content'
 
 // models
-import { ResponseConfigModuleModel, Option } from '@/domain/models'
+import { ResponseConfigModuleModel, Option, ConfigModuleModel } from '@/domain/models'
 
 // dto
 import { getModule } from '@/domain/dto'
@@ -30,6 +30,30 @@ export const contentModulesServices = {
             return { config: formattedConfig, resp: { data, ...rest } }
         } catch (error) {
             console.error('Error modulo de menu principal', error)
+        }
+    },
+    getConfig: async ({
+        country,
+        moduleName,
+        token,
+    }: {
+        country: 'PY' | 'CO' | 'BO'
+        moduleName: string
+        token: string
+    }): Promise<ConfigModuleModel> => {
+        try {
+            const config = await contentRepository.getConfig({
+                country,
+                moduleName,
+                token,
+            })
+
+            if (!config) return { forms: {}, actions: {}, formatting: {}, dataObject: {} }
+
+            return getModule(config)
+        } catch (error) {
+            console.error(error)
+            return { forms: {}, actions: {}, formatting: {}, dataObject: {} }
         }
     },
 }

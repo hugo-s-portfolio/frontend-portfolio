@@ -22,7 +22,7 @@ import {
 } from '@/infrastructure/ui/modules/AboutMeModule/views/AboutMeView/aboutMeView-style'
 
 // models
-import { ConfigModuleModel } from '@/domain/models'
+import { AboutMeMenuConfig, ConfigModuleModel } from '@/domain/models'
 import { onLoadAboutMeMenu } from '@/domain/store/homeUseCase/homeMenu/thunk'
 
 // utils
@@ -33,11 +33,11 @@ import { AppDispatch } from '@/domain/store/store'
 import { homeMenuSelector, HomeMenuState } from '@/domain/store/homeUseCase'
 
 export interface AboutMeViewProps {
-    config: ConfigModuleModel
-    status: 'SUCCESS' | 'ERROR'
+    config?: ConfigModuleModel
+    status?: 'SUCCESS' | 'ERROR'
 }
 
-const AboutMeView: FC<AboutMeViewProps> = ({ config }): ReactElement => {
+const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
     const dispatch: AppDispatch = useDispatch()
     const token = getCookie('session')
     const { options, loading, error } = useSelector(homeMenuSelector) as HomeMenuState
@@ -49,12 +49,8 @@ const AboutMeView: FC<AboutMeViewProps> = ({ config }): ReactElement => {
     const aboutMeTools = findMenu(options, 'about_me_tools')
     const aboutMeEducation = findMenu(options, 'about_me_education')
 
-    const validationSections =
-        aboutMeDescription?.enable ||
-        aboutMeServicesMenu?.enable ||
-        aboutMeSpecialties?.enable ||
-        aboutMeTools?.enable ||
-        aboutMeEducation?.enable
+    const validationSections = (options: AboutMeMenuConfig[]): boolean =>
+        options?.filter((menu) => menu.menuName === 'about_me_intro')?.some((menu) => menu.enable)
 
     useEffect(() => {
         if (token) {
@@ -74,32 +70,11 @@ const AboutMeView: FC<AboutMeViewProps> = ({ config }): ReactElement => {
                 {error !== null && <p>Hay un error!</p>}
                 {!loading ? (
                     <>
-                        {aboutMeIntroMenu?.enable && (
-                            <CardProfile
-                                aboutMeCard={config?.forms?.about_me_card}
-                                aboutMeName={config?.forms?.about_me_name}
-                                aboutMeJob={config?.forms?.about_me_job}
-                                aboutMeDescription={config?.forms?.about_me_description}
-                                aboutMeLocation={config?.forms?.about_me_location}
-                                aboutMeSocialMedia={config?.actions?.about_me_social_media}
-                            />
-                        )}
-                        {validationSections && (
+                        {aboutMeIntroMenu?.enable && <CardProfile />}
+                        {validationSections(options) && (
                             <CardWrapper>
-                                {aboutMeDescription?.enable && (
-                                    <CardAboutMeIntro
-                                        aboutMeTitle={config?.forms?.about_me_title}
-                                        aboutMeResume={config?.forms?.about_me_resume}
-                                        aboutMeProfileItemList={
-                                            config?.forms?.about_me_profile_item_list
-                                        }
-                                    />
-                                )}
-                                {aboutMeServicesMenu?.enable && (
-                                    <CardService
-                                        aboutMeServices={config?.forms?.about_me_services}
-                                    />
-                                )}
+                                {aboutMeDescription?.enable && <CardAboutMeIntro />}
+                                {aboutMeServicesMenu?.enable && <CardService />}
                                 {aboutMeSpecialties?.enable && <CardSpecialties />}
                                 {aboutMeTools?.enable && <CardTools />}
                                 {aboutMeEducation?.enable && <CardEducation />}
