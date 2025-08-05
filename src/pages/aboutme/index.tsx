@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { AboutMeView } from '@/infrastructure/ui/modules'
 
 // models
-import { TabsMenuConfig } from '@/domain/models'
+import { Countries, TabsMenuConfig } from '@/domain/models'
 
 // lib
 import { getLayout, getTabsMenuConfig } from '@/lib'
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
     try {
         const tabsMenu = await getTabsMenuConfig({
-            country: 'CO',
+            country: Countries.CO,
             menuType: 'module_tabs',
             token,
         })

@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { BlogView } from '@/infrastructure/ui/modules/BlogModule'
 
 // models
-import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
+import { TabsMenuConfig, ConfigModuleModel, Countries } from '@/domain/models'
 
 // lib
 import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
@@ -48,10 +48,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
     try {
         const config =
-            (await getConfig({ country: 'CO', moduleName: 'module_blog_page', token })) || {}
+            (await getConfig({ country: Countries.CO, moduleName: 'module_blog_page', token })) ||
+            {}
 
         const tabsMenu = await getTabsMenuConfig({
-            country: 'CO',
+            country: Countries.CO,
             menuType: 'module_tabs',
             token,
         })

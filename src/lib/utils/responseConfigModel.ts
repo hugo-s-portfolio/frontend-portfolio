@@ -4,6 +4,7 @@ import {
     AboutMeMenuConfig,
     AboutMeMenuResponse,
     Config,
+    Country,
     ResponseConfigModuleModel,
     TabsMenuConfig,
     TabsMenuModuleResponse,
@@ -14,7 +15,7 @@ export const getConfig = async ({
     moduleName,
     token,
 }: {
-    country: 'PY' | 'CO' | 'BO'
+    country: Country
     moduleName: string
     token: string
 }): Promise<Config | undefined> => {
@@ -40,7 +41,7 @@ export const getTabsMenuConfig = async ({
     menuType,
     token,
 }: {
-    country: 'PY' | 'CO' | 'BO'
+    country: Country
     menuType: string
     token: string
 }): Promise<TabsMenuConfig[]> => {
@@ -70,7 +71,7 @@ export const getAboutMeMenuConfig = async ({
     menuType,
     token,
 }: {
-    country: 'PY' | 'CO' | 'BO'
+    country: Country
     menuType: string
     token: string
 }): Promise<AboutMeMenuConfig[]> => {

@@ -11,7 +11,7 @@ export const getLayout = (page: ReactElement): ReactElement => {
     return (
         <MainLayout metaData={page.props.children.props?.config?.dataObject?.frontend?.metadata}>
             {page}
-            {newOptions.length > 0 && <MainMenu options={newOptions} initialValue={initialValue} />}
+            {/* {newOptions.length > 0 && <MainMenu options={newOptions} initialValue={initialValue} />} */}
         </MainLayout>
     )
 }

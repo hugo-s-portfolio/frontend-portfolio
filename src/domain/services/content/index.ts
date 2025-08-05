@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AxiosResponse } from 'axios'
+
 // repositories
 import { contentRepository } from '@/infrastructure/repository/content'
 
@@ -7,7 +9,6 @@ import { ResponseConfigModuleModel, Option, ConfigModuleModel, Country } from '@
 
 // dto
 import { getModule } from '@/domain/dto'
-import { AxiosResponse } from 'axios'
 
 export const contentService = {
     getMobileMenuOptions: async () => {
@@ -24,7 +25,9 @@ export const contentModulesServices = {
         try {
             const { data, ...rest } =
                 await contentRepository.getMobileMenuOptions<ResponseConfigModuleModel>()
+
             const config = data?.response?.config
+
             if (!config) return
 
             const formattedConfig = getModule(config)
