@@ -32,16 +32,16 @@ export const onLoadProfileConfig =
                 return dispatch(onErrorProfile())
             }
 
-            const profileConfig = await contentModulesServices.getConfig({
+            const { config, response } = await contentModulesServices.getConfig({
                 country,
                 moduleName,
                 token,
             })
 
-            dispatch(onLoadProfile(profileConfig))
+            dispatch(onLoadProfile(config))
 
-            if (onSuccess && profileConfig) {
-                onSuccess()
+            if (onSuccess && response) {
+                onSuccess(response)
             }
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorProfile())

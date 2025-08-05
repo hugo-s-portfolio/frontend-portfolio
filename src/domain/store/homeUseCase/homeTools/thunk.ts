@@ -32,16 +32,16 @@ export const onLoadProfileToolsConfig =
                 return dispatch(onErrorTools())
             }
 
-            const toolsConfig = await contentModulesServices.getConfig({
+            const { config, response } = await contentModulesServices.getConfig({
                 country,
                 moduleName,
                 token,
             })
 
-            dispatch(onLoadTools(toolsConfig))
+            dispatch(onLoadTools(config))
 
-            if (onSuccess && toolsConfig) {
-                onSuccess()
+            if (onSuccess && response) {
+                onSuccess(response)
             }
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorTools())

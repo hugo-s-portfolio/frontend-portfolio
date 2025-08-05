@@ -14,7 +14,7 @@ const initialState: EducationConfigState = {
     },
     loading: false,
     error: null,
-    timestamp: Date.now(),
+    timestamp: 0,
 }
 
 export const homeEducationSlice = createSlice({
@@ -31,6 +31,7 @@ export const homeEducationSlice = createSlice({
         onLoadEducation: (state, action: PayloadAction<ConfigModuleModel>) => {
             state.config = action.payload
             state.loading = false
+            state.timestamp = Date.now()
         },
     },
 })

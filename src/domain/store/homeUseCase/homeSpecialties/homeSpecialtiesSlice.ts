@@ -14,7 +14,7 @@ const initialState: SpecialtiesConfigState = {
     },
     loading: false,
     error: null,
-    timestamp: Date.now(),
+    timestamp: 0,
 }
 
 export const homeSpecialtiesSlice = createSlice({
@@ -31,6 +31,7 @@ export const homeSpecialtiesSlice = createSlice({
         onLoadSpecialties: (state, action: PayloadAction<ConfigModuleModel>) => {
             state.config = action.payload
             state.loading = false
+            state.timestamp = Date.now()
         },
     },
 })

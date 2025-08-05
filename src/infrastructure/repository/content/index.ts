@@ -1,10 +1,16 @@
-import { AxiosRequestConfig } from 'axios'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 // api
 import { http } from '@infrastructure/api'
 
 // models
 import { Config, Country, ResponseConfigModuleModel } from '@/domain/models'
+
+export interface ConfigResponse {
+    config?: Config
+    response?: AxiosResponse<ResponseConfigModuleModel, any>
+}
 
 export const contentRepository = {
     getMobileMenuOptions: async <T>(config?: AxiosRequestConfig) =>
@@ -17,21 +23,20 @@ export const contentRepository = {
         country: Country
         moduleName: string
         token: string
-    }): Promise<Config | undefined> => {
+    }): Promise<ConfigResponse> => {
         const url = `/modules?country=${country}&moduleName=${moduleName}`
 
         try {
-            const {
-                data: { response },
-            } = await http.get<ResponseConfigModuleModel>(url, {
+            const resp = await http.get<ResponseConfigModuleModel>(url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
 
-            return response?.config
+            return { config: resp?.data?.response?.config, response: resp }
         } catch (error) {
             console.error('Error en config. ', error)
+            return { config: undefined, response: undefined }
         }
     },
 }
