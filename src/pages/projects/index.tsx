@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { ProjectsView } from '@/infrastructure/ui/modules'
 
 // models
-import { TabsMenuConfig, ConfigModuleModel } from '@/domain/models'
+import { TabsMenuConfig, ConfigModuleModel, Countries } from '@/domain/models'
 
 // lib
 import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
@@ -49,13 +49,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     try {
         const config =
             (await getConfig({
-                country: 'CO',
+                country: Countries.CO,
                 moduleName: 'module_projects_page',
                 token,
             })) || {}
 
         const tabsMenu = await getTabsMenuConfig({
-            country: 'CO',
+            country: Countries.CO,
             menuType: 'module_tabs',
             token,
         })

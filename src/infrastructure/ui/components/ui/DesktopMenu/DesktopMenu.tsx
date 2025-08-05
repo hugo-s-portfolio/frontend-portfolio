@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { StyledDesktopMenu } from '@/infrastructure/ui/components/ui/DesktopMenu/desktopMenu-styles'
 
 // components
-import { SpeedDialAction, SpeedDial, SpeedDialIcon } from '@/infrastructure/ui/components//inc'
+import { SpeedDialAction, SpeedDial, SpeedDialIcon } from '@/infrastructure/ui/components'
 
 // icons
 import { getIcon } from '@/infrastructure/ui/utils/icons'

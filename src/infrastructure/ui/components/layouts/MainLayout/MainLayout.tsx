@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components/macro'
 import { ThemeProvider as ThemeProviderMUI } from '@mui/material/styles'
 
 // base components
-import { DefaultCtr } from '@/infrastructure/ui/components/inc'
+import { DefaultCtr, MainMenu } from '@/infrastructure/ui/components'
 
 // styles
 import { StyledMainLayout } from '@/infrastructure/ui/components/layouts/MainLayout/mainLayout-styles'
@@ -35,7 +35,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, metaData }) => {
                 <ThemeProviderMUI theme={themeMUI}>
                     <GlobalStyle reset />
                     <StyledMainLayout>
-                        <DefaultCtr>{children}</DefaultCtr>
+                        <DefaultCtr>
+                            {children}
+                            <MainMenu options={[]} initialValue={0} />
+                        </DefaultCtr>
                     </StyledMainLayout>
                 </ThemeProviderMUI>
             </ThemeProvider>
