@@ -7,7 +7,6 @@ import {
     CardAboutMeIntro,
     CardEducation,
     CardProfile,
-    CardProfileSkeleton,
     CardService,
     CardSpecialties,
     CardTools,
@@ -22,7 +21,7 @@ import {
 } from '@/infrastructure/ui/modules/AboutMeModule/views/AboutMeView/aboutMeView-style'
 
 // models
-import { AboutMeMenuConfig, ConfigModuleModel } from '@/domain/models'
+import { AboutMeMenuConfig, ConfigModuleModel, Countries } from '@/domain/models'
 import { onLoadAboutMeMenu } from '@/domain/store/homeUseCase/homeMenu/thunk'
 
 // utils
@@ -56,7 +55,7 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
         if (token) {
             dispatch(
                 onLoadAboutMeMenu({
-                    country: 'CO',
+                    country: Countries.CO,
                     token,
                     menuType: 'menu_about_me',
                 }),
@@ -82,10 +81,7 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
                         )}
                     </>
                 ) : (
-                    <>
-                        <CardProfileSkeleton />
-                        <CardWrapperSkeleton />
-                    </>
+                    <CardWrapperSkeleton />
                 )}
             </StyledCardProfile>
         </StyleAboutMeView>

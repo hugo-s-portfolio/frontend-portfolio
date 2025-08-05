@@ -2,7 +2,7 @@
 import { contentRepository } from '@/infrastructure/repository/content'
 
 // models
-import { ResponseConfigModuleModel, Option, ConfigModuleModel } from '@/domain/models'
+import { ResponseConfigModuleModel, Option, ConfigModuleModel, Country } from '@/domain/models'
 
 // dto
 import { getModule } from '@/domain/dto'
@@ -37,7 +37,7 @@ export const contentModulesServices = {
         moduleName,
         token,
     }: {
-        country: 'PY' | 'CO' | 'BO'
+        country: Country
         moduleName: string
         token: string
     }): Promise<ConfigModuleModel> => {

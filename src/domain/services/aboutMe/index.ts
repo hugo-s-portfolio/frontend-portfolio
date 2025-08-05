@@ -1,6 +1,8 @@
 // repositories
-import { AboutMeMenuConfig, AboutMeMenuResponse } from '@/domain/models'
 import { aboutMeRepository } from '@/infrastructure/repository/aboutMe'
+
+// models
+import { AboutMeMenuConfig, AboutMeMenuResponse, Country } from '@/domain/models'
 
 export const aboutMeService = {
     getAboutMeMenu: async ({
@@ -8,7 +10,7 @@ export const aboutMeService = {
         menuType,
         token,
     }: {
-        country: 'PY' | 'CO' | 'BO'
+        country: Country
         menuType: string
         token: string
     }): Promise<AboutMeMenuConfig[]> => {

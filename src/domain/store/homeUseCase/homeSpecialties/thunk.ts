@@ -9,19 +9,29 @@ import { onErrorSpecialties, onLoadingSpecialties, onLoadSpecialties } from '.'
 // services
 import { contentModulesServices } from '@/domain/services/content'
 
+// utils
+import { getCookie } from '@/infrastructure/ui/utils/finders'
+
+// models
+import { Country } from '@/domain/models'
+
 export interface Management<T> {
-    country: 'PY' | 'CO' | 'BO'
+    country: Country
     moduleName: string
-    token: string
     onSuccess?: (data?: T) => void
     onErr?: (err: AxiosError) => void
 }
 
 export const onLoadProfileSpecialtiesConfig =
-    ({ country, token, moduleName, onSuccess, onErr }: Management<AxiosResponse>) =>
+    ({ country, moduleName, onSuccess, onErr }: Management<AxiosResponse>) =>
     async (dispatch: AppDispatch) => {
         dispatch(onLoadingSpecialties())
+        const token = getCookie('session')
         try {
+            if (!token) {
+                return dispatch(onErrorSpecialties())
+            }
+
             const specialtiesConfig = await contentModulesServices.getConfig({
                 country,
                 moduleName,

@@ -1,10 +1,8 @@
-import { ConfigModuleModel } from '@/domain/models'
+import { ConfigModuleModel, InitialStatenConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface ToolsConfigState {
-    config: ConfigModuleModel
-    loading: boolean
-    error: unknown
+export interface ToolsConfigState extends InitialStatenConfig {
+    timestamp?: number
 }
 
 const initialState: ToolsConfigState = {
@@ -16,6 +14,7 @@ const initialState: ToolsConfigState = {
     },
     loading: false,
     error: null,
+    timestamp: Date.now(),
 }
 
 export const homeToolsSlice = createSlice({

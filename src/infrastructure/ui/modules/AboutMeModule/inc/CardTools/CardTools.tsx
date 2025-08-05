@@ -1,43 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, ReactElement, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
-// models
-import { FormObject } from '@/domain/models'
+import React, { FC, ReactElement } from 'react'
 
 // component
-import { Box, Skeleton, Typography } from '@/infrastructure/ui/components'
+import { Box, Typography } from '@/infrastructure/ui/components'
+import { CardAboutMeToolsSkeleton } from '..'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
-import { getCookie } from '@/infrastructure/ui/utils/finders'
 
 // store
-import { AppDispatch } from '@/domain/store/store'
-import { homeToolsSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
+import { homeToolsSelector } from '@/domain/store/homeUseCase'
 import { onLoadProfileToolsConfig } from '@/domain/store/homeUseCase/homeTools/thunk'
 
+// hooks
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
+
+// models
+import { Countries } from '@/domain/models'
+
 export interface CardToolsProps {
-    aboutMeTitle?: FormObject
+    test?: string
 }
 
 const CardTools: FC<CardToolsProps> = (): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const token = getCookie('session')
-
-    const { config, loading, error } = useSelector(homeToolsSelector) as ProfileConfigState
-
-    useEffect(() => {
-        if (token) {
-            dispatch(
-                onLoadProfileToolsConfig({
-                    country: 'CO',
-                    token,
-                    moduleName: 'module_about_me_tools',
-                }),
-            )
-        }
-    }, [])
+    const { config, loading, error } = useGetModuleConfig({
+        selector: homeToolsSelector,
+        thunkAction: onLoadProfileToolsConfig({
+            country: Countries.CO,
+            moduleName: 'module_about_me_tools',
+        }),
+    })
 
     return (
         <>
@@ -51,7 +43,14 @@ const CardTools: FC<CardToolsProps> = (): ReactElement => {
                 >
                     {config?.forms?.about_me_title?.show && (
                         <Box sx={{ display: 'flex', flexDirection: 'row', my: '15px' }}>
-                            {getIcon('HomeRepairService', { color: 'primary' })}
+                            {config?.forms?.about_me_title?.icon?.show &&
+                                config?.forms?.about_me_title?.icon?.url && (
+                                    <>
+                                        {getIcon(config?.forms?.about_me_title?.icon?.url, {
+                                            color: 'primary',
+                                        })}
+                                    </>
+                                )}
                             <Typography variant="h2" sx={{ ml: '5px', fontWeight: '500' }}>
                                 {config?.forms?.about_me_title?.label}
                             </Typography>
@@ -65,31 +64,7 @@ const CardTools: FC<CardToolsProps> = (): ReactElement => {
                     )}
                 </Box>
             ) : (
-                <>
-                    <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        sx={{
-                            width: '40%',
-                            height: '12px',
-                            borderRadius: '8px',
-                            marginBottom: '15px',
-                        }}
-                    />
-                    {[1, 2, 3].map((item) => (
-                        <Skeleton
-                            key={item}
-                            animation="wave"
-                            variant="rectangular"
-                            sx={{
-                                width: '100%',
-                                height: '10px',
-                                borderRadius: '4px',
-                                marginBottom: '5px',
-                            }}
-                        />
-                    ))}
-                </>
+                <CardAboutMeToolsSkeleton />
             )}
         </>
     )
