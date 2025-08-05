@@ -14,7 +14,7 @@ const initialState: ProfileIntroConfigState = {
     },
     loading: false,
     error: null,
-    timestamp: Date.now(),
+    timestamp: 0,
 }
 
 export const homeProfileIntroSlice = createSlice({
@@ -31,6 +31,7 @@ export const homeProfileIntroSlice = createSlice({
         onLoadProfileIntro: (state, action: PayloadAction<ConfigModuleModel>) => {
             state.config = action.payload
             state.loading = false
+            state.timestamp = Date.now()
         },
     },
 })

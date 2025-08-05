@@ -32,16 +32,16 @@ export const onLoadProfileSpecialtiesConfig =
                 return dispatch(onErrorSpecialties())
             }
 
-            const specialtiesConfig = await contentModulesServices.getConfig({
+            const { config, response } = await contentModulesServices.getConfig({
                 country,
                 moduleName,
                 token,
             })
 
-            dispatch(onLoadSpecialties(specialtiesConfig))
+            dispatch(onLoadSpecialties(config))
 
-            if (onSuccess && specialtiesConfig) {
-                onSuccess()
+            if (onSuccess && response) {
+                onSuccess(response)
             }
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorSpecialties())

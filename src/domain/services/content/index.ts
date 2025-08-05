@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // repositories
 import { contentRepository } from '@/infrastructure/repository/content'
 
@@ -6,6 +7,7 @@ import { ResponseConfigModuleModel, Option, ConfigModuleModel, Country } from '@
 
 // dto
 import { getModule } from '@/domain/dto'
+import { AxiosResponse } from 'axios'
 
 export const contentService = {
     getMobileMenuOptions: async () => {
@@ -40,20 +42,24 @@ export const contentModulesServices = {
         country: Country
         moduleName: string
         token: string
-    }): Promise<ConfigModuleModel> => {
+    }): Promise<{
+        config: ConfigModuleModel
+        response?: AxiosResponse<ResponseConfigModuleModel, any>
+    }> => {
         try {
-            const config = await contentRepository.getConfig({
+            const { config, response } = await contentRepository.getConfig({
                 country,
                 moduleName,
                 token,
             })
 
-            if (!config) return { forms: {}, actions: {}, formatting: {}, dataObject: {} }
+            if (!config)
+                return { config: { forms: {}, actions: {}, formatting: {}, dataObject: {} } }
 
-            return getModule(config)
+            return { config: getModule(config), response }
         } catch (error) {
             console.error(error)
-            return { forms: {}, actions: {}, formatting: {}, dataObject: {} }
+            return { config: { forms: {}, actions: {}, formatting: {}, dataObject: {} } }
         }
     },
 }

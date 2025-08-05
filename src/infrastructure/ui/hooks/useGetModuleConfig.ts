@@ -37,12 +37,10 @@ export const useGetModuleConfig = ({
     const { config, loading, error, timestamp } = useSelector(selector) as ProfileConfigState
 
     useEffect(() => {
-        if (timestamp) {
-            const cacheValid = Date.now() - timestamp < TIMEOUT
+        const cacheValid = Boolean(timestamp && Date.now() - timestamp < TIMEOUT)
 
-            if (token && !cacheValid) {
-                dispatch(thunkAction)
-            }
+        if (token && !cacheValid) {
+            dispatch(thunkAction)
         }
     }, [])
 
