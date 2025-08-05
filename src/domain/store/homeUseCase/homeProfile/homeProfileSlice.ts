@@ -1,10 +1,8 @@
-import { ConfigModuleModel } from '@/domain/models'
+import { ConfigModuleModel, InitialStatenConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface ProfileConfigState {
-    config: ConfigModuleModel
-    loading: boolean
-    error: unknown
+export interface ProfileConfigState extends InitialStatenConfig {
+    timestamp?: number
 }
 
 const initialState: ProfileConfigState = {
@@ -16,6 +14,7 @@ const initialState: ProfileConfigState = {
     },
     loading: false,
     error: null,
+    timestamp: Date.now(),
 }
 
 export const homeProfileSlice = createSlice({

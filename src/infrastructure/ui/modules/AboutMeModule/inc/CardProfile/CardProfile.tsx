@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, ReactElement, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC, ReactElement } from 'react'
 
 // base components
 import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
@@ -12,26 +11,32 @@ import { StyledHomeImage } from '@/infrastructure/ui/modules/AboutMeModule/inc/C
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // utils
-import { findCharacteristic, findParameter, getCookie } from '@/infrastructure/ui/utils/finders'
-
-// store
-import { AppDispatch } from '@/domain/store/store'
+import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
 
 // selector
-import { homeProfileSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
+import { homeProfileSelector } from '@/domain/store/homeUseCase'
 
 // actions
 import { onLoadProfileConfig } from '@/domain/store/homeUseCase/homeProfile/thunk'
+
+// hooks
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
+
+// models
+import { Countries } from '@/domain/models'
 
 export interface CardProfileProps {
     test?: string
 }
 
 const CardProfile: FC<CardProfileProps> = (): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const token = getCookie('session')
-
-    const { config, loading, error } = useSelector(homeProfileSelector) as ProfileConfigState
+    const { config, loading, error } = useGetModuleConfig({
+        selector: homeProfileSelector,
+        thunkAction: onLoadProfileConfig({
+            country: Countries.CO,
+            moduleName: 'module_about_me_page',
+        }),
+    })
 
     const social =
         findCharacteristic<{ link: string; name: string; order: number; show: true }[]>(
@@ -46,18 +51,6 @@ const CardProfile: FC<CardProfileProps> = (): ReactElement => {
             window.open(link, '_blank', 'noopener,noreferrer')
         }
     }
-
-    useEffect(() => {
-        if (token) {
-            dispatch(
-                onLoadProfileConfig({
-                    country: 'CO',
-                    token,
-                    moduleName: 'module_about_me_page',
-                }),
-            )
-        }
-    }, [])
 
     return (
         <>

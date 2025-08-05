@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
 const MAX_VALUE = 100
@@ -16,14 +17,12 @@ export const useCountdownTimer = (
         return () => {
             clearInterval(timer)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if (progress === MAX_VALUE && callback) {
             callback(progress)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [progress])
 
     return [progress]

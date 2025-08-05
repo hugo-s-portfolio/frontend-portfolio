@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios'
 import axiosRetry from 'axios-retry'
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: process.env.NEXT_PUBLIC_BACK_API,
     timeout: 1000,
     headers: { 'X-Custom-Header': 'foobar' },
 })
@@ -11,6 +11,23 @@ axiosRetry(api, {
     retryDelay: axiosRetry.exponentialDelay,
     retries: 4,
 })
+
+api.interceptors.request.use(
+    (config) => {
+        return config
+    },
+    (error) => Promise.reject(error),
+)
+
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (isAxiosError(error) && error.response?.status === 401) {
+            console.error('Unauthorize.')
+        }
+        return Promise.reject(error)
+    },
+)
 
 const handleErr = (error: unknown): AxiosResponse | undefined => {
     if (isAxiosError(error)) {

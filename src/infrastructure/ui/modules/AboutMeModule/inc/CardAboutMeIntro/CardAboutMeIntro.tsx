@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, ReactElement, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { FC, ReactElement } from 'react'
 
 // components
 import {
@@ -10,24 +9,28 @@ import {
     ListItem,
     ListItemAvatar,
     ListItemText,
-    Skeleton,
     Typography,
 } from '@/infrastructure/ui/components'
+import { CardAboutMeIntroSkeleton } from '..'
 
 // utils
 import {
     calculateAge,
     findCharacteristic,
     findParameter,
-    getCookie,
     replaceTextByEntryText,
 } from '@/infrastructure/ui/utils/finders'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { AppDispatch } from '@/domain/store/store'
-import { homeProfileIntroSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
+import { homeProfileIntroSelector } from '@/domain/store/homeUseCase'
 import { onLoadProfileIntroConfig } from '@/domain/store/homeUseCase/homeProfileIntro/thunk'
+
+// hooks
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
+
+// models
+import { Countries } from '@/domain/models'
 
 export interface CardAboutMeIntroProps {
     test?: string
@@ -42,28 +45,19 @@ export interface ProfileItemList {
 }
 
 const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const token = getCookie('session')
-
-    const { config, loading, error } = useSelector(homeProfileIntroSelector) as ProfileConfigState
+    const { config, loading, error } = useGetModuleConfig({
+        selector: homeProfileIntroSelector,
+        thunkAction: onLoadProfileIntroConfig({
+            country: Countries.CO,
+            moduleName: 'module_about_me_intro',
+        }),
+    })
 
     const profileItemList =
         findCharacteristic<ProfileItemList[]>(
             config?.forms?.about_me_profile_item_list,
             'profile_item_list',
         ) || []
-
-    useEffect(() => {
-        if (token) {
-            dispatch(
-                onLoadProfileIntroConfig({
-                    country: 'CO',
-                    token,
-                    moduleName: 'module_about_me_intro',
-                }),
-            )
-        }
-    }, [])
 
     return (
         <>
@@ -72,7 +66,14 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
                 <>
                     {config?.forms?.about_me_title?.show && (
                         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                            {getIcon('AssignmentInd', { color: 'primary' })}
+                            {config?.forms?.about_me_title?.icon?.show &&
+                                config?.forms?.about_me_title?.icon?.url && (
+                                    <>
+                                        {getIcon(config?.forms?.about_me_title?.icon?.url, {
+                                            color: 'primary',
+                                        })}
+                                    </>
+                                )}
                             <Typography
                                 variant="h2"
                                 sx={{ mb: '10px', ml: '5px', fontWeight: '500' }}
@@ -149,105 +150,7 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
                     </Box>
                 </>
             ) : (
-                <>
-                    <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        sx={{
-                            width: '40%',
-                            height: '12px',
-                            borderRadius: '8px',
-                            marginBottom: '15px',
-                        }}
-                    />
-                    {[1, 2, 3, 4].map((item) => (
-                        <Skeleton
-                            key={item}
-                            animation="wave"
-                            variant="rectangular"
-                            sx={{
-                                width: '100%',
-                                height: '10px',
-                                borderRadius: '4px',
-                                marginBottom: '5px',
-                            }}
-                        />
-                    ))}
-
-                    <Box
-                        sx={{
-                            width: '100%',
-                            display: 'flex',
-                            margin: '20px 0',
-                            flexDirection: {
-                                xs: 'column',
-                                lg: 'row',
-                            },
-                            justifyContent: {
-                                lg: 'flex-start',
-                            },
-                            alignItems: {
-                                lg: 'center',
-                            },
-                            flexWrap: 'wrap',
-                            bgcolor: 'background.paper',
-                            gap: { xs: '10px', lg: '0' },
-                        }}
-                    >
-                        {[1, 2, 3, 4].map((item) => (
-                            <Box
-                                key={item}
-                                sx={{
-                                    width: {
-                                        xs: '100%',
-                                        lg: '48%',
-                                    },
-                                    margin: '4px 0',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Skeleton
-                                    animation="wave"
-                                    variant="circular"
-                                    sx={{
-                                        width: '50px',
-                                        height: '50px',
-                                        borderRadius: '50%',
-                                    }}
-                                />
-                                <Box
-                                    sx={{
-                                        marginLeft: '10px',
-                                        width: '70%',
-                                        height: '100%',
-                                    }}
-                                >
-                                    <Skeleton
-                                        animation="wave"
-                                        variant="rectangular"
-                                        sx={{
-                                            width: '100%',
-                                            height: '10px',
-                                            borderRadius: '4px',
-                                            marginBottom: '5px',
-                                        }}
-                                    />
-                                    <Skeleton
-                                        animation="wave"
-                                        variant="rectangular"
-                                        sx={{
-                                            width: '70%',
-                                            height: '10px',
-                                            borderRadius: '4px',
-                                            marginBottom: '5px',
-                                        }}
-                                    />
-                                </Box>
-                            </Box>
-                        ))}
-                    </Box>
-                </>
+                <CardAboutMeIntroSkeleton />
             )}
         </>
     )

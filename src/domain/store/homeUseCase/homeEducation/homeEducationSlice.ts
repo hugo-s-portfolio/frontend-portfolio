@@ -1,10 +1,8 @@
-import { ConfigModuleModel } from '@/domain/models'
+import { ConfigModuleModel, InitialStatenConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface EducationConfigState {
-    config: ConfigModuleModel
-    loading: boolean
-    error: unknown
+export interface EducationConfigState extends InitialStatenConfig {
+    timestamp?: number
 }
 
 const initialState: EducationConfigState = {
@@ -16,6 +14,7 @@ const initialState: EducationConfigState = {
     },
     loading: false,
     error: null,
+    timestamp: Date.now(),
 }
 
 export const homeEducationSlice = createSlice({

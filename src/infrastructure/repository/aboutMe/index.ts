@@ -3,6 +3,9 @@ import { AxiosRequestConfig } from 'axios'
 // api
 import { http } from '@infrastructure/api'
 
+// models
+import { Country } from '@/domain/models'
+
 export const aboutMeRepository = {
     createMobileMenu: async <T>(url: string, data: T, config?: AxiosRequestConfig) =>
         await http.post(url, data, config),
@@ -11,11 +14,11 @@ export const aboutMeRepository = {
         menuType,
         token,
     }: {
-        country: 'PY' | 'CO' | 'BO'
+        country: Country
         menuType: string
         token: string
     }): Promise<T | null> => {
-        const url = `${process.env.NEXT_PUBLIC_BACK_API}/menu/aboutme?country=${country}&menuType=${menuType}`
+        const url = `/menu/aboutme?country=${country}&menuType=${menuType}`
 
         try {
             const { data } = await http.get<T>(url, {

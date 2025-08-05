@@ -2,7 +2,9 @@ import { AxiosRequestConfig } from 'axios'
 
 // api
 import { http } from '@infrastructure/api'
-import { Config, ResponseConfigModuleModel } from '@/domain/models'
+
+// models
+import { Config, Country, ResponseConfigModuleModel } from '@/domain/models'
 
 export const contentRepository = {
     getMobileMenuOptions: async <T>(config?: AxiosRequestConfig) =>
@@ -12,11 +14,11 @@ export const contentRepository = {
         moduleName,
         token,
     }: {
-        country: 'PY' | 'CO' | 'BO'
+        country: Country
         moduleName: string
         token: string
     }): Promise<Config | undefined> => {
-        const url = `${process.env.NEXT_PUBLIC_BACK_API}/modules?country=${country}&moduleName=${moduleName}`
+        const url = `/modules?country=${country}&moduleName=${moduleName}`
 
         try {
             const {

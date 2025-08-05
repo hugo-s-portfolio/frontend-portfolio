@@ -1,42 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, ReactElement, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
-// models
-import { AppDispatch } from '@/domain/store/store'
+import React, { FC, ReactElement } from 'react'
 
 // component
-import { Box, Skeleton, Typography } from '@/infrastructure/ui/components'
+import { Box, Typography } from '@/infrastructure/ui/components'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
-import { getCookie } from '@/infrastructure/ui/utils/finders'
+import { CardAboutMeSpecialtiesSkeleton } from '..'
 
 // store
-import { homeSpecialtiesSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
+import { homeSpecialtiesSelector } from '@/domain/store/homeUseCase'
 import { onLoadProfileSpecialtiesConfig } from '@/domain/store/homeUseCase/homeSpecialties/thunk'
+
+// hooks
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
+
+// models
+import { Countries } from '@/domain/models'
 
 export interface CardSpecialtiesProps {
     test?: string
 }
 
 const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const token = getCookie('session')
-
-    const { config, loading, error } = useSelector(homeSpecialtiesSelector) as ProfileConfigState
-
-    useEffect(() => {
-        if (token) {
-            dispatch(
-                onLoadProfileSpecialtiesConfig({
-                    country: 'CO',
-                    token,
-                    moduleName: 'module_about_me_specialties',
-                }),
-            )
-        }
-    }, [])
+    const { config, loading, error } = useGetModuleConfig({
+        selector: homeSpecialtiesSelector,
+        thunkAction: onLoadProfileSpecialtiesConfig({
+            country: Countries.CO,
+            moduleName: 'module_about_me_specialties',
+        }),
+    })
 
     return (
         <>
@@ -50,7 +43,14 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
                 >
                     {config?.forms?.about_me_title?.show && (
                         <Box sx={{ display: 'flex', flexDirection: 'row', my: '15px' }}>
-                            {getIcon('HomeRepairService', { color: 'primary' })}
+                            {config?.forms?.about_me_title?.icon?.show &&
+                                config?.forms?.about_me_title?.icon?.url && (
+                                    <>
+                                        {getIcon(config?.forms?.about_me_title?.icon?.url, {
+                                            color: 'primary',
+                                        })}
+                                    </>
+                                )}
                             <Typography variant="h2" sx={{ ml: '5px', fontWeight: '500' }}>
                                 {config?.forms?.about_me_title?.label}
                             </Typography>
@@ -64,32 +64,7 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
                     )}
                 </Box>
             ) : (
-                <>
-                    <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        sx={{
-                            width: '40%',
-                            height: '12px',
-                            borderRadius: '8px',
-                            marginTop: '20px',
-                            marginBottom: '20px',
-                        }}
-                    />
-                    {[1, 2, 3, 4].map((item) => (
-                        <Skeleton
-                            key={item}
-                            animation="wave"
-                            variant="rectangular"
-                            sx={{
-                                width: '100%',
-                                height: '10px',
-                                borderRadius: '4px',
-                                marginBottom: '5px',
-                            }}
-                        />
-                    ))}
-                </>
+                <CardAboutMeSpecialtiesSkeleton />
             )}
         </>
     )

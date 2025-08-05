@@ -9,8 +9,11 @@ import { onErrorHomeMenu, onLoadingHomeMenu, onLoadHomeMenu } from '.'
 // services
 import { aboutMeService } from '@/domain/services/aboutMe'
 
+// models
+import { Country } from '@/domain/models'
+
 export interface Management<T> {
-    country: 'PY' | 'CO' | 'BO'
+    country: Country
     menuType: string
     token: string
     onSuccess?: (data?: T) => void
