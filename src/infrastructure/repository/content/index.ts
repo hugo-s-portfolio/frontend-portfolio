@@ -1,20 +1,54 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 
 // api
 import { http } from '@infrastructure/api'
 
 // models
-import { Config, Country, ResponseConfigModuleModel } from '@/domain/models'
+import {
+    Config,
+    Country,
+    ResponseConfigModuleModel,
+    TabsMenuConfig,
+    TabsMenuModuleResponse,
+} from '@/domain/models'
 
 export interface ConfigResponse {
     config?: Config
     response?: AxiosResponse<ResponseConfigModuleModel, any>
 }
 
+export interface MenuConfigResponse {
+    config: TabsMenuConfig[]
+    response?: AxiosResponse<TabsMenuModuleResponse, any>
+}
+
 export const contentRepository = {
-    getMobileMenuOptions: async <T>(config?: AxiosRequestConfig) =>
-        await http.get<T>('/content/home', config),
+    getMobileMenuOptions: async ({
+        country,
+        menuType,
+        token,
+    }: {
+        country: Country
+        menuType: string
+        token: string
+    }): Promise<MenuConfigResponse> => {
+        const url = `${process.env.NEXT_PUBLIC_BACK_API}/menu/tabs?country=${country}&menuType=${menuType}`
+
+        try {
+            const response = await http.get<TabsMenuModuleResponse>(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+            return { config: response?.data?.response?.config ?? [], response }
+        } catch (error) {
+            console.error('Error en config. ', error)
+
+            return { config: [], response: undefined }
+        }
+    },
     getConfig: async ({
         country,
         moduleName,

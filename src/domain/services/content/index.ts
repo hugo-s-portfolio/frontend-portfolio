@@ -5,36 +5,41 @@ import { AxiosResponse } from 'axios'
 import { contentRepository } from '@/infrastructure/repository/content'
 
 // models
-import { ResponseConfigModuleModel, Option, ConfigModuleModel, Country } from '@/domain/models'
+import {
+    ResponseConfigModuleModel,
+    ConfigModuleModel,
+    Country,
+    TabsMenuConfig,
+    TabsMenuModuleResponse,
+} from '@/domain/models'
 
 // dto
 import { getModule } from '@/domain/dto'
 
-export const contentService = {
-    getMobileMenuOptions: async () => {
-        const response = await contentModulesServices.getMenuModule()
-
-        const options = (response?.config?.dataObject?.frontend?.options as Option[]) || []
-
-        return { options, response: response?.resp }
-    },
-}
-
 export const contentModulesServices = {
-    getMenuModule: async () => {
+    getMenuModule: async ({
+        country,
+        menuType,
+        token,
+    }: {
+        country: Country
+        menuType: string
+        token: string
+    }): Promise<{
+        config: TabsMenuConfig[]
+        response?: AxiosResponse<TabsMenuModuleResponse, any>
+    }> => {
         try {
-            const { data, ...rest } =
-                await contentRepository.getMobileMenuOptions<ResponseConfigModuleModel>()
+            const { config, response } = await contentRepository.getMobileMenuOptions({
+                country,
+                menuType,
+                token,
+            })
 
-            const config = data?.response?.config
-
-            if (!config) return
-
-            const formattedConfig = getModule(config)
-
-            return { config: formattedConfig, resp: { data, ...rest } }
+            return { config, response: response }
         } catch (error) {
             console.error('Error modulo de menu principal', error)
+            return { config: [], response: undefined }
         }
     },
     getConfig: async ({

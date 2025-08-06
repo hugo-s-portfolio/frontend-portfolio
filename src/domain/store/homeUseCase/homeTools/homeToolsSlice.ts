@@ -18,7 +18,7 @@ const initialState: ToolsConfigState = {
 }
 
 export const homeToolsSlice = createSlice({
-    name: 'home',
+    name: 'homeToolsSlice',
     initialState,
     reducers: {
         onErrorTools: (state) => {

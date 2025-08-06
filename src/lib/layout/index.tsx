@@ -1,17 +1,12 @@
 import { ReactElement } from 'react'
 
 // components
-import { MainLayout, MainMenu } from '@/infrastructure/ui/components'
+import { MainLayout } from '@/infrastructure/ui/components'
 
 export const getLayout = (page: ReactElement): ReactElement => {
-    const initialValue = page.props.children.props.config?.dataObject?.frontend?.initialValue || 0
-
-    const newOptions = page.props.children.props?.tabsMenu || []
-
     return (
         <MainLayout metaData={page.props.children.props?.config?.dataObject?.frontend?.metadata}>
             {page}
-            {/* {newOptions.length > 0 && <MainMenu options={newOptions} initialValue={initialValue} />} */}
         </MainLayout>
     )
 }

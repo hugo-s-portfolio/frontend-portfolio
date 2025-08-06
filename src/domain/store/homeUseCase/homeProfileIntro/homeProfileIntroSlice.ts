@@ -18,7 +18,7 @@ const initialState: ProfileIntroConfigState = {
 }
 
 export const homeProfileIntroSlice = createSlice({
-    name: 'home',
+    name: 'homeProfileIntroSlice',
     initialState,
     reducers: {
         onErrorProfileIntro: (state) => {

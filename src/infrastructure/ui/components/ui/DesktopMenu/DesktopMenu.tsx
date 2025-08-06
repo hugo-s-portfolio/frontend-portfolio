@@ -10,29 +10,18 @@ import { SpeedDialAction, SpeedDial, SpeedDialIcon } from '@/infrastructure/ui/c
 // icons
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
-interface DesktopMenuProps {
-    options: Option[]
-    initialValue: number
-}
+// models
+import { TabsMenuConfig } from '@/domain/models'
 
-export interface Option {
-    label: string
-    fontSize: number
-    icon: string
-    country: string
-    description?: string
-    enabled: boolean
-    menuId: number
-    menuName: string
-    menuType: string
-    route: string
+interface DesktopMenuProps {
+    options: TabsMenuConfig[]
 }
 
 const DesktopMenu: FC<DesktopMenuProps> = ({ options }): ReactElement => {
     const [open, setOpen] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
-    const orderedOptions = options?.sort((a, b) => a.menuId - b.menuId)
+    const orderedOptions = options?.slice().sort((a, b) => (a?.menuId ?? 1) - (b?.menuId ?? 1))
 
     const handleOpen = (): void => setOpen(true)
     const handleClose = (): void => setOpen(false)
@@ -52,20 +41,23 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ options }): ReactElement => {
                 onOpen={handleOpen}
                 open={open}
             >
-                {orderedOptions?.map(({ menuId, icon, label, route }) => (
-                    <SpeedDialAction
-                        key={menuId}
-                        icon={getIcon(icon, {
-                            color:
-                                pathname?.toLowerCase() === route?.toLowerCase()
-                                    ? 'primary'
-                                    : 'inherit',
-                        })}
-                        tooltipTitle={label}
-                        tooltipOpen
-                        onClick={() => handleNavigation(route)}
-                    />
-                ))}
+                {orderedOptions?.map(({ menuId, icon, label, route }) => {
+                    if (!icon || !route) return
+                    return (
+                        <SpeedDialAction
+                            key={menuId}
+                            icon={getIcon(icon, {
+                                color:
+                                    pathname?.toLowerCase() === route?.toLowerCase()
+                                        ? 'primary'
+                                        : 'inherit',
+                            })}
+                            tooltipTitle={label}
+                            tooltipOpen
+                            onClick={() => handleNavigation(route)}
+                        />
+                    )
+                })}
             </SpeedDial>
         </StyledDesktopMenu>
     )

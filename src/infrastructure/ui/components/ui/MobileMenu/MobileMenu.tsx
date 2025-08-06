@@ -10,22 +10,12 @@ import { Tab, Tabs } from '@/infrastructure/ui/components'
 // icons
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
-export interface MobileMenuProps {
-    options: Option[]
-    initialValue: number
-}
+// models
+import { TabsMenuConfig } from '@/domain/models'
 
-export interface Option {
-    label: string
-    fontSize: number
-    icon: string
-    country: string
-    description?: string
-    enabled: boolean
-    menuId: number
-    menuName: string
-    menuType: string
-    route: string
+export interface MobileMenuProps {
+    options: TabsMenuConfig[]
+    initialValue: number
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElement => {
@@ -44,16 +34,21 @@ const MobileMenu: FC<MobileMenuProps> = ({ options, initialValue }): ReactElemen
         <StyledMenuMobile>
             <Tabs value={value} onChange={handleChangeOption} centered $indicatorPosition="top">
                 {options
-                    ?.sort((a, b) => a.menuId - b.menuId)
-                    ?.map(({ label, icon, fontSize, menuId, route }) => (
-                        <Tab
-                            key={menuId}
-                            onClick={() => handleNavigation(route)}
-                            icon={getIcon(icon, {})}
-                            sx={{ fontSize }}
-                            label={label}
-                        />
-                    ))}
+                    ?.slice()
+                    ?.sort((a, b) => (a?.menuId ?? 1) - (b?.menuId ?? 1))
+                    ?.map(({ label, icon, fontSize, menuId, route }) => {
+                        if (!icon || !route) return
+
+                        return (
+                            <Tab
+                                key={menuId}
+                                onClick={() => handleNavigation(route)}
+                                icon={getIcon(icon, {})}
+                                sx={{ fontSize }}
+                                label={label}
+                            />
+                        )
+                    })}
             </Tabs>
         </StyledMenuMobile>
     )

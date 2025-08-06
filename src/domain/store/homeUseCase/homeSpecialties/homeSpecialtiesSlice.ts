@@ -18,7 +18,7 @@ const initialState: SpecialtiesConfigState = {
 }
 
 export const homeSpecialtiesSlice = createSlice({
-    name: 'home',
+    name: 'homeSpecialtiesSlice',
     initialState,
     reducers: {
         onErrorSpecialties: (state) => {
