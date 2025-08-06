@@ -21,7 +21,7 @@ export interface MainMenuProps {
     initialValue?: number
 }
 
-const TIMEOUT = 4 * 60 * 60 * 1000
+const TIMEOUT = parseInt(process.env.NEXT_PUBLIC_STRAPI_TIMEOUT ?? '14400000')
 
 const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
     const pathname = usePathname()
