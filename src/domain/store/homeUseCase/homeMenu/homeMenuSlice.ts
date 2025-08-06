@@ -5,12 +5,14 @@ export interface HomeMenuState {
     options: AboutMeMenuConfig[]
     loading: boolean
     error: unknown
+    timestamp: number
 }
 
 const initialState: HomeMenuState = {
     error: null,
     loading: false,
     options: [],
+    timestamp: 0,
 }
 
 export const homeMenuSlice = createSlice({
@@ -27,6 +29,7 @@ export const homeMenuSlice = createSlice({
         onLoadHomeMenu: (state, action: PayloadAction<AboutMeMenuConfig[]>) => {
             state.options = action.payload
             state.loading = false
+            state.timestamp = Date.now()
         },
     },
 })

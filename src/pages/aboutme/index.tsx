@@ -1,13 +1,17 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
+// modules
 import { AboutMeView } from '@/infrastructure/ui/modules'
 
-// models
-import { Countries, TabsMenuConfig } from '@/domain/models'
-
 // lib
-import { getLayout, getTabsMenuConfig } from '@/lib'
+import { getConfig, getLayout } from '@/lib'
+
+// models
+import { ConfigModuleModel, Countries } from '@/domain/models'
+
+// dto
+import { getModule } from '@/domain/dto'
 
 export type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
@@ -22,7 +26,7 @@ HomePage.getLayout = getLayout
 
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
-    tabsMenu: TabsMenuConfig[]
+    config: ConfigModuleModel
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
@@ -32,22 +36,25 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
         return {
             props: {
                 status: 'ERROR',
-                tabsMenu: [],
+                config: {
+                    forms: {},
+                    actions: {},
+                    formatting: {},
+                    dataObject: {},
+                },
             },
         }
     }
 
-    try {
-        const tabsMenu = await getTabsMenuConfig({
-            country: Countries.CO,
-            menuType: 'module_tabs',
-            token,
-        })
+    const config =
+        (await getConfig({ country: Countries.CO, moduleName: 'module_about_me_page', token })) ||
+        {}
 
+    try {
         return {
             props: {
                 status: 'SUCCESS',
-                tabsMenu,
+                config: getModule(config),
             },
         }
     } catch (error) {
@@ -55,7 +62,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
         return {
             props: {
                 status: 'ERROR',
-                tabsMenu: [],
+                config: {
+                    forms: {},
+                    actions: {},
+                    formatting: {},
+                    dataObject: {},
+                },
             },
         }
     }

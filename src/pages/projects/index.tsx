@@ -1,13 +1,14 @@
 import { ReactElement } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
+// modules
 import { ProjectsView } from '@/infrastructure/ui/modules'
 
 // models
-import { TabsMenuConfig, ConfigModuleModel, Countries } from '@/domain/models'
+import { ConfigModuleModel, Countries } from '@/domain/models'
 
 // lib
-import { getConfig, getLayout, getTabsMenuConfig } from '@/lib'
+import { getConfig, getLayout } from '@/lib'
 
 // dto
 import { getModule } from '@/domain/dto'
@@ -25,7 +26,6 @@ ProjectsPage.getLayout = getLayout
 export interface Props {
     status: 'SUCCESS' | 'ERROR'
     config: ConfigModuleModel
-    tabsMenu: TabsMenuConfig[]
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
@@ -41,7 +41,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                     formatting: {},
                     dataObject: {},
                 },
-                tabsMenu: [],
             },
         }
     }
@@ -54,17 +53,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                 token,
             })) || {}
 
-        const tabsMenu = await getTabsMenuConfig({
-            country: Countries.CO,
-            menuType: 'module_tabs',
-            token,
-        })
-
         return {
             props: {
                 status: 'SUCCESS',
                 config: getModule(config),
-                tabsMenu,
             },
         }
     } catch (error) {
@@ -78,7 +70,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                     formatting: {},
                     dataObject: {},
                 },
-                tabsMenu: [],
             },
         }
     }

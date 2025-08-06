@@ -65,18 +65,23 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
 
     return (
         <>
-            {error !== null && <p>Hay un error</p>}
-            {!loading ? (
+            {error !== null ? (
+                <p>Hay un error</p>
+            ) : (
                 <>
-                    {pathname !== '/' && (
+                    {!loading ? (
                         <>
-                            <MobileMenu options={options} initialValue={value} />
-                            <DesktopMenu options={options} />
+                            {pathname !== '/' && (
+                                <>
+                                    <MobileMenu options={options} initialValue={value} />
+                                    <DesktopMenu options={options} />
+                                </>
+                            )}
                         </>
+                    ) : (
+                        <MainMenuSkeleton />
                     )}
                 </>
-            ) : (
-                <MainMenuSkeleton />
             )}
         </>
     )
