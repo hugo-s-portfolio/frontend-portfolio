@@ -25,7 +25,7 @@ export interface IUseGetModuleConfigOutput {
     error: unknown
 }
 
-const TIMEOUT = 4 * 60 * 60 * 1000
+const TIMEOUT = parseInt(process.env.NEXT_PUBLIC_STRAPI_TIMEOUT ?? '14400000')
 
 export const useGetModuleConfig = ({
     selector,
