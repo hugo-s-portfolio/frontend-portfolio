@@ -31,15 +31,20 @@ import { findMenu, getCookie } from '@/infrastructure/ui/utils/finders'
 import { AppDispatch } from '@/domain/store/store'
 import { homeMenuSelector, HomeMenuState } from '@/domain/store/homeUseCase'
 
+// enums
+import { AboutMeMenu } from '@/infrastructure/ui/modules/AboutMeModule/enums'
+
 export interface AboutMeViewProps {
     config?: ConfigModuleModel
     status?: 'SUCCESS' | 'ERROR'
 }
 
+const TIMEOUT = 4 * 60 * 60 * 1000
+
 const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
     const dispatch: AppDispatch = useDispatch()
     const token = getCookie('session')
-    const { options, loading, error } = useSelector(homeMenuSelector) as HomeMenuState
+    const { options, loading, error, timestamp } = useSelector(homeMenuSelector) as HomeMenuState
 
     const aboutMeIntroMenu = findMenu(options, 'about_me_intro')
     const aboutMeDescription = findMenu(options, 'about_me_description')
@@ -52,12 +57,14 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
         options?.filter((menu) => menu.menuName === 'about_me_intro')?.some((menu) => menu.enable)
 
     useEffect(() => {
-        if (token) {
+        const cacheValid = Boolean(timestamp && Date.now() - timestamp < TIMEOUT)
+
+        if (token && !cacheValid) {
             dispatch(
                 onLoadAboutMeMenu({
                     country: Countries.CO,
                     token,
-                    menuType: 'menu_about_me',
+                    menuType: AboutMeMenu.MenuAboutMe,
                 }),
             )
         }
@@ -66,22 +73,27 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
     return (
         <StyleAboutMeView>
             <StyledCardProfile>
-                {error !== null && <p>Hay un error!</p>}
-                {!loading ? (
+                {error !== null ? (
+                    <p>Hay un error!</p>
+                ) : (
                     <>
-                        {aboutMeIntroMenu?.enable && <CardProfile />}
-                        {validationSections(options) && (
-                            <CardWrapper>
-                                {aboutMeDescription?.enable && <CardAboutMeIntro />}
-                                {aboutMeServicesMenu?.enable && <CardService />}
-                                {aboutMeSpecialties?.enable && <CardSpecialties />}
-                                {aboutMeTools?.enable && <CardTools />}
-                                {aboutMeEducation?.enable && <CardEducation />}
-                            </CardWrapper>
+                        {!loading ? (
+                            <>
+                                {aboutMeIntroMenu?.enable && <CardProfile />}
+                                {validationSections(options) && (
+                                    <CardWrapper>
+                                        {aboutMeDescription?.enable && <CardAboutMeIntro />}
+                                        {aboutMeServicesMenu?.enable && <CardService />}
+                                        {aboutMeSpecialties?.enable && <CardSpecialties />}
+                                        {aboutMeTools?.enable && <CardTools />}
+                                        {aboutMeEducation?.enable && <CardEducation />}
+                                    </CardWrapper>
+                                )}
+                            </>
+                        ) : (
+                            <CardWrapperSkeleton />
                         )}
                     </>
-                ) : (
-                    <CardWrapperSkeleton />
                 )}
             </StyledCardProfile>
         </StyleAboutMeView>

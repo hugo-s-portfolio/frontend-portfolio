@@ -29,6 +29,9 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 // models
 import { Countries } from '@/domain/models'
 
+// enums
+import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
+
 export interface CardServicesProps {
     test?: string
 }
@@ -47,7 +50,7 @@ const CardServices: FC<CardServicesProps> = (): ReactElement => {
         selector: homeServicesSelector,
         thunkAction: onLoadProfileServicesConfig({
             country: Countries.CO,
-            moduleName: 'module_about_me_services',
+            moduleName: AboutMeModules.ModuleAboutMeServices,
         }),
     })
 

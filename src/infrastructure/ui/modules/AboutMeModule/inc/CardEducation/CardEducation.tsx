@@ -18,6 +18,9 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 // models
 import { Countries } from '@/domain/models'
 
+// enums
+import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
+
 export interface CardEducationProps {
     test?: string
 }
@@ -27,7 +30,7 @@ const CardEducation: FC<CardEducationProps> = (): ReactElement => {
         selector: homeEducationSelector,
         thunkAction: onLoadProfileEducationConfig({
             country: Countries.CO,
-            moduleName: 'module_about_me_education',
+            moduleName: AboutMeModules.ModuleAboutMeEducation,
         }),
     })
 

@@ -32,6 +32,9 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 // models
 import { Countries } from '@/domain/models'
 
+// enums
+import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
+
 export interface CardAboutMeIntroProps {
     test?: string
 }
@@ -49,7 +52,7 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
         selector: homeProfileIntroSelector,
         thunkAction: onLoadProfileIntroConfig({
             country: Countries.CO,
-            moduleName: 'module_about_me_intro',
+            moduleName: AboutMeModules.ModuleAboutMeIntro,
         }),
     })
 
