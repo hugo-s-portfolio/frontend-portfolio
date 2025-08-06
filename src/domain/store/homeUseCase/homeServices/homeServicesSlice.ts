@@ -18,7 +18,7 @@ const initialState: ServicesConfigState = {
 }
 
 export const homeServicesSlice = createSlice({
-    name: 'home',
+    name: 'homeServicesSlice',
     initialState,
     reducers: {
         onErrorServices: (state) => {

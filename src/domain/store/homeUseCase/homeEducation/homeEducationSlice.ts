@@ -18,7 +18,7 @@ const initialState: EducationConfigState = {
 }
 
 export const homeEducationSlice = createSlice({
-    name: 'home',
+    name: 'homeEducationSlice',
     initialState,
     reducers: {
         onErrorEducation: (state) => {

@@ -14,7 +14,7 @@ const initialState: HomeMenuState = {
 }
 
 export const homeMenuSlice = createSlice({
-    name: 'homeMenu',
+    name: 'homeMenuSlice',
     initialState,
     reducers: {
         onErrorHomeMenu: (state) => {

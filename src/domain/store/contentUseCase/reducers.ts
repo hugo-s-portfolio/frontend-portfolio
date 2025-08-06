@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import { homeContentSlice } from '../contentUseCase'
+import { tabsMenuSlice } from '../contentUseCase'
 
 export const contentReducers = combineReducers({
-    homeContent: homeContentSlice.reducer,
+    tabsMenu: tabsMenuSlice.reducer,
 })

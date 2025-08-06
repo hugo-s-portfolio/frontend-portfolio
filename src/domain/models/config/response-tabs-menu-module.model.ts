@@ -14,7 +14,7 @@ export interface TabsMenuConfig {
     icon?: string
     route?: string
     description?: string
-    menuID?: number
+    menuId?: number
     fontSize?: number
     menuName?: string
     menuType?: string
