@@ -1,46 +1,14 @@
-import { JSXElementConstructor, ReactElement } from 'react'
+import React, { JSXElementConstructor, ReactElement } from 'react'
+import * as MUIIcons from '@mui/icons-material'
 
-import { IIcons, Props } from '.'
-import { iconsPartI, getIconsPartI } from './iconsPartI'
-import { getIconsPartII, iconsPartII } from './iconsPartII'
-import { getIconsPartIII, iconsPartIII } from './iconsPartIII'
-import { getIconsPartIV, iconsPartIV } from './iconsPartIV'
-import { getIconsPartV, iconsPartV } from './iconsPartV'
-import { getIconsPartVI, iconsPartVI } from './iconsPartVI'
-import { getIconsPartVII, iconsPartVII } from './iconsPartVII'
-import { getIconsPartVIII, iconsPartVIII } from './iconsPartVIII'
-import { getIconsPartIX, iconsPartIX } from './iconsPartIX'
-import { getIconsPartX, iconsPartX } from './iconsPartX'
+import { Props } from '.'
+import { muiIcons } from './iconsIndex'
 
 export const getIcon = (
     key: string,
     props: Props,
 ): string | ReactElement<unknown, string | JSXElementConstructor<unknown>> => {
-    const icons = {
-        ...getIconsPartI(props),
-        ...getIconsPartII(props),
-        ...getIconsPartIII(props),
-        ...getIconsPartIV(props),
-        ...getIconsPartV(props),
-        ...getIconsPartVI(props),
-        ...getIconsPartVII(props),
-        ...getIconsPartVIII(props),
-        ...getIconsPartIX(props),
-        ...getIconsPartX(props),
-    }
+    const icon = muiIcons[key]
 
-    return icons[key]
-}
-
-export const muiIcons: IIcons = {
-    ...iconsPartI,
-    ...iconsPartII,
-    ...iconsPartIII,
-    ...iconsPartIV,
-    ...iconsPartV,
-    ...iconsPartVI,
-    ...iconsPartVII,
-    ...iconsPartVIII,
-    ...iconsPartIX,
-    ...iconsPartX,
+    return icon ? React.cloneElement(icon, props) : <MUIIcons.HelpOutline {...props} />
 }

@@ -11,10 +11,7 @@ import {
 import { CommonProps } from '@mui/material/OverridableComponent'
 import { OverridableStringUnion } from '@mui/types'
 
-export type IIcons = Record<
-    string,
-    string | ReactElement<unknown, string | JSXElementConstructor<unknown>>
->
+export type IIcons = Record<string, ReactElement<unknown, string | JSXElementConstructor<unknown>>>
 
 export type Props = JSX.IntrinsicAttributes & { component?: ElementType<any> } & {
     children?: React.ReactNode
