@@ -39,7 +39,7 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
             index: opt?.menuId,
         }))
 
-        routes.find(({ route, index }) => {
+        routes?.find(({ route, index }) => {
             if (route === pathname && index) {
                 setValue(index)
             }
