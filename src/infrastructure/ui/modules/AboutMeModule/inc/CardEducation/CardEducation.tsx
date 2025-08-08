@@ -9,7 +9,7 @@ import { CardAboutMeEducationSkeleton } from '..'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeEducationSelector } from '@/domain/store/homeUseCase'
+import { EducationConfigState, homeEducationSelector } from '@/domain/store/homeUseCase'
 import { onLoadProfileEducationConfig } from '@/domain/store/homeUseCase/homeEducation/thunk'
 
 // hooks
@@ -26,7 +26,7 @@ export interface CardEducationProps {
 }
 
 const CardEducation: FC<CardEducationProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<EducationConfigState>({
         selector: homeEducationSelector,
         thunkAction: onLoadProfileEducationConfig({
             country: Countries.CO,

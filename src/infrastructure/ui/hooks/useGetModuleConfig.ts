@@ -7,37 +7,46 @@ import { useDispatch, useSelector } from 'react-redux'
 // store
 import { AppDispatch } from '@/domain/store/store'
 
-// models
-import { ProfileConfigState } from '@/domain/store/homeUseCase'
-import { ConfigModuleModel } from '@/domain/models'
-
 // utils
 import { getCookie } from '../utils/finders'
 
-export interface IUseGetModuleConfigIn {
-    selector: (state: unknown) => ProfileConfigState
+export interface IBaseConfigState {
+    config: unknown
+    loading: boolean
+    error: unknown
+    options?: unknown
+    timestamp?: number
+}
+
+export interface IUseGetModuleConfigIn<T> {
+    selector: (state: unknown) => T
     thunkAction: ThunkAction<unknown, any, undefined, AnyAction>
 }
 
-export interface IUseGetModuleConfigOutput {
-    config: ConfigModuleModel
-    loading: boolean
-    error: unknown
+export interface IUseGetModuleConfigOutput<T extends IBaseConfigState> {
+    config: T['config']
+    options: T['options']
+    loading: T['loading']
+    error: T['error']
+    timestamp?: T['timestamp']
 }
 
 const TIMEOUT = parseInt(process.env.NEXT_PUBLIC_STRAPI_TIMEOUT ?? '14400000')
 
-export const useGetModuleConfig = ({
+export const useGetModuleConfig = <T extends IBaseConfigState>({
     selector,
     thunkAction,
-}: IUseGetModuleConfigIn): IUseGetModuleConfigOutput => {
+}: IUseGetModuleConfigIn<T>): IUseGetModuleConfigOutput<T> => {
     const dispatch: AppDispatch = useDispatch()
     const token = getCookie('session')
+    const timeout = parseInt(getCookie('timeout') ?? TIMEOUT?.toString())
 
-    const { config, loading, error, timestamp } = useSelector(selector) as ProfileConfigState
+    const { config, loading, error, timestamp, options } = useSelector(selector) as T
 
     useEffect(() => {
-        const cacheValid = Boolean(timestamp && Date.now() - timestamp < TIMEOUT)
+        const cacheValid =
+            Boolean(timestamp && Date.now() - timestamp < TIMEOUT) &&
+            !Boolean(timestamp && timeout > timestamp)
 
         if (token && !cacheValid) {
             dispatch(thunkAction)
@@ -48,5 +57,7 @@ export const useGetModuleConfig = ({
         config,
         loading,
         error,
+        timestamp,
+        options,
     }
 }

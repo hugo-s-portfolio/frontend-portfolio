@@ -2,7 +2,7 @@ import { AboutMeMenuConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface HomeMenuState {
-    options: AboutMeMenuConfig[]
+    config: AboutMeMenuConfig[]
     loading: boolean
     error: unknown
     timestamp: number
@@ -11,7 +11,7 @@ export interface HomeMenuState {
 const initialState: HomeMenuState = {
     error: null,
     loading: false,
-    options: [],
+    config: [],
     timestamp: 0,
 }
 
@@ -27,7 +27,7 @@ export const homeMenuSlice = createSlice({
             state.loading = true
         },
         onLoadHomeMenu: (state, action: PayloadAction<AboutMeMenuConfig[]>) => {
-            state.options = action.payload
+            state.config = action.payload
             state.loading = false
             state.timestamp = Date.now()
         },

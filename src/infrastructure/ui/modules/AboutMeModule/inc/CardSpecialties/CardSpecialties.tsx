@@ -9,7 +9,7 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { CardAboutMeSpecialtiesSkeleton } from '..'
 
 // store
-import { homeSpecialtiesSelector } from '@/domain/store/homeUseCase'
+import { homeSpecialtiesSelector, SpecialtiesConfigState } from '@/domain/store/homeUseCase'
 import { onLoadProfileSpecialtiesConfig } from '@/domain/store/homeUseCase/homeSpecialties/thunk'
 
 // hooks
@@ -26,7 +26,7 @@ export interface CardSpecialtiesProps {
 }
 
 const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<SpecialtiesConfigState>({
         selector: homeSpecialtiesSelector,
         thunkAction: onLoadProfileSpecialtiesConfig({
             country: Countries.CO,

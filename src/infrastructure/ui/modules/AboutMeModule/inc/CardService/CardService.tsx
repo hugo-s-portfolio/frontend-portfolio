@@ -20,7 +20,7 @@ import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/fin
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeServicesSelector } from '@/domain/store/homeUseCase'
+import { homeServicesSelector, ServicesConfigState } from '@/domain/store/homeUseCase'
 import { onLoadProfileServicesConfig } from '@/domain/store/homeUseCase/homeServices/thunk'
 
 // hooks
@@ -46,7 +46,7 @@ export interface ICardService {
 }
 
 const CardServices: FC<CardServicesProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<ServicesConfigState>({
         selector: homeServicesSelector,
         thunkAction: onLoadProfileServicesConfig({
             country: Countries.CO,
