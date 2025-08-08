@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { useDispatch, useSelector } from 'react-redux'
 
 // components
 import { DesktopMenu, MainMenuSkeleton, MobileMenu } from '@/infrastructure/ui/components/ui'
@@ -11,27 +10,35 @@ import { Countries } from '@/domain/models'
 
 // store
 import { onLoadTabsMainMenu } from '@/domain/store/contentUseCase/tabsMenu/thunk'
-import { AppDispatch } from '@/domain/store/store'
 import { menuMobileOptionSelector, TabsMenuState } from '@/domain/store/contentUseCase'
 
 // utils
-import { getCookie } from '@/infrastructure/ui/utils/finders'
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 export interface MainMenuProps {
     initialValue?: number
 }
 
-const TIMEOUT = parseInt(process.env.NEXT_PUBLIC_STRAPI_TIMEOUT ?? '14400000')
+export enum MainMenuEnum {
+    moduleTabs = 'module_tabs',
+}
 
 const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
     const pathname = usePathname()
-    const dispatch: AppDispatch = useDispatch()
-    const [value, setValue] = useState(initialValue)
-    const token = getCookie('session')
 
-    const { options, loading, error, timestamp } = useSelector(
-        menuMobileOptionSelector,
-    ) as TabsMenuState
+    const [value, setValue] = useState(initialValue)
+
+    const {
+        config: options,
+        loading,
+        error,
+    } = useGetModuleConfig<TabsMenuState>({
+        selector: menuMobileOptionSelector,
+        thunkAction: onLoadTabsMainMenu({
+            country: Countries.CO,
+            menuType: MainMenuEnum.moduleTabs,
+        }),
+    })
 
     const setInitialTab = (): void => {
         const routes = options?.map((opt) => ({
@@ -45,19 +52,6 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
             }
         })
     }
-
-    useEffect(() => {
-        const cacheValid = Boolean(timestamp && Date.now() - timestamp < TIMEOUT)
-
-        if (token && !cacheValid) {
-            dispatch(
-                onLoadTabsMainMenu({
-                    country: Countries.CO,
-                    menuType: 'module_tabs',
-                }),
-            )
-        }
-    }, [])
 
     useEffect(() => {
         setInitialTab()

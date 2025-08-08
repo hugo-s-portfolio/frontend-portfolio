@@ -14,7 +14,7 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
 
 // selector
-import { homeProfileSelector } from '@/domain/store/homeUseCase'
+import { homeProfileSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
 
 // actions
 import { onLoadProfileConfig } from '@/domain/store/homeUseCase/homeProfile/thunk'
@@ -33,7 +33,7 @@ export interface CardProfileProps {
 }
 
 const CardProfile: FC<CardProfileProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<ProfileConfigState>({
         selector: homeProfileSelector,
         thunkAction: onLoadProfileConfig({
             country: Countries.CO,

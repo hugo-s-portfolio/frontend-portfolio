@@ -9,7 +9,7 @@ import { CardAboutMeToolsSkeleton } from '..'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeToolsSelector } from '@/domain/store/homeUseCase'
+import { homeToolsSelector, ToolsConfigState } from '@/domain/store/homeUseCase'
 import { onLoadProfileToolsConfig } from '@/domain/store/homeUseCase/homeTools/thunk'
 
 // hooks
@@ -26,7 +26,7 @@ export interface CardToolsProps {
 }
 
 const CardTools: FC<CardToolsProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<ToolsConfigState>({
         selector: homeToolsSelector,
         thunkAction: onLoadProfileToolsConfig({
             country: Countries.CO,

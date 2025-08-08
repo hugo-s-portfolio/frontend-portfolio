@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 // base components
 import {
@@ -25,21 +24,19 @@ import { AboutMeMenuConfig, ConfigModuleModel, Countries } from '@/domain/models
 import { onLoadAboutMeMenu } from '@/domain/store/homeUseCase/homeMenu/thunk'
 
 // utils
-import { findMenu, getCookie } from '@/infrastructure/ui/utils/finders'
+import { findMenu } from '@/infrastructure/ui/utils/finders'
 
 // store
-import { AppDispatch } from '@/domain/store/store'
 import { homeMenuSelector, HomeMenuState } from '@/domain/store/homeUseCase'
 
 // enums
 import { AboutMeMenu } from '@/infrastructure/ui/modules/AboutMeModule/enums'
+import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 export interface AboutMeViewProps {
     config?: ConfigModuleModel
     status?: 'SUCCESS' | 'ERROR'
 }
-
-const TIMEOUT = parseInt(process.env.NEXT_PUBLIC_STRAPI_TIMEOUT ?? '14400000')
 
 export enum MenuItem {
     aboutMeIntro = 'about_me_intro',
@@ -48,6 +45,11 @@ export enum MenuItem {
     aboutMeSpecialties = 'about_me_specialties',
     aboutMeTools = 'about_me_tools',
     aboutMeEducation = 'about_me_education',
+}
+
+export interface MenuOptions {
+    menu: AboutMeMenuConfig
+    component: ReactElement
 }
 
 const menu = [
@@ -74,13 +76,19 @@ const menu = [
 ]
 
 const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
-    const dispatch: AppDispatch = useDispatch()
-    const [mainMenuOptions, setMainMenuOptions] = useState<
-        { menu: AboutMeMenuConfig; component: ReactElement }[]
-    >([])
+    const [mainMenuOptions, setMainMenuOptions] = useState<MenuOptions[]>([])
 
-    const token = getCookie('session')
-    const { options, loading, error, timestamp } = useSelector(homeMenuSelector) as HomeMenuState
+    const {
+        config: options,
+        loading,
+        error,
+    } = useGetModuleConfig<HomeMenuState>({
+        selector: homeMenuSelector,
+        thunkAction: onLoadAboutMeMenu({
+            country: Countries.CO,
+            menuType: AboutMeMenu.MenuAboutMe,
+        }),
+    })
 
     const aboutMeIntroMenu = findMenu(options, MenuItem.aboutMeIntro)
 
@@ -97,24 +105,6 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
         options
             ?.filter((menu) => menu.menuName === MenuItem.aboutMeIntro)
             ?.some((menu) => menu.enable)
-
-    useEffect(() => {
-        const cacheValid = Boolean(timestamp && Date.now() - timestamp < TIMEOUT)
-
-        if (token && !cacheValid) {
-            dispatch(
-                onLoadAboutMeMenu({
-                    country: Countries.CO,
-                    token,
-                    menuType: AboutMeMenu.MenuAboutMe,
-                }),
-            )
-        }
-    }, [])
-
-    useEffect(() => {
-        orderedAboutMeSection()
-    }, [options])
 
     const renderOptionList = (): ReactElement => {
         const newOptions = mainMenuOptions
@@ -133,6 +123,10 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
             </>
         )
     }
+
+    useEffect(() => {
+        orderedAboutMeSection()
+    }, [options])
 
     return (
         <StyleAboutMeView>

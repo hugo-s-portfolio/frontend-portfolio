@@ -1,11 +1,48 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
-    const tokenCookie = request.cookies.get('session')?.value
+    try {
+        const response = NextResponse.next()
+        await handleAdminContent(response)
+        await handleStrapiLogin(request, response)
 
-    if (tokenCookie) {
+        return response
+    } catch (error) {
         return NextResponse.next()
     }
+}
+
+export const config = {
+    matcher: ['/', '/aboutme', '/projects', '/blog', '/tutorials'],
+}
+
+export const handleAdminContent = async (response: NextResponse): Promise<void> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACK_API}/strapi-webhook/status`)
+
+        if (!res.ok) {
+            console.error(`Fetch failed: ${res.status}`)
+        }
+
+        const newResp = await res.json()
+        const updatedAt = newResp?.response?.data?.updatedAt
+
+        response.cookies.set('timeout', updatedAt, {
+            path: '/',
+            maxAge: 60 * 60 * 60,
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const handleStrapiLogin = async (
+    request: NextRequest,
+    response: NextResponse,
+): Promise<void> => {
+    const tokenCookie = request.cookies.get('session')?.value
+
+    if (tokenCookie) return
 
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACK_API}/auth/login`, {
@@ -19,25 +56,17 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
         if (!res.ok) {
             console.error(`Token fetch failed: ${res.status}`)
-            return NextResponse.next()
+            return
         }
 
         const newResp = await res.json()
         const session = newResp?.response?.data?.jwt
-        const response = NextResponse.next()
 
         response.cookies.set('session', session, {
             path: '/',
             maxAge: 60 * 60 * 60,
         })
-
-        return response
     } catch (error) {
         console.error('Middleware petition', error)
-        return NextResponse.next()
     }
-}
-
-export const config = {
-    matcher: ['/', '/aboutme', '/projects', '/blog', '/tutorials'],
 }

@@ -23,7 +23,7 @@ import {
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeProfileIntroSelector } from '@/domain/store/homeUseCase'
+import { homeProfileIntroSelector, ProfileIntroConfigState } from '@/domain/store/homeUseCase'
 import { onLoadProfileIntroConfig } from '@/domain/store/homeUseCase/homeProfileIntro/thunk'
 
 // hooks
@@ -48,7 +48,7 @@ export interface ProfileItemList {
 }
 
 const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig({
+    const { config, loading, error } = useGetModuleConfig<ProfileIntroConfigState>({
         selector: homeProfileIntroSelector,
         thunkAction: onLoadProfileIntroConfig({
             country: Countries.CO,

@@ -1,11 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 // interfaces
-// import { Option } from '@/infrastructure/ui/components/ui/MobileMenu/MobileMenu'
 import { TabsMenuConfig } from '@/domain/models'
 
 export interface TabsMenuState {
-    options: TabsMenuConfig[]
+    config: TabsMenuConfig[]
     loading: boolean
     error: unknown
     timestamp?: number
@@ -14,7 +13,7 @@ export interface TabsMenuState {
 const initialState: TabsMenuState = {
     error: null,
     loading: false,
-    options: [],
+    config: [],
     timestamp: 0,
 }
 
@@ -30,7 +29,7 @@ export const tabsMenuSlice = createSlice({
             state.loading = true
         },
         onLoadTabsMenu: (state, action: PayloadAction<TabsMenuConfig[]>) => {
-            state.options = action.payload
+            state.config = action.payload
             state.loading = false
             state.timestamp = Date.now()
         },
