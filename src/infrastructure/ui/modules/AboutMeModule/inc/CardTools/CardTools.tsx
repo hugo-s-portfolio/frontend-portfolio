@@ -3,7 +3,7 @@ import React, { FC, ReactElement } from 'react'
 
 // component
 import { Box, Typography } from '@/infrastructure/ui/components'
-import { CardAboutMeToolsSkeleton, CircularItem, CircularItemList } from '..'
+import { CardAboutMeToolsSkeleton, CircularItemList } from '..'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
