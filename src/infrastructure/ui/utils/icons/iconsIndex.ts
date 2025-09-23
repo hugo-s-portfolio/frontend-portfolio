@@ -20,6 +20,7 @@ import { iconsPartXVII } from './iconsPartXVII'
 import { iconsPartXVIII } from './iconsPartXVIII'
 import { iconsPartXIX } from './iconsPartXIX'
 import { iconsPartXX } from './iconsPartXX'
+import { iconsPartXXI } from './iconsPartXXI'
 
 export const muiIcons: IIcons = {
     ...iconsPartI,
@@ -42,4 +43,5 @@ export const muiIcons: IIcons = {
     ...iconsPartXVIII,
     ...iconsPartXIX,
     ...iconsPartXX,
+    ...iconsPartXXI,
 }
