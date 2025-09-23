@@ -12,3 +12,5 @@ export { default as CardAboutMeServicesSkeleton } from './CardAboutMeServicesSke
 export { default as CardAboutMeSpecialtiesSkeleton } from './CardAboutMeSpecialtiesSkeleton'
 export { default as CardAboutMeEducationSkeleton } from './CardAboutMeEducationSkeleton'
 export { default as CardAboutMeToolsSkeleton } from './CardAboutMeToolsSkeleton'
+export { default as CircularItem } from './CircularItem'
+export { default as CircularItemList } from './CircularItemList'

@@ -1,4 +1,5 @@
 import React, { JSXElementConstructor, ReactElement } from 'react'
+
 import * as MUIIcons from '@mui/icons-material'
 
 import { Props } from '.'
@@ -10,5 +11,9 @@ export const getIcon = (
 ): string | ReactElement<unknown, string | JSXElementConstructor<unknown>> => {
     const icon = muiIcons[key]
 
-    return icon ? React.cloneElement(icon, props) : <MUIIcons.HelpOutline {...props} />
+    return icon ? (
+        React.cloneElement(icon, props)
+    ) : (
+        <MUIIcons.HelpOutline color="primary" {...props} />
+    )
 }

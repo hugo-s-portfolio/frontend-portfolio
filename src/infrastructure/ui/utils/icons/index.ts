@@ -16,18 +16,20 @@ export type IIcons = Record<string, ReactElement<unknown, string | JSXElementCon
 export type Props = JSX.IntrinsicAttributes & { component?: ElementType<any> } & {
     children?: React.ReactNode
     classes?: Partial<SvgIconClasses>
-    color?: OverridableStringUnion<
-        | 'inherit'
-        | 'action'
-        | 'disabled'
-        | 'primary'
-        | 'secondary'
-        | 'error'
-        | 'info'
-        | 'success'
-        | 'warning',
-        SvgIconPropsColorOverrides
-    >
+    color?:
+        | OverridableStringUnion<
+              | 'inherit'
+              | 'action'
+              | 'disabled'
+              | 'primary'
+              | 'secondary'
+              | 'error'
+              | 'info'
+              | 'success'
+              | 'warning',
+              SvgIconPropsColorOverrides
+          >
+        | any
     fontSize?: OverridableStringUnion<
         'inherit' | 'large' | 'medium' | 'small',
         SvgIconPropsSizeOverrides
