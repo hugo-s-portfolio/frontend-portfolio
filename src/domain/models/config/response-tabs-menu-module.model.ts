@@ -1,10 +1,19 @@
-export interface TabsMenuModuleResponse {
-    response?: TabsMenuResponse
-}
+// export interface TabsMenuModuleResponse {
+//     response?: TabsMenuResponse
+// }
 
-export interface TabsMenuResponse {
-    result?: TabsMenuResult
-    config?: TabsMenuConfig[]
+// export interface TabsMenuResponse {
+//     result?: TabsMenuResult
+//     config?: TabsMenuConfig[]
+// }
+
+export interface TabsMenuModuleResponse {
+    success: boolean
+    statusCode: number
+    message: string
+    timestamp : string
+    path: string
+    data: TabsMenuConfig[]
 }
 
 export interface TabsMenuConfig {
