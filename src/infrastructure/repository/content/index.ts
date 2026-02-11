@@ -28,12 +28,14 @@ export const contentRepository = {
         country,
         menuType,
         token,
+        locale = 'en'
     }: {
         country: Country
         menuType: string
         token: string
+        locale: string
     }): Promise<MenuConfigResponse> => {
-        const url = `${process.env.NEXT_PUBLIC_BACK_API}/menu/tabs?country=${country}&menuType=${menuType}`
+        const url = `${process.env.NEXT_PUBLIC_BACK_API}/strapi/tabs-menu?country=${country}&menuType=${menuType}&locale=${locale}`
 
         try {
             const response = await http.get<TabsMenuModuleResponse>(url, {
@@ -42,7 +44,7 @@ export const contentRepository = {
                 },
             })
 
-            return { config: response?.data?.response?.config ?? [], response }
+            return { config: response?.data?.data ?? [], response }
         } catch (error) {
             console.error('Error en config. ', error)
 
@@ -53,12 +55,14 @@ export const contentRepository = {
         country,
         moduleName,
         token,
+        locale = 'en'
     }: {
         country: Country
         moduleName: string
         token: string
+        locale?: string
     }): Promise<ConfigResponse> => {
-        const url = `/modules?country=${country}&moduleName=${moduleName}`
+        const url = `/strapi/modules/by-name/${moduleName}?country=${country}&locale=${locale}`
 
         try {
             const resp = await http.get<ResponseConfigModuleModel>(url, {
@@ -67,7 +71,7 @@ export const contentRepository = {
                 },
             })
 
-            return { config: resp?.data?.response?.config, response: resp }
+            return { config: resp?.data?.data?.config, response: resp }
         } catch (error) {
             console.error('Error en config. ', error)
             return { config: undefined, response: undefined }

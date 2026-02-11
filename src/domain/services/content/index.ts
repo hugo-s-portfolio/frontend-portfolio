@@ -34,6 +34,7 @@ export const contentModulesServices = {
                 country,
                 menuType,
                 token,
+                locale: 'en'
             })
 
             return { config, response: response }

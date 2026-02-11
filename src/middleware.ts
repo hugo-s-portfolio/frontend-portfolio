@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function middleware(request: NextRequest): Promise<NextResponse> {
     try {
         const response = NextResponse.next()
-        await handleAdminContent(response)
+        // await handleAdminContent(response)
         await handleStrapiLogin(request, response)
 
         return response
@@ -40,6 +40,7 @@ export const handleStrapiLogin = async (
     request: NextRequest,
     response: NextResponse,
 ): Promise<void> => {
+    request.cookies.delete('session')
     const tokenCookie = request.cookies.get('session')?.value
 
     if (tokenCookie) return
@@ -49,7 +50,7 @@ export const handleStrapiLogin = async (
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                identifier: process.env.NEXT_PUBLIC_STRAPI_IDENTIFIER,
+                email: process.env.NEXT_PUBLIC_STRAPI_IDENTIFIER,
                 password: process.env.NEXT_PUBLIC_STRAPI_PASSWORD,
             }),
         })
@@ -60,7 +61,7 @@ export const handleStrapiLogin = async (
         }
 
         const newResp = await res.json()
-        const session = newResp?.response?.data?.jwt
+        const session = newResp?.data?.accessToken
 
         response.cookies.set('session', session, {
             path: '/',

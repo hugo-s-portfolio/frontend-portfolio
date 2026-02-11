@@ -22,10 +22,10 @@ export const aboutMeService = {
             })
 
             if (!resp) return []
-            if (!resp.response) return []
-            if (!resp.response.config) return []
+            if (!resp.data) return []
+            if (!resp.data.length) return []
 
-            return resp.response.config
+            return resp.data
         } catch (error) {
             console.error(error)
             return []
