@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
     try {
         const config =
-            (await getConfig({ country: Countries.CO, moduleName: 'module_blog_page', token })) ||
+            (await getConfig({ country: Countries.CO, moduleName: 'module_blog_page', token, locale: 'en' })) ||
             {}
 
         return {
