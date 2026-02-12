@@ -38,8 +38,6 @@ export const onLoadAboutMeMenu =
                 token,
             })
 
-            console.log('aboutMenu:', aboutMenu)
-
             dispatch(onLoadHomeMenu(aboutMenu))
 
             if (onSuccess && aboutMenu) {
