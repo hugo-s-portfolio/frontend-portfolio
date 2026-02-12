@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface ResponseConfigModuleModel {
-    response?: Response
+    success: boolean
+    statusCode: number
+    message: string
+    timestamp : string
+    path: string
+    data: Data
 }
 
-export interface Response {
-    result?: Result
+
+export interface Data {
+    documentId : string
+    locale: string
     config?: Config
 }
 

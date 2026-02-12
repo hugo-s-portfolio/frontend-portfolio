@@ -3,13 +3,16 @@ import axiosRetry from 'axios-retry'
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACK_API,
-    timeout: 1000,
+    timeout: 10000,
     headers: { 'X-Custom-Header': 'foobar' },
 })
 
 axiosRetry(api, {
     retryDelay: axiosRetry.exponentialDelay,
     retries: 4,
+    retryCondition: (error) => {
+        return axiosRetry.isNetworkOrIdempotentRequestError(error) && error.response?.status !== 401
+    },
 })
 
 api.interceptors.request.use(
@@ -19,13 +22,94 @@ api.interceptors.request.use(
     (error) => Promise.reject(error),
 )
 
+let isRefreshing = false
+let failedQueue: { resolve: (token: string) => void; reject: (error: unknown) => void }[] = []
+
+const processQueue = (error: unknown, token: string | null = null): void => {
+    failedQueue.forEach(({ resolve, reject }) => {
+        if (token) {
+            resolve(token)
+        } else {
+            reject(error)
+        }
+    })
+    failedQueue = []
+}
+
+const getCookieValue = (name: string): string | null => {
+    if (typeof document === 'undefined') return null
+    const cookies = document.cookie.split('; ')
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split('=')
+        if (key === name) return decodeURIComponent(value)
+    }
+    return null
+}
+
+const setCookieValue = (name: string, value: string, maxAge: number): void => {
+    if (typeof document === 'undefined') return
+    document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}`
+}
+
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
-        if (isAxiosError(error) && error.response?.status === 401) {
-            console.error('Unauthorize.')
+    async (error) => {
+        const originalRequest = error.config
+
+        if (!isAxiosError(error) || error.response?.status !== 401 || originalRequest._retry) {
+            return Promise.reject(error)
         }
-        return Promise.reject(error)
+
+        if (isRefreshing) {
+            return new Promise((resolve, reject) => {
+                failedQueue.push({
+                    resolve: (token: string) => {
+                        originalRequest.headers.Authorization = `Bearer ${token}`
+                        resolve(api(originalRequest))
+                    },
+                    reject,
+                })
+            })
+        }
+
+        originalRequest._retry = true
+        isRefreshing = true
+
+        const refreshToken = getCookieValue('refreshToken')
+
+        if (!refreshToken) {
+            isRefreshing = false
+            return Promise.reject(error)
+        }
+
+        try {
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACK_API}/auth/refresh`, {
+                refreshToken,
+            })
+
+            const newAccessToken = data?.data?.accessToken
+            const newRefreshToken = data?.data?.refreshToken
+
+            if (!newAccessToken) {
+                processQueue(error, null)
+                return Promise.reject(error)
+            }
+
+            setCookieValue('session', newAccessToken, 60 * 60)
+            if (newRefreshToken) {
+                setCookieValue('refreshToken', newRefreshToken, 60 * 60 * 24 * 7)
+            }
+
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
+            processQueue(null, newAccessToken)
+
+            return api(originalRequest)
+        } catch (refreshError) {
+            processQueue(refreshError, null)
+            return Promise.reject(refreshError)
+        } finally {
+            isRefreshing = false
+        }
     },
 )
 

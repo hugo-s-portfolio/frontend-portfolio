@@ -1,10 +1,10 @@
 export interface AboutMeMenuResponse {
-    response?: MenuAboutMeResponse
-}
-
-export interface MenuAboutMeResponse {
-    result?: AboutMeMenuResult
-    config?: AboutMeMenuConfig[]
+    success: boolean
+    statusCode: number
+    message: string
+    data: AboutMeMenuConfig[]
+    timestamp: string
+    path: string
 }
 
 export interface AboutMeMenuConfig {

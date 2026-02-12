@@ -13,12 +13,14 @@ export const aboutMeRepository = {
         country,
         menuType,
         token,
+        locale = 'en',
     }: {
         country: Country
         menuType: string
         token: string
+        locale?: string
     }): Promise<T | null> => {
-        const url = `/menu/aboutme?country=${country}&menuType=${menuType}`
+        const url = `/strapi/about-me-menu?country=${country}&menuType=${menuType}&locale=${locale}`
 
         try {
             const { data } = await http.get<T>(url, {

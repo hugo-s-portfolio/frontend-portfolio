@@ -10,6 +10,7 @@ const nextConfig = {
             'https://images.unsplash.com/',
             'https://firebasestorage.googleapis.com/',
             'https://hadiazb-portfolio.s3.us-east-1.amazonaws.com/',
+            'https://pub-93495de205c443e1a757fc862f489897.r2.dev/',
         ],
         remotePatterns: [
             {
@@ -20,6 +21,11 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'hadiazb-portfolio.s3.us-east-1.amazonaws.com',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'pub-93495de205c443e1a757fc862f489897.r2.dev',
                 pathname: '/**',
             },
         ],

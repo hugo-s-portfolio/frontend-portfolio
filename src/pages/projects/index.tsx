@@ -51,6 +51,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
                 country: Countries.CO,
                 moduleName: 'module_projects_page',
                 token,
+                locale: 'en'
             })) || {}
 
         return {
