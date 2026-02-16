@@ -77,8 +77,8 @@ const handleLogin = async (response: NextResponse): Promise<void> => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email: process.env.NEXT_PUBLIC_STRAPI_IDENTIFIER,
-                password: process.env.NEXT_PUBLIC_STRAPI_PASSWORD,
+                email: process.env.STRAPI_IDENTIFIER,
+                password: process.env.STRAPI_PASSWORD,
             }),
         })
 
@@ -107,12 +107,17 @@ const setTokenCookies = (
     response.cookies.set('session', accessToken, {
         path: '/',
         maxAge: 60 * 60,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
     })
 
     if (refreshToken) {
         response.cookies.set('refreshToken', refreshToken, {
             path: '/',
             maxAge: 60 * 60 * 24 * 7,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
         })
     }
 }
@@ -144,6 +149,8 @@ const handleCacheTimestamp = async (
             response.cookies.set('timeout', timestampMs, {
                 path: '/',
                 maxAge: 60 * 60 * 24 * 30,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
             })
         }
     } catch (error) {

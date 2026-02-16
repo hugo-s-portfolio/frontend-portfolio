@@ -36,21 +36,6 @@ const processQueue = (error: unknown, token: string | null = null): void => {
     failedQueue = []
 }
 
-const getCookieValue = (name: string): string | null => {
-    if (typeof document === 'undefined') return null
-    const cookies = document.cookie.split('; ')
-    for (const cookie of cookies) {
-        const [key, value] = cookie.split('=')
-        if (key === name) return decodeURIComponent(value)
-    }
-    return null
-}
-
-const setCookieValue = (name: string, value: string, maxAge: number): void => {
-    if (typeof document === 'undefined') return
-    document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}`
-}
-
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -75,29 +60,14 @@ api.interceptors.response.use(
         originalRequest._retry = true
         isRefreshing = true
 
-        const refreshToken = getCookieValue('refreshToken')
-
-        if (!refreshToken) {
-            isRefreshing = false
-            return Promise.reject(error)
-        }
-
         try {
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACK_API}/auth/refresh`, {
-                refreshToken,
-            })
+            const { data } = await axios.post('/api/auth/refresh')
 
             const newAccessToken = data?.data?.accessToken
-            const newRefreshToken = data?.data?.refreshToken
 
             if (!newAccessToken) {
                 processQueue(error, null)
                 return Promise.reject(error)
-            }
-
-            setCookieValue('session', newAccessToken, 60 * 60)
-            if (newRefreshToken) {
-                setCookieValue('refreshToken', newRefreshToken, 60 * 60 * 24 * 7)
             }
 
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`

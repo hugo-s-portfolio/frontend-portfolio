@@ -204,10 +204,12 @@ src/
 
 ## Variables de Entorno Principales
 
-- `NEXT_PUBLIC_STRAPI_IDENTIFIER` - Email de autenticacion
-- `NEXT_PUBLIC_STRAPI_PASSWORD` - Password de autenticacion
-- `NEXT_PUBLIC_STRAPI_TIMEOUT` - Timeout de sesion (ms)
-- `NEXT_PUBLIC_API_URL` - URL base del API backend
+- `STRAPI_IDENTIFIER` - Email de autenticacion (server-side only)
+- `STRAPI_PASSWORD` - Password de autenticacion (server-side only)
+- `NEXT_PUBLIC_BACK_API` - URL base del API backend (client-side)
+- `NEXT_PUBLIC_SECRET_PORTFOLIO` - Clave de encriptacion Redux persist (client-side)
+- `NEXT_PUBLIC_STRAPI_TIMEOUT` - Timeout de sesion en ms (client-side)
+- `SITE_URL` - URL del sitio para SEO/sitemap
 
 ## Next.js Configuration
 
