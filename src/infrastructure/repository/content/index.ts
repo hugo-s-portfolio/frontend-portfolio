@@ -28,7 +28,7 @@ export const contentRepository = {
         country,
         menuType,
         token,
-        locale = 'en'
+        locale = 'en',
     }: {
         country: Country
         menuType: string
@@ -46,16 +46,15 @@ export const contentRepository = {
 
             return { config: response?.data?.data ?? [], response }
         } catch (error) {
-            console.error('Error en config. ', error)
-
-            return { config: [], response: undefined }
+            console.error('ContentRepository Error. ', error)
+            throw error
         }
     },
     getConfig: async ({
         country,
         moduleName,
         token,
-        locale = 'en'
+        locale = 'en',
     }: {
         country: Country
         moduleName: string

@@ -46,7 +46,7 @@ export const onLoadTabsMainMenu =
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorTabsMenu())
 
-            dispatch(onErrorTabsMenu())
+            dispatch(onErrorTabsMenu(error))
             if (onErr) {
                 onErr(error)
             }

@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { AxiosError } from 'axios'
 
 // components
 import { DesktopMenu, MainMenuSkeleton, MobileMenu } from '@/infrastructure/ui/components/ui'
+import { Alert, Box, Snackbar, Typography } from '../../inc'
 
 // models
 import { Countries } from '@/domain/models'
@@ -14,6 +16,7 @@ import { menuMobileOptionSelector, TabsMenuState } from '@/domain/store/contentU
 
 // utils
 import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
+import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 export interface MainMenuProps {
     initialValue?: number
@@ -27,6 +30,7 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
     const pathname = usePathname()
 
     const [value, setValue] = useState(initialValue)
+    const [open, setOpen] = useState(false)
 
     const {
         config: options,
@@ -53,6 +57,16 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
         })
     }
 
+    const handleClose = (): void => {
+        setOpen(false)
+    }
+
+    useEffect(() => {
+        if (error !== null) {
+            setOpen(true)
+        }
+    }, [error])
+
     useEffect(() => {
         setInitialTab()
     }, [pathname])
@@ -60,7 +74,41 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
     return (
         <>
             {error !== null ? (
-                <p>Hay un error</p>
+                <>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    >
+                        <Alert
+                            severity="error"
+                            sx={{
+                                width: '100%',
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
+                                <Typography>{(error as AxiosError)?.message}</Typography>
+                                {getIcon('Close', {
+                                    color: 'error',
+                                    sx: {
+                                        marginLeft: '5px',
+                                    },
+                                    onClick: () => {
+                                        handleClose()
+                                    },
+                                })}
+                            </Box>
+                        </Alert>
+                    </Snackbar>
+                    <MainMenuSkeleton />
+                </>
             ) : (
                 <>
                     {!loading ? (
