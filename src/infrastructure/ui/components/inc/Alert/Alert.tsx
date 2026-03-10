@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { forwardRef, ReactElement } from 'react'
 import { AlertProps as AlertPropsMUI } from '@mui/material'
 
 // styles
@@ -6,8 +6,16 @@ import { StyledAlert } from '@/infrastructure/ui/components/inc/Alert/alert-styl
 
 export type AlertProps = AlertPropsMUI
 
-const Alert: FC<AlertProps> = ({ children, ...rest }): ReactElement => {
-    return <StyledAlert {...rest}>{children}</StyledAlert>
-}
+const Alert = forwardRef<HTMLDivElement, AlertProps>(
+    ({ children, ...rest }, ref): ReactElement => {
+        return (
+            <StyledAlert ref={ref} {...rest}>
+                {children}
+            </StyledAlert>
+        )
+    }
+)
+
+Alert.displayName = 'Alert'
 
 export default Alert

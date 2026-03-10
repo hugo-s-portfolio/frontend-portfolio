@@ -30,17 +30,21 @@ export const contentModulesServices = {
         response?: AxiosResponse<TabsMenuModuleResponse, any>
     }> => {
         try {
-            const { config, response } = await contentRepository.getMobileMenuOptions({
+            const resp = await contentRepository.getMobileMenuOptions({
                 country,
                 menuType,
                 token,
-                locale: 'en'
+                locale: 'en',
             })
 
-            return { config, response: response }
-        } catch (error) {
-            console.error('Error modulo de menu principal', error)
+            if (resp) {
+                return { config: resp.config, response: resp.response }
+            }
+
             return { config: [], response: undefined }
+        } catch (error) {
+            console.error('ContentModulesServices Error: ', error)
+            throw error
         }
     },
     getConfig: async ({

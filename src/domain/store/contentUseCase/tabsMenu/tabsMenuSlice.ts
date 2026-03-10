@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 // interfaces
 import { TabsMenuConfig } from '@/domain/models'
+import { AxiosError } from 'axios'
 
 export interface TabsMenuState {
     config: TabsMenuConfig[]
@@ -21,9 +22,9 @@ export const tabsMenuSlice = createSlice({
     name: 'tabsMenuSlice',
     initialState,
     reducers: {
-        onErrorTabsMenu: (state) => {
+        onErrorTabsMenu: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
-            state.error = 'hay error'
+            state.error = action.payload
         },
         onLoadingTabsMenu: (state) => {
             state.loading = true

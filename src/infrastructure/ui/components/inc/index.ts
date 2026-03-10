@@ -41,6 +41,7 @@ export { default as SpeedDialIcon } from './SpeedDialIcon'
 export { default as ListItemAvatar } from './ListItemAvatar'
 export { default as CardActions } from './CardActions'
 export { default as Skeleton } from './Skeleton'
+export { default as Snackbar } from './Snackbar'
 
 export * from './Containers'
 export * from './Buttons'

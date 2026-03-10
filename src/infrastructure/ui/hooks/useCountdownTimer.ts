@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const MAX_VALUE = 100
 
@@ -9,19 +9,24 @@ export const useCountdownTimer = (
     callback?: (progress?: number) => void,
 ): number[] => {
     const [progress, setProgress] = useState(initialValue)
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress >= MAX_VALUE ? 0 : prevProgress + step))
+        timerRef.current = setInterval(() => {
+            setProgress((prevProgress) => {
+                if (prevProgress >= MAX_VALUE) return MAX_VALUE
+                return prevProgress + step
+            })
         }, 800)
         return () => {
-            clearInterval(timer)
+            if (timerRef.current) clearInterval(timerRef.current)
         }
     }, [])
 
     useEffect(() => {
-        if (progress === MAX_VALUE && callback) {
-            callback(progress)
+        if (progress >= MAX_VALUE) {
+            if (timerRef.current) clearInterval(timerRef.current)
+            if (callback) callback(progress)
         }
     }, [progress])
 
