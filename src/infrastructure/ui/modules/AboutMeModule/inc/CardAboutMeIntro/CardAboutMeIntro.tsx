@@ -11,7 +11,7 @@ import {
     ListItemText,
     Typography,
 } from '@/infrastructure/ui/components'
-import { CardAboutMeIntroSkeleton } from '..'
+import { CardAboutMeIntroSkeleton, ErrorCard } from '..'
 
 // utils
 import {
@@ -64,7 +64,12 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
 
     return (
         <>
-            {error !== null && <p>Hay un error!</p>}
+            {error !== null && (
+                <>
+                    <ErrorCard error={error} componentName="CardAboutMeIntro" />
+                    <CardAboutMeIntroSkeleton />
+                </>
+            )}
             {!loading ? (
                 <>
                     {config?.forms?.about_me_title?.show && (

@@ -25,6 +25,7 @@ export const tabsMenuSlice = createSlice({
         onErrorTabsMenu: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.config = initialState.config
         },
         onLoadingTabsMenu: (state) => {
             state.loading = true
@@ -33,6 +34,7 @@ export const tabsMenuSlice = createSlice({
             state.config = action.payload
             state.loading = false
             state.timestamp = Date.now()
+            state.error = null
         },
     },
 })

@@ -72,8 +72,9 @@ export const contentRepository = {
 
             return { config: resp?.data?.data?.config, response: resp }
         } catch (error) {
-            console.error('Error en config. ', error)
-            return { config: undefined, response: undefined }
+            console.error(`Content Repository config ${moduleName} `, error)
+
+            throw error
         }
     },
 }

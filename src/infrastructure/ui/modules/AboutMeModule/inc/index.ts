@@ -14,3 +14,4 @@ export { default as CardAboutMeEducationSkeleton } from './CardAboutMeEducationS
 export { default as CardAboutMeToolsSkeleton } from './CardAboutMeToolsSkeleton'
 export { default as CircularItem } from './CircularItem'
 export { default as CircularItemList } from './CircularItemList'
+export { default as ErrorCard } from './ErrorCard'

@@ -46,7 +46,7 @@ export const onLoadProfileConfig =
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorProfile())
 
-            dispatch(onErrorProfile())
+            dispatch(onErrorProfile(error))
             if (onErr) {
                 onErr(error)
             }

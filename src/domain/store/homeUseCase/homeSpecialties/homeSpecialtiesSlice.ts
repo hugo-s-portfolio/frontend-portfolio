@@ -1,5 +1,6 @@
 import { ConfigModuleModel, InitialStatenConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
 
 export interface SpecialtiesConfigState extends InitialStatenConfig {
     timestamp?: number
@@ -21,9 +22,10 @@ export const homeSpecialtiesSlice = createSlice({
     name: 'homeSpecialtiesSlice',
     initialState,
     reducers: {
-        onErrorSpecialties: (state) => {
+        onErrorSpecialties: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
-            state.error = 'hay error'
+            state.error = action.payload
+            state.config = initialState.config
         },
         onLoadingSpecialties: (state) => {
             state.loading = true
@@ -32,6 +34,7 @@ export const homeSpecialtiesSlice = createSlice({
             state.config = action.payload
             state.loading = false
             state.timestamp = Date.now()
+            state.error = null
         },
     },
 })

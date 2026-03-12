@@ -46,7 +46,7 @@ export const onLoadProfileEducationConfig =
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorEducation())
 
-            dispatch(onErrorEducation())
+            dispatch(onErrorEducation(error))
             if (onErr) {
                 onErr(error)
             }
