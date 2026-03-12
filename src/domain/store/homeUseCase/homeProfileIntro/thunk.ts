@@ -45,7 +45,7 @@ export const onLoadProfileIntroConfig =
         } catch (error) {
             if (!isAxiosError(error)) return dispatch(onErrorProfileIntro())
 
-            dispatch(onErrorProfileIntro())
+            dispatch(onErrorProfileIntro(error))
             if (onErr) {
                 onErr(error)
             }

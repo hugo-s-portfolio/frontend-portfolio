@@ -71,8 +71,8 @@ export const contentModulesServices = {
 
             return { config: getModule(config), response }
         } catch (error) {
-            console.error(error)
-            return { config: { forms: {}, actions: {}, formatting: {}, dataObject: {} } }
+            console.error(`Content Modules Services config ${moduleName} `, error)
+            throw error
         }
     },
 }

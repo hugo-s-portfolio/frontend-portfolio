@@ -3,10 +3,11 @@ import React, { FC, ReactElement } from 'react'
 
 // component
 import { Box, Typography } from '@/infrastructure/ui/components'
-import { CardAboutMeToolsSkeleton, CircularItemList } from '..'
+import { CardAboutMeToolsSkeleton, CircularItemList, ErrorCard } from '..'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
+import { findCharacteristic } from '@/infrastructure/ui/utils/finders'
 
 // store
 import { homeToolsSelector, ToolsConfigState } from '@/domain/store/homeUseCase'
@@ -20,7 +21,6 @@ import { Countries } from '@/domain/models'
 
 // enums
 import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
-import { findCharacteristic } from '@/infrastructure/ui/utils/finders'
 
 export interface CardToolsProps {
     test?: string
@@ -47,7 +47,12 @@ const CardTools: FC<CardToolsProps> = (): ReactElement => {
 
     return (
         <>
-            {error !== null && <p>Hay un error!</p>}
+            {error !== null && (
+                <>
+                    <ErrorCard error={error} componentName="CardTools" />
+                    <CardAboutMeToolsSkeleton />
+                </>
+            )}
             {!loading ? (
                 <Box
                     sx={{

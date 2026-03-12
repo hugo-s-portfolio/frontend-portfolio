@@ -3,7 +3,7 @@ import { FC, ReactElement } from 'react'
 
 // base components
 import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
-import { CardProfileSkeleton } from '@/infrastructure/ui/modules/AboutMeModule/inc'
+import { CardProfileSkeleton, ErrorCard } from '@/infrastructure/ui/modules/AboutMeModule/inc'
 
 import { StyledHomeImage } from '@/infrastructure/ui/modules/AboutMeModule/inc/CardProfile/cardProfile-styles'
 
@@ -57,7 +57,12 @@ const CardProfile: FC<CardProfileProps> = (): ReactElement => {
 
     return (
         <>
-            {error !== null && <p>Hay un error!</p>}
+            {error !== null && (
+                <>
+                    <ErrorCard error={error} componentName="CardProfile" />
+                    <CardProfileSkeleton />
+                </>
+            )}
             {!loading ? (
                 <>
                     {config?.forms?.about_me_card?.show && (

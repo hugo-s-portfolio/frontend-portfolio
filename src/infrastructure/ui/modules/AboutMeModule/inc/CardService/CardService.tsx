@@ -11,7 +11,7 @@ import {
     DefaultButton,
     Typography,
 } from '@/infrastructure/ui/components'
-import { CardAboutMeServicesSkeleton } from '..'
+import { CardAboutMeServicesSkeleton, ErrorCard } from '..'
 
 // utils
 import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
@@ -68,7 +68,12 @@ const CardServices: FC<CardServicesProps> = (): ReactElement => {
                 boxSizing: 'border-box',
             }}
         >
-            {error !== null && <p>Hay un error!</p>}
+            {error !== null && (
+                <>
+                    <ErrorCard error={error} componentName="CardServices" />
+                    <CardAboutMeServicesSkeleton />
+                </>
+            )}
             {!loading ? (
                 <>
                     {config?.forms?.about_me_services?.show && (

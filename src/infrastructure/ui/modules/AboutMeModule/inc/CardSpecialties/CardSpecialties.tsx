@@ -6,7 +6,7 @@ import { Box, Typography } from '@/infrastructure/ui/components'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
-import { CardAboutMeSpecialtiesSkeleton } from '..'
+import { CardAboutMeSpecialtiesSkeleton, ErrorCard } from '..'
 
 // store
 import { homeSpecialtiesSelector, SpecialtiesConfigState } from '@/domain/store/homeUseCase'
@@ -36,7 +36,12 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
 
     return (
         <>
-            {error !== null && <p>Hay un error!</p>}
+            {error !== null && (
+                <>
+                    <ErrorCard error={error} componentName="CardSpecialties" />
+                    <CardAboutMeSpecialtiesSkeleton />
+                </>
+            )}
             {!loading ? (
                 <Box
                     sx={{

@@ -61,6 +61,43 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
         setOpen(false)
     }
 
+    const renderError = (): ReactElement => {
+        return (
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+            >
+                <Alert
+                    severity="error"
+                    sx={{
+                        width: '100%',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <Typography>{(error as AxiosError)?.message}</Typography>
+                        {getIcon('Close', {
+                            color: 'error',
+                            sx: {
+                                marginLeft: '5px',
+                            },
+                            onClick: () => {
+                                handleClose()
+                            },
+                        })}
+                    </Box>
+                </Alert>
+            </Snackbar>
+        )
+    }
+
     useEffect(() => {
         if (error !== null) {
             setOpen(true)
@@ -75,38 +112,7 @@ const MainMenu: FC<MainMenuProps> = ({ initialValue = 0 }): ReactElement => {
         <>
             {error !== null ? (
                 <>
-                    <Snackbar
-                        open={open}
-                        autoHideDuration={6000}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                        <Alert
-                            severity="error"
-                            sx={{
-                                width: '100%',
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <Typography>{(error as AxiosError)?.message}</Typography>
-                                {getIcon('Close', {
-                                    color: 'error',
-                                    sx: {
-                                        marginLeft: '5px',
-                                    },
-                                    onClick: () => {
-                                        handleClose()
-                                    },
-                                })}
-                            </Box>
-                        </Alert>
-                    </Snackbar>
+                    {renderError()}
                     <MainMenuSkeleton />
                 </>
             ) : (
