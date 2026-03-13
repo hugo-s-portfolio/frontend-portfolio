@@ -9,7 +9,7 @@ export const StyledShadowInputMixed = css`
 `
 
 export const StyledTransitionMixed = css`
-    ${tw`transition-[all] duration-[300ms] delay-[150ms]`}
+    ${tw`transition-[all] duration-[500ms] delay-[150ms]`}
 `
 
 export interface StyledTopPaddingMixedProps {
