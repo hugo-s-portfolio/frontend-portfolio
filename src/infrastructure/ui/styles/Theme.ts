@@ -1,17 +1,19 @@
 import { DefaultTheme } from 'styled-components/macro'
 import { createTheme } from '@mui/material/styles'
 
+import { getActivePalette } from './palettes'
+
 export const Theme = (): DefaultTheme => ({
     colors: {
         primary: {
-            DEFAULT: '#5B4B8A',
-            light: '#7858A6',
-            dark: '#371B58',
+            DEFAULT: 'var(--color-primary)',
+            light: 'var(--color-primary-light)',
+            dark: 'var(--color-primary-dark)',
         },
         secondary: {
-            DEFAULT: '#FDA65D',
-            light: '#FFD07F',
-            dark: '#E26A2C',
+            DEFAULT: 'var(--color-secondary)',
+            light: 'var(--color-secondary-light)',
+            dark: 'var(--color-secondary-dark)',
         },
         success: {
             DEFAULT: '#2e7d32',
@@ -95,18 +97,19 @@ export const Theme = (): DefaultTheme => ({
 })
 
 const theme = Theme()
+const activePalette = getActivePalette()
 
 export const themeMUI = createTheme({
     palette: {
         primary: {
-            main: theme.colors.primary.DEFAULT,
-            light: theme.colors.primary.light,
-            dark: theme.colors.primary.dark,
+            main: activePalette.primary.DEFAULT,
+            light: activePalette.primary.light,
+            dark: activePalette.primary.dark,
         },
         secondary: {
-            main: theme.colors.secondary.DEFAULT,
-            light: theme.colors.secondary.light,
-            dark: theme.colors.secondary.dark,
+            main: activePalette.secondary.DEFAULT,
+            light: activePalette.secondary.light,
+            dark: activePalette.secondary.dark,
         },
         success: {
             main: theme.colors.success.DEFAULT,
