@@ -1,25 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PaletteName, DEFAULT_PALETTE } from '@infrastructure/ui/styles/palettes'
 
 export interface ThemeState {
-    value: number
+    paletteName: PaletteName
 }
 
 const initialState: ThemeState = {
-    value: 0,
+    paletteName: (process.env.NEXT_PUBLIC_PALETTE as PaletteName) || DEFAULT_PALETTE,
 }
 
 export const themeSlice = createSlice({
     name: 'theme',
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1
+        setPalette: (state, action: PayloadAction<PaletteName>) => {
+            state.paletteName = action.payload
         },
     },
 })
 
 // Actions Creators
-export const { increment } = themeSlice.actions
+export const { setPalette } = themeSlice.actions
 
 // Reducers
 export default themeSlice.reducer

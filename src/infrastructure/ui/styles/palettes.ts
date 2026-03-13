@@ -26,7 +26,7 @@ export const palettes: Record<PaletteName, PaletteColors> = {
 
 export const DEFAULT_PALETTE: PaletteName = 'purple'
 
-export function getActivePalette(): PaletteColors {
-    const name = (process.env.NEXT_PUBLIC_PALETTE as PaletteName) || DEFAULT_PALETTE
-    return palettes[name] || palettes[DEFAULT_PALETTE]
+export function getActivePalette(name?: PaletteName): PaletteColors {
+    const paletteName = name || (process.env.NEXT_PUBLIC_PALETTE as PaletteName) || DEFAULT_PALETTE
+    return palettes[paletteName] || palettes[DEFAULT_PALETTE]
 }
