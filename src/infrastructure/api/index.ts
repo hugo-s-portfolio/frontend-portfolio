@@ -9,7 +9,7 @@ const api = axios.create({
 
 axiosRetry(api, {
     retryDelay: axiosRetry.exponentialDelay,
-    retries: 4,
+    retries: 2,
     retryCondition: (error) => {
         return axiosRetry.isNetworkOrIdempotentRequestError(error) && error.response?.status !== 401
     },
