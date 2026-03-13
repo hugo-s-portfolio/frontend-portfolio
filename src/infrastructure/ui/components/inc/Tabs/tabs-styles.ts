@@ -7,7 +7,7 @@ export type StyledTabsProps = TabsProps & {
 
 export const StyledTabs = styled(Tabs)<StyledTabsProps>`
     .MuiTabs-indicator {
-        background-color: ${(props) => props.theme.colors.primary};
+        background-color: ${(props) => props.theme.colors.primary.DEFAULT};
         ${(props) => (props.$indicatorPosition === 'bottom' ? tw`bottom-0` : tw`top-0`)};
     }
 `

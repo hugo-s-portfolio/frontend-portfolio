@@ -1,14 +1,14 @@
 module.exports.theme = {
     colors: {
         primary: {
-            DEFAULT: '#5B4B8A',
-            light: '#7858A6',
-            dark: '#371B58',
+            DEFAULT: 'var(--color-primary)',
+            light: 'var(--color-primary-light)',
+            dark: 'var(--color-primary-dark)',
         },
         secondary: {
-            DEFAULT: '#FDA65D',
-            light: '#FFD07F',
-            dark: '#E26A2C',
+            DEFAULT: 'var(--color-secondary)',
+            light: 'var(--color-secondary-light)',
+            dark: 'var(--color-secondary-dark)',
         },
         success: {
             DEFAULT: '#2e7d32',
