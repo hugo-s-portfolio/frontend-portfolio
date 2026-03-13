@@ -7,7 +7,6 @@ export const StyledHomeImage2 = styled.img`
 `
 
 export const StyledHomeImage = styled(Image)`
-    border: 1px solid red;
     width: 13rem;
     height: 13rem;
     border-radius: 50%;
