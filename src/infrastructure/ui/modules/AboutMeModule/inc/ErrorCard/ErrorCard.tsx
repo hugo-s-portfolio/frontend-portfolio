@@ -52,7 +52,7 @@ const ErrorCard: FC<ErrorCardProd> = ({
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Typography>
+                    <Typography variant="caption" color="black">
                         {`${componentName} `} {(error as AxiosError)?.message}
                     </Typography>
                     {getIcon('Close', {
