@@ -1,11 +1,19 @@
+import { createMigrate, MigrationManifest } from 'redux-persist'
 import { encrypt } from '../encrypt'
 import { storage } from '../rootPersistConfig'
+
+const migrations: MigrationManifest = {
+    2: () => {
+        return {} as never
+    },
+}
 
 export const uiPersistConfig = {
     key: 'ui',
     keyPrefix: 'portfolio-',
     storage,
     blacklist: [''],
-    version: 1.0,
+    version: 2,
+    migrate: createMigrate(migrations, { debug: false }),
     transforms: process.env.NODE_ENV !== 'development' ? [encrypt] : undefined,
 }

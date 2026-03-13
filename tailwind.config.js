@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { theme } = require('./src/infrastructure/ui/styles/ThemeTW')
+const theme = require('./src/infrastructure/ui/styles/ThemeTW')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
