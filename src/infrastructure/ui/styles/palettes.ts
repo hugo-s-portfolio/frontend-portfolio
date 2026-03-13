@@ -3,7 +3,7 @@ export type PaletteColors = {
     secondary: { DEFAULT: string; light: string; dark: string }
 }
 
-export type PaletteName = 'purple' | 'blue' | 'green' | 'red'
+export type PaletteName = string
 
 export const palettes: Record<PaletteName, PaletteColors> = {
     purple: {
@@ -26,7 +26,14 @@ export const palettes: Record<PaletteName, PaletteColors> = {
 
 export const DEFAULT_PALETTE: PaletteName = 'purple'
 
-export function getActivePalette(name?: PaletteName): PaletteColors {
+export function getActivePalette(
+    name?: PaletteName,
+    palettesList?: Record<PaletteName, PaletteColors>,
+): PaletteColors {
     const paletteName = name || (process.env.NEXT_PUBLIC_PALETTE as PaletteName) || DEFAULT_PALETTE
+
+    if (palettesList) {
+        return palettesList[paletteName] || palettesList[DEFAULT_PALETTE]
+    }
     return palettes[paletteName] || palettes[DEFAULT_PALETTE]
 }
