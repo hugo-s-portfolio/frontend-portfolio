@@ -3,98 +3,10 @@ import { createTheme } from '@mui/material/styles'
 
 import { PaletteColors, getActivePalette } from './palettes'
 
-export const Theme = (): DefaultTheme => ({
-    colors: {
-        primary: {
-            DEFAULT: 'var(--color-primary)',
-            light: 'var(--color-primary-light)',
-            dark: 'var(--color-primary-dark)',
-        },
-        secondary: {
-            DEFAULT: 'var(--color-secondary)',
-            light: 'var(--color-secondary-light)',
-            dark: 'var(--color-secondary-dark)',
-        },
-        success: {
-            DEFAULT: '#2e7d32',
-            light: '#4caf50',
-            dark: '#1b5e20',
-        },
-        error: {
-            DEFAULT: '#d32f2f',
-            light: '#ef5350',
-            dark: '#c62828',
-        },
-        warning: {
-            DEFAULT: '#ed6c02',
-            light: '#ff9800',
-            dark: '#e65100',
-        },
-        info: {
-            DEFAULT: '#0288d1',
-            light: '#03a9f4',
-            dark: '#01579b',
-        },
-        light: {
-            DEFAULT: '#F9F9F9',
-            light: '#F9F9F9',
-            dark: '#F9F9F9',
-        },
-        dark: {
-            DEFAULT: '#112222',
-            light: '#112222',
-            dark: '#112222',
-        },
-        white: {
-            DEFAULT: '#FFFFFF',
-            light: '#FFFFFF',
-            dark: '#FFFFFF',
-        },
-    },
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const themeTokens = require('./ThemeTW')
 
-    font: {
-        size: {
-            xxs: '8px',
-            xs: '10px',
-            sm: '12px',
-            base: '14px',
-            md: '16px',
-            bg: '18px',
-            lg: '24px',
-            xl: '28px',
-        },
-    },
-
-    boxShadow: {
-        customMd: '0px 2px 4px #00000014;',
-        customCard: '0px 4px 8px #00000029',
-        input: '0px 4px 8px #00000014',
-        transparent: '0 0 0 1px transparent',
-    },
-
-    fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        helvetica: ['Helvetica', 'sans-serif'],
-    },
-
-    screens: {
-        xs: '0px',
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
-    },
-
-    borderRadius: {
-        none: '0',
-        xs: '2px',
-        sm: '3px',
-        md: '5px',
-        lg: '10px',
-        large: '12px',
-    },
-})
+export const Theme = (): DefaultTheme => themeTokens as DefaultTheme
 
 export function createThemeMUI(activePalette: PaletteColors): ReturnType<typeof createTheme> {
     const theme = Theme()

@@ -40,7 +40,7 @@ export default class MyDocument extends Document {
                 <Head>
                     <meta name="author" content="Hugo Andrés Díaz Bernal" />
                     <meta name="publisher" content="Portafolio de Hugo Andrés Díaz Bernal" />
-                    <link rel="canonical" href="https://hugoandresdiazbernal.com/" />
+                    <link rel="canonical" href="https://www.hugoandresdiazbernal.online/" />
                 </Head>
                 <body>
                     <Main />
