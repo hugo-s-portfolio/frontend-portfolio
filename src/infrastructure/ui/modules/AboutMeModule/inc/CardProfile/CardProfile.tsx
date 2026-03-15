@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // base components
 import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
@@ -14,7 +15,11 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
 
 // selector
-import { homeProfileSelector, ProfileConfigState } from '@/domain/store/homeUseCase'
+import {
+    homeProfileSelector,
+    ProfileConfigState,
+    onHideToastErrorProfile,
+} from '@/domain/store/homeUseCase'
 
 // actions
 import { onLoadProfileConfig } from '@/domain/store/homeUseCase/homeProfile/thunk'
@@ -24,6 +29,7 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 // models
 import { Countries } from '@/domain/models'
+import { AppDispatch } from '@/domain/store/store'
 
 // enums
 import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
@@ -33,7 +39,8 @@ export interface CardProfileProps {
 }
 
 const CardProfile: FC<CardProfileProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<ProfileConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<ProfileConfigState>({
         selector: homeProfileSelector,
         thunkAction: onLoadProfileConfig({
             country: Countries.CO,
@@ -59,7 +66,14 @@ const CardProfile: FC<CardProfileProps> = (): ReactElement => {
         <>
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardProfile" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardProfile"
+                        onClose={() => {
+                            dispatch(onHideToastErrorProfile())
+                        }}
+                    />
                     <CardProfileSkeleton />
                 </>
             )}

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // components
 import {
@@ -20,7 +21,11 @@ import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/fin
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeServicesSelector, ServicesConfigState } from '@/domain/store/homeUseCase'
+import {
+    homeServicesSelector,
+    ServicesConfigState,
+    onHideToastErrorServices,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileServicesConfig } from '@/domain/store/homeUseCase/homeServices/thunk'
 
 // hooks
@@ -28,6 +33,7 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 // models
 import { Countries } from '@/domain/models'
+import { AppDispatch } from '@/domain/store/store'
 
 // enums
 import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
@@ -46,7 +52,8 @@ export interface ICardService {
 }
 
 const CardServices: FC<CardServicesProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<ServicesConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<ServicesConfigState>({
         selector: homeServicesSelector,
         thunkAction: onLoadProfileServicesConfig({
             country: Countries.CO,
@@ -70,7 +77,14 @@ const CardServices: FC<CardServicesProps> = (): ReactElement => {
         >
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardServices" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardServices"
+                        onClose={() => {
+                            dispatch(onHideToastErrorServices())
+                        }}
+                    />
                     <CardAboutMeServicesSkeleton />
                 </>
             )}

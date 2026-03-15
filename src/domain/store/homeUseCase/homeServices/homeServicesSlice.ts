@@ -25,6 +25,7 @@ export const homeServicesSlice = createSlice({
         onErrorServices: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingServices: (state) => {
@@ -36,11 +37,15 @@ export const homeServicesSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastErrorServices: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorServices, onLoadingServices, onLoadServices } = homeServicesSlice.actions
+export const { onErrorServices, onLoadingServices, onLoadServices, onHideToastErrorServices } =
+    homeServicesSlice.actions
 
 // Reducers
 export default homeServicesSlice.reducer

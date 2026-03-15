@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // component
 import { Box, Typography } from '@/infrastructure/ui/components'
@@ -9,7 +10,11 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { CardAboutMeSpecialtiesSkeleton, ErrorCard } from '..'
 
 // store
-import { homeSpecialtiesSelector, SpecialtiesConfigState } from '@/domain/store/homeUseCase'
+import {
+    homeSpecialtiesSelector,
+    SpecialtiesConfigState,
+    onHideToastErrorSpecialties,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileSpecialtiesConfig } from '@/domain/store/homeUseCase/homeSpecialties/thunk'
 
 // hooks
@@ -17,6 +22,7 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 // models
 import { Countries } from '@/domain/models'
+import { AppDispatch } from '@/domain/store/store'
 
 // enums
 import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
@@ -26,7 +32,8 @@ export interface CardSpecialtiesProps {
 }
 
 const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<SpecialtiesConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<SpecialtiesConfigState>({
         selector: homeSpecialtiesSelector,
         thunkAction: onLoadProfileSpecialtiesConfig({
             country: Countries.CO,
@@ -38,7 +45,14 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
         <>
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardSpecialties" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardSpecialties"
+                        onClose={() => {
+                            dispatch(onHideToastErrorSpecialties())
+                        }}
+                    />
                     <CardAboutMeSpecialtiesSkeleton />
                 </>
             )}

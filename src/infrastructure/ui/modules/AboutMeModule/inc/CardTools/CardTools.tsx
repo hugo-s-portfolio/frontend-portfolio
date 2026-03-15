@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // component
 import { Box, Typography } from '@/infrastructure/ui/components'
@@ -10,7 +11,11 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { findCharacteristic } from '@/infrastructure/ui/utils/finders'
 
 // store
-import { homeToolsSelector, ToolsConfigState } from '@/domain/store/homeUseCase'
+import {
+    homeToolsSelector,
+    ToolsConfigState,
+    onHideToastErrorTools,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileToolsConfig } from '@/domain/store/homeUseCase/homeTools/thunk'
 
 // hooks
@@ -18,6 +23,7 @@ import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
 
 // models
 import { Countries } from '@/domain/models'
+import { AppDispatch } from '@/domain/store/store'
 
 // enums
 import { AboutMeModules } from '@/infrastructure/ui/modules/AboutMeModule/enums'
@@ -27,7 +33,8 @@ export interface CardToolsProps {
 }
 
 const CardTools: FC<CardToolsProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<ToolsConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<ToolsConfigState>({
         selector: homeToolsSelector,
         thunkAction: onLoadProfileToolsConfig({
             country: Countries.CO,
@@ -49,7 +56,14 @@ const CardTools: FC<CardToolsProps> = (): ReactElement => {
         <>
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardTools" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardTools"
+                        onClose={() => {
+                            dispatch(onHideToastErrorTools())
+                        }}
+                    />
                     <CardAboutMeToolsSkeleton />
                 </>
             )}
