@@ -37,14 +37,14 @@ export const homeToolsSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorTools: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorTools, onLoadingTools, onLoadTools, onHideToastError } =
+export const { onErrorTools, onLoadingTools, onLoadTools, onHideToastErrorTools } =
     homeToolsSlice.actions
 
 // Reducers

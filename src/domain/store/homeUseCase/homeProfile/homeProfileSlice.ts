@@ -37,14 +37,14 @@ export const homeProfileSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorProfile: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorProfile, onLoadingProfile, onLoadProfile, onHideToastError } =
+export const { onErrorProfile, onLoadingProfile, onLoadProfile, onHideToastErrorProfile } =
     homeProfileSlice.actions
 
 // Reducers

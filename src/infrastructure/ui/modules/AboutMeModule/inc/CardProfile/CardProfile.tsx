@@ -18,7 +18,7 @@ import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/fin
 import {
     homeProfileSelector,
     ProfileConfigState,
-    onHideToastError,
+    onHideToastErrorProfile,
 } from '@/domain/store/homeUseCase'
 
 // actions
@@ -71,7 +71,7 @@ const CardProfile: FC<CardProfileProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardProfile"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorProfile())
                         }}
                     />
                     <CardProfileSkeleton />

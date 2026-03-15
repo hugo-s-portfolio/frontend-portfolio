@@ -13,7 +13,7 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import {
     EducationConfigState,
     homeEducationSelector,
-    onHideToastError,
+    onHideToastErrorEducation,
 } from '@/domain/store/homeUseCase'
 import { onLoadProfileEducationConfig } from '@/domain/store/homeUseCase/homeEducation/thunk'
 import { AppDispatch } from '@/domain/store/store'
@@ -50,7 +50,7 @@ const CardEducation: FC<CardEducationProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardEducation"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorEducation())
                         }}
                     />
                     <CardAboutMeEducationSkeleton />

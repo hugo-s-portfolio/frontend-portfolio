@@ -37,14 +37,14 @@ export const homeEducationSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorEducation: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorEducation, onLoadingEducation, onLoadEducation, onHideToastError } =
+export const { onErrorEducation, onLoadingEducation, onLoadEducation, onHideToastErrorEducation } =
     homeEducationSlice.actions
 
 // Reducers

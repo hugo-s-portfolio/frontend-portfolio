@@ -37,14 +37,14 @@ export const homeServicesSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorServices: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorServices, onLoadingServices, onLoadServices, onHideToastError } =
+export const { onErrorServices, onLoadingServices, onLoadServices, onHideToastErrorServices } =
     homeServicesSlice.actions
 
 // Reducers

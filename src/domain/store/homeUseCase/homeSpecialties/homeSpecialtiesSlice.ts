@@ -37,15 +37,19 @@ export const homeSpecialtiesSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorSpecialties: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorSpecialties, onLoadingSpecialties, onLoadSpecialties, onHideToastError } =
-    homeSpecialtiesSlice.actions
+export const {
+    onErrorSpecialties,
+    onLoadingSpecialties,
+    onLoadSpecialties,
+    onHideToastErrorSpecialties,
+} = homeSpecialtiesSlice.actions
 
 // Reducers
 export default homeSpecialtiesSlice.reducer

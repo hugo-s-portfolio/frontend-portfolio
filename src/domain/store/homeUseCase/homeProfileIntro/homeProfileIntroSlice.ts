@@ -38,15 +38,19 @@ export const homeProfileIntroSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
-        onHideToastError: (state) => {
+        onHideToastErrorProfileIntro: (state) => {
             state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorProfileIntro, onLoadingProfileIntro, onLoadProfileIntro, onHideToastError } =
-    homeProfileIntroSlice.actions
+export const {
+    onErrorProfileIntro,
+    onLoadingProfileIntro,
+    onLoadProfileIntro,
+    onHideToastErrorProfileIntro,
+} = homeProfileIntroSlice.actions
 
 // Reducers
 export default homeProfileIntroSlice.reducer

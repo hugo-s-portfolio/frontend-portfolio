@@ -26,7 +26,7 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 // store
 import {
     homeProfileIntroSelector,
-    onHideToastError,
+    onHideToastErrorProfileIntro,
     ProfileIntroConfigState,
 } from '@/domain/store/homeUseCase'
 import { onLoadProfileIntroConfig } from '@/domain/store/homeUseCase/homeProfileIntro/thunk'
@@ -79,7 +79,7 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardAboutMeIntro"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorProfileIntro())
                         }}
                     />
                     <CardAboutMeIntroSkeleton />

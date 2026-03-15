@@ -24,7 +24,7 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import {
     homeServicesSelector,
     ServicesConfigState,
-    onHideToastError,
+    onHideToastErrorServices,
 } from '@/domain/store/homeUseCase'
 import { onLoadProfileServicesConfig } from '@/domain/store/homeUseCase/homeServices/thunk'
 
@@ -82,7 +82,7 @@ const CardServices: FC<CardServicesProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardServices"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorServices())
                         }}
                     />
                     <CardAboutMeServicesSkeleton />

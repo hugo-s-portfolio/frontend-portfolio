@@ -13,7 +13,7 @@ import { CardAboutMeSpecialtiesSkeleton, ErrorCard } from '..'
 import {
     homeSpecialtiesSelector,
     SpecialtiesConfigState,
-    onHideToastError,
+    onHideToastErrorSpecialties,
 } from '@/domain/store/homeUseCase'
 import { onLoadProfileSpecialtiesConfig } from '@/domain/store/homeUseCase/homeSpecialties/thunk'
 
@@ -50,7 +50,7 @@ const CardSpecialties: FC<CardSpecialtiesProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardSpecialties"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorSpecialties())
                         }}
                     />
                     <CardAboutMeSpecialtiesSkeleton />

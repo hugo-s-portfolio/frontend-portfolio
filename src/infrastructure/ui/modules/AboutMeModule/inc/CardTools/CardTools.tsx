@@ -11,7 +11,11 @@ import { getIcon } from '@/infrastructure/ui/utils/icons'
 import { findCharacteristic } from '@/infrastructure/ui/utils/finders'
 
 // store
-import { homeToolsSelector, ToolsConfigState, onHideToastError } from '@/domain/store/homeUseCase'
+import {
+    homeToolsSelector,
+    ToolsConfigState,
+    onHideToastErrorTools,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileToolsConfig } from '@/domain/store/homeUseCase/homeTools/thunk'
 
 // hooks
@@ -57,7 +61,7 @@ const CardTools: FC<CardToolsProps> = (): ReactElement => {
                         showError={errorShow}
                         componentName="CardTools"
                         onClose={() => {
-                            dispatch(onHideToastError())
+                            dispatch(onHideToastErrorTools())
                         }}
                     />
                     <CardAboutMeToolsSkeleton />
