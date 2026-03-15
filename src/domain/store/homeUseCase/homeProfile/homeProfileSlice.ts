@@ -25,6 +25,7 @@ export const homeProfileSlice = createSlice({
         onErrorProfile: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingProfile: (state) => {
@@ -36,11 +37,15 @@ export const homeProfileSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastError: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorProfile, onLoadingProfile, onLoadProfile } = homeProfileSlice.actions
+export const { onErrorProfile, onLoadingProfile, onLoadProfile, onHideToastError } =
+    homeProfileSlice.actions
 
 // Reducers
 export default homeProfileSlice.reducer

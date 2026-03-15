@@ -25,6 +25,7 @@ export const homeSpecialtiesSlice = createSlice({
         onErrorSpecialties: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingSpecialties: (state) => {
@@ -36,11 +37,14 @@ export const homeSpecialtiesSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastError: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorSpecialties, onLoadingSpecialties, onLoadSpecialties } =
+export const { onErrorSpecialties, onLoadingSpecialties, onLoadSpecialties, onHideToastError } =
     homeSpecialtiesSlice.actions
 
 // Reducers

@@ -4,4 +4,5 @@ export interface InitialStatenConfig {
     config: ConfigModuleModel
     loading: boolean
     error: unknown
+    errorShow?: boolean
 }

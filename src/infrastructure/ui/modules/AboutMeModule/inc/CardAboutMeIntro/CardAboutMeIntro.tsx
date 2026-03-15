@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // components
 import {
@@ -23,8 +24,13 @@ import {
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { homeProfileIntroSelector, ProfileIntroConfigState } from '@/domain/store/homeUseCase'
+import {
+    homeProfileIntroSelector,
+    onHideToastError,
+    ProfileIntroConfigState,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileIntroConfig } from '@/domain/store/homeUseCase/homeProfileIntro/thunk'
+import { AppDispatch } from '@/domain/store/store'
 
 // hooks
 import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
@@ -48,7 +54,9 @@ export interface ProfileItemList {
 }
 
 const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<ProfileIntroConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+
+    const { config, loading, error, errorShow } = useGetModuleConfig<ProfileIntroConfigState>({
         selector: homeProfileIntroSelector,
         thunkAction: onLoadProfileIntroConfig({
             country: Countries.CO,
@@ -66,7 +74,14 @@ const CardAboutMeIntro: FC<CardAboutMeIntroProps> = (): ReactElement => {
         <>
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardAboutMeIntro" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardAboutMeIntro"
+                        onClose={() => {
+                            dispatch(onHideToastError())
+                        }}
+                    />
                     <CardAboutMeIntroSkeleton />
                 </>
             )}

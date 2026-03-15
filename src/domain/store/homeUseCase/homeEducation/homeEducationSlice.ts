@@ -25,6 +25,7 @@ export const homeEducationSlice = createSlice({
         onErrorEducation: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingEducation: (state) => {
@@ -36,11 +37,15 @@ export const homeEducationSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastError: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorEducation, onLoadingEducation, onLoadEducation } = homeEducationSlice.actions
+export const { onErrorEducation, onLoadingEducation, onLoadEducation, onHideToastError } =
+    homeEducationSlice.actions
 
 // Reducers
 export default homeEducationSlice.reducer

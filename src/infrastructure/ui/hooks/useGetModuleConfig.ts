@@ -14,6 +14,7 @@ export interface IBaseConfigState {
     config: unknown
     loading: boolean
     error: unknown
+    errorShow?: boolean
     options?: unknown
     timestamp?: number
 }
@@ -28,6 +29,7 @@ export interface IUseGetModuleConfigOutput<T extends IBaseConfigState> {
     options: T['options']
     loading: T['loading']
     error: T['error']
+    errorShow?: T['errorShow']
     timestamp?: T['timestamp']
 }
 
@@ -41,7 +43,7 @@ export const useGetModuleConfig = <T extends IBaseConfigState>({
     const token = getCookie('session')
     const timeout = parseInt(getCookie('timeout') ?? TIMEOUT?.toString())
 
-    const { config, loading, error, timestamp, options } = useSelector(selector) as T
+    const { config, loading, error, timestamp, options, errorShow } = useSelector(selector) as T
 
     useEffect(() => {
         const cacheValid =
@@ -57,6 +59,7 @@ export const useGetModuleConfig = <T extends IBaseConfigState>({
         config,
         loading,
         error,
+        errorShow,
         timestamp,
         options,
     }

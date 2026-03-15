@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // component
 import { Box, Typography } from '@/infrastructure/ui/components'
@@ -9,8 +10,13 @@ import { CardAboutMeEducationSkeleton, ErrorCard } from '..'
 import { getIcon } from '@/infrastructure/ui/utils/icons'
 
 // store
-import { EducationConfigState, homeEducationSelector } from '@/domain/store/homeUseCase'
+import {
+    EducationConfigState,
+    homeEducationSelector,
+    onHideToastError,
+} from '@/domain/store/homeUseCase'
 import { onLoadProfileEducationConfig } from '@/domain/store/homeUseCase/homeEducation/thunk'
+import { AppDispatch } from '@/domain/store/store'
 
 // hooks
 import { useGetModuleConfig } from '@/infrastructure/ui/hooks'
@@ -26,7 +32,8 @@ export interface CardEducationProps {
 }
 
 const CardEducation: FC<CardEducationProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<EducationConfigState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<EducationConfigState>({
         selector: homeEducationSelector,
         thunkAction: onLoadProfileEducationConfig({
             country: Countries.CO,
@@ -38,7 +45,14 @@ const CardEducation: FC<CardEducationProps> = (): ReactElement => {
         <>
             {error !== null && (
                 <>
-                    <ErrorCard error={error} componentName="CardEducation" />
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="CardEducation"
+                        onClose={() => {
+                            dispatch(onHideToastError())
+                        }}
+                    />
                     <CardAboutMeEducationSkeleton />
                 </>
             )}

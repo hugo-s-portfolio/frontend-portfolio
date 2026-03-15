@@ -15,6 +15,7 @@ const initialState: ProfileIntroConfigState = {
     },
     loading: false,
     error: null,
+    errorShow: false,
     timestamp: 0,
 }
 
@@ -25,6 +26,7 @@ export const homeProfileIntroSlice = createSlice({
         onErrorProfileIntro: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingProfileIntro: (state) => {
@@ -36,11 +38,14 @@ export const homeProfileIntroSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastError: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorProfileIntro, onLoadingProfileIntro, onLoadProfileIntro } =
+export const { onErrorProfileIntro, onLoadingProfileIntro, onLoadProfileIntro, onHideToastError } =
     homeProfileIntroSlice.actions
 
 // Reducers

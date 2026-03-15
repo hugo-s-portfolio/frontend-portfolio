@@ -25,6 +25,7 @@ export const homeToolsSlice = createSlice({
         onErrorTools: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
             state.error = action.payload
+            state.errorShow = true
             state.config = initialState.config
         },
         onLoadingTools: (state) => {
@@ -36,11 +37,15 @@ export const homeToolsSlice = createSlice({
             state.timestamp = Date.now()
             state.error = null
         },
+        onHideToastError: (state) => {
+            state.errorShow = false
+        },
     },
 })
 
 // Actions Creators
-export const { onErrorTools, onLoadingTools, onLoadTools } = homeToolsSlice.actions
+export const { onErrorTools, onLoadingTools, onLoadTools, onHideToastError } =
+    homeToolsSlice.actions
 
 // Reducers
 export default homeToolsSlice.reducer
