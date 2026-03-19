@@ -15,8 +15,9 @@ import { getModule } from '@/domain/dto'
 
 export type ProjectsPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ProjectsPage = (props: ProjectsPageProps): ReactElement => {
-    return <ProjectsView config={props.config} status={props.status} />
+    return <ProjectsView />
 }
 
 export default ProjectsPage

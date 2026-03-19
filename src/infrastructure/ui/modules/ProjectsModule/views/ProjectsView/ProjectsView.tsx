@@ -1,20 +1,32 @@
 import { FC, ReactElement } from 'react'
 
-// models
-import { ConfigModuleModel } from '@/domain/models'
+// components
+import { Box, Typography } from '@/infrastructure/ui/components'
+import { ProjectsGrid } from '@/infrastructure/ui/modules/ProjectsModule/inc'
+
+// data
+import { mockProjects } from '@/infrastructure/ui/modules/ProjectsModule/data'
 
 // styles
 import { StyledProjectsView } from '@infrastructure/ui/modules/ProjectsModule/views/ProjectsView/projectsView-style'
 
+// icons
+import { getIcon } from '@/infrastructure/ui/utils/icons'
+
 export interface ProjectsViewProps {
-    config: ConfigModuleModel
-    status: 'SUCCESS' | 'ERROR'
+    test?: string
 }
 
-const ProjectsView: FC<ProjectsViewProps> = ({ status }): ReactElement => {
+const ProjectsView: FC<ProjectsViewProps> = (): ReactElement => {
     return (
         <StyledProjectsView>
-            {status === 'SUCCESS' ? <p>ProjectsView</p> : <p>no hay nada</p>}
+            <Box sx={{ display: 'flex', flexDirection: 'row', mb: '24px' }}>
+                {getIcon('Work', { color: 'primary' })}
+                <Typography variant="h2" sx={{ ml: '8px', fontWeight: '500' }}>
+                    Projects
+                </Typography>
+            </Box>
+            <ProjectsGrid projects={mockProjects} />
         </StyledProjectsView>
     )
 }

@@ -35,7 +35,8 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ options }): ReactElement => {
         <StyledDesktopMenu>
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
-                sx={{ position: 'absolute', bottom: 10, right: 16 }}
+                sx={{ position: 'fixed', top: 10, right: 10 }}
+                direction="down"
                 icon={<SpeedDialIcon icon={getIcon('Menu', {})} openIcon={getIcon('Add', {})} />}
                 onClose={handleClose}
                 onOpen={handleOpen}
