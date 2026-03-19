@@ -8,17 +8,17 @@ import ProjectCard from '../ProjectCard'
 import { ProjectItem } from '@/infrastructure/ui/modules/ProjectsModule/interfaces'
 
 export interface ProjectsGridProps {
-    projects: ProjectItem[]
+    projects?: ProjectItem[]
 }
 
 const ProjectsGrid: FC<ProjectsGridProps> = ({ projects }): ReactElement => {
     const visibleProjects = projects
-        .filter((project) => project.show)
-        .sort((a, b) => a.order - b.order)
+        ?.filter((project) => project.show)
+        ?.sort((a, b) => a.order - b.order)
 
     return (
         <Grid container spacing={3}>
-            {visibleProjects.map((project) => (
+            {visibleProjects?.map((project) => (
                 <Grid item key={project.id} xs={12} sm={6} md={4}>
                     <ProjectCard project={project} />
                 </Grid>
