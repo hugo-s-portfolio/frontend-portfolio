@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, ReactElement, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 // base components
 import {
@@ -12,6 +13,7 @@ import {
     CardWrapper,
     CardWrapperSkeleton,
 } from '@/infrastructure/ui/modules/AboutMeModule/inc'
+import { ErrorCard } from '@/infrastructure/ui/components'
 
 // styles
 import {
@@ -21,13 +23,18 @@ import {
 
 // models
 import { AboutMeMenuConfig, ConfigModuleModel, Countries } from '@/domain/models'
-import { onLoadAboutMeMenu } from '@/domain/store/homeUseCase/homeMenu/thunk'
+import { AppDispatch } from '@/domain/store/store'
 
 // utils
 import { findMenu } from '@/infrastructure/ui/utils/finders'
 
 // store
-import { homeMenuSelector, HomeMenuState } from '@/domain/store/homeUseCase'
+import { onLoadAboutMeMenu } from '@/domain/store/homeUseCase/homeMenu/thunk'
+import {
+    homeMenuSelector,
+    HomeMenuState,
+    onHideToastErrorHomeMenu,
+} from '@/domain/store/homeUseCase'
 
 // enums
 import { AboutMeMenu } from '@/infrastructure/ui/modules/AboutMeModule/enums'
@@ -76,12 +83,14 @@ const menu = [
 ]
 
 const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
+    const dispatch: AppDispatch = useDispatch()
     const [mainMenuOptions, setMainMenuOptions] = useState<MenuOptions[]>([])
 
     const {
         config: options,
         loading,
         error,
+        errorShow,
     } = useGetModuleConfig<HomeMenuState>({
         selector: homeMenuSelector,
         thunkAction: onLoadAboutMeMenu({
@@ -132,7 +141,17 @@ const AboutMeView: FC<AboutMeViewProps> = (): ReactElement => {
         <StyleAboutMeView>
             <StyledCardProfile>
                 {error !== null ? (
-                    <p>Hay un error!</p>
+                    <>
+                        <ErrorCard
+                            error={error}
+                            showError={errorShow}
+                            componentName="ProjectsView"
+                            onClose={() => {
+                                dispatch(onHideToastErrorHomeMenu())
+                            }}
+                        />
+                        <CardWrapperSkeleton />
+                    </>
                 ) : (
                     <>{!loading ? renderOptionList() : <CardWrapperSkeleton />}</>
                 )}

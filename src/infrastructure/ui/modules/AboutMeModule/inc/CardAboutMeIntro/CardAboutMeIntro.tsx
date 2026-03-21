@@ -6,13 +6,14 @@ import { useDispatch } from 'react-redux'
 import {
     Avatar,
     Box,
+    ErrorCard,
     List,
     ListItem,
     ListItemAvatar,
     ListItemText,
     Typography,
 } from '@/infrastructure/ui/components'
-import { CardAboutMeIntroSkeleton, ErrorCard } from '..'
+import { CardAboutMeIntroSkeleton } from '..'
 
 // utils
 import {

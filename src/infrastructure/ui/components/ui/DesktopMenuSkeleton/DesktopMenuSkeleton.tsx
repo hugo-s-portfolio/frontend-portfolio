@@ -9,7 +9,7 @@ import { Box, Skeleton } from '@/infrastructure/ui/components//inc'
 const DesktopMenuSkeleton = (): ReactElement => {
     return (
         <StyledDesktopMenu>
-            <Box sx={{ position: 'absolute', bottom: 10, right: 16 }}>
+            <Box sx={{ position: 'absolute', top: 10, right: '0.75rem' }}>
                 <Skeleton
                     animation="wave"
                     variant="circular"

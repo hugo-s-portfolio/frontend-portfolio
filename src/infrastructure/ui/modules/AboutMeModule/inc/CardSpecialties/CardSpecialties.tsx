@@ -3,11 +3,11 @@ import React, { FC, ReactElement } from 'react'
 import { useDispatch } from 'react-redux'
 
 // component
-import { Box, Typography } from '@/infrastructure/ui/components'
+import { Box, Typography, ErrorCard } from '@/infrastructure/ui/components'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'
-import { CardAboutMeSpecialtiesSkeleton, ErrorCard } from '..'
+import { CardAboutMeSpecialtiesSkeleton } from '..'
 
 // store
 import {

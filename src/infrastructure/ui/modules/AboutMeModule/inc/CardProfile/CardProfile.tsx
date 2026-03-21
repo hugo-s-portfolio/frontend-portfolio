@@ -3,8 +3,8 @@ import { FC, ReactElement } from 'react'
 import { useDispatch } from 'react-redux'
 
 // base components
-import { Box, Divider, IconButton, Typography } from '@/infrastructure/ui/components'
-import { CardProfileSkeleton, ErrorCard } from '@/infrastructure/ui/modules/AboutMeModule/inc'
+import { Box, Divider, IconButton, Typography, ErrorCard } from '@/infrastructure/ui/components'
+import { CardProfileSkeleton } from '@/infrastructure/ui/modules/AboutMeModule/inc'
 
 import { StyledHomeImage } from '@/infrastructure/ui/modules/AboutMeModule/inc/CardProfile/cardProfile-styles'
 
