@@ -3,8 +3,8 @@ import React, { FC, ReactElement } from 'react'
 import { useDispatch } from 'react-redux'
 
 // component
-import { Box, Typography } from '@/infrastructure/ui/components'
-import { CardAboutMeEducationSkeleton, ErrorCard } from '..'
+import { Box, Typography, ErrorCard } from '@/infrastructure/ui/components'
+import { CardAboutMeEducationSkeleton } from '..'
 
 // utils
 import { getIcon } from '@/infrastructure/ui/utils/icons'

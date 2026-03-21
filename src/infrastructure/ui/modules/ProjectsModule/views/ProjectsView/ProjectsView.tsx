@@ -1,12 +1,14 @@
 import { FC, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 
 // components
-import { Box, Typography } from '@/infrastructure/ui/components'
+import { Box, ErrorCard, Typography } from '@/infrastructure/ui/components'
 import { ProjectsGrid, ProjectsGridSkeleton } from '@/infrastructure/ui/modules/ProjectsModule/inc'
 
 // store
-import { projectsPageSelector } from '@/domain/store/projectsUseCase'
+import { onHideToastErrorProjectsPage, projectsPageSelector } from '@/domain/store/projectsUseCase'
 import { onLoadProjectsPageConfig } from '@/domain/store/projectsUseCase/projectsPage/thunk'
+import { AppDispatch } from '@/domain/store/store'
 
 // hooks
 import { useGetModuleConfig } from '@/infrastructure/ui/hooks/useGetModuleConfig'
@@ -29,7 +31,8 @@ export interface ProjectsViewProps {
 }
 
 const ProjectsView: FC<ProjectsViewProps> = (): ReactElement => {
-    const { config, loading, error } = useGetModuleConfig<ProjectsPageState>({
+    const dispatch: AppDispatch = useDispatch()
+    const { config, loading, error, errorShow } = useGetModuleConfig<ProjectsPageState>({
         selector: projectsPageSelector,
         thunkAction: onLoadProjectsPageConfig({
             country: Countries.CO,
@@ -41,7 +44,14 @@ const ProjectsView: FC<ProjectsViewProps> = (): ReactElement => {
         <StyledProjectsView>
             {error !== null && (
                 <>
-                    <p>Hay un error </p>
+                    <ErrorCard
+                        error={error}
+                        showError={errorShow}
+                        componentName="ProjectsView"
+                        onClose={() => {
+                            dispatch(onHideToastErrorProjectsPage())
+                        }}
+                    />
                     <ProjectsGridSkeleton />
                 </>
             )}

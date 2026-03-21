@@ -42,6 +42,7 @@ export { default as ListItemAvatar } from './ListItemAvatar'
 export { default as CardActions } from './CardActions'
 export { default as Skeleton } from './Skeleton'
 export { default as Snackbar } from './Snackbar'
+export { default as ErrorCard } from './ErrorCard'
 
 export * from './Containers'
 export * from './Buttons'

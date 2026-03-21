@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { AboutMeMenuConfig } from '@/domain/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
@@ -6,6 +7,7 @@ export interface HomeMenuState {
     loading: boolean
     error: unknown
     timestamp: number
+    errorShow?: boolean
 }
 
 const initialState: HomeMenuState = {
@@ -19,9 +21,11 @@ export const homeMenuSlice = createSlice({
     name: 'homeMenuSlice',
     initialState,
     reducers: {
-        onErrorHomeMenu: (state) => {
+        onErrorHomeMenu: (state, action: PayloadAction<AxiosError | undefined>) => {
             state.loading = false
-            state.error = 'hay error'
+            state.error = action.payload
+            state.errorShow = true
+            state.config = initialState.config
         },
         onLoadingHomeMenu: (state) => {
             state.loading = true
@@ -30,12 +34,17 @@ export const homeMenuSlice = createSlice({
             state.config = action.payload
             state.loading = false
             state.timestamp = Date.now()
+            state.error = null
+        },
+        onHideToastErrorHomeMenu: (state) => {
+            state.errorShow = false
         },
     },
 })
 
 // Actions Creators
-export const { onErrorHomeMenu, onLoadingHomeMenu, onLoadHomeMenu } = homeMenuSlice.actions
+export const { onErrorHomeMenu, onLoadingHomeMenu, onLoadHomeMenu, onHideToastErrorHomeMenu } =
+    homeMenuSlice.actions
 
 // Reducers
 export default homeMenuSlice.reducer

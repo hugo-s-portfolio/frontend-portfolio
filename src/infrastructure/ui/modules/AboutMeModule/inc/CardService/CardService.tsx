@@ -11,8 +11,9 @@ import {
     CardMedia,
     DefaultButton,
     Typography,
+    ErrorCard,
 } from '@/infrastructure/ui/components'
-import { CardAboutMeServicesSkeleton, ErrorCard } from '..'
+import { CardAboutMeServicesSkeleton } from '..'
 
 // utils
 import { findCharacteristic, findParameter } from '@/infrastructure/ui/utils/finders'
